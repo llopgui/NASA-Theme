@@ -5,7 +5,7 @@ Procesador de imágenes para el proyecto NASA Theme
 
 Autor: llopgui (NASA Theme Project)
 Repositorio: https://github.com/llopgui/NASA-Theme
-Versión: 1.0.0
+Versión: 1.1.0
 Licencia: CC BY-NC-SA 4.0
 
 Este script procesa imágenes para generar todos los formatos y tamaños
@@ -112,11 +112,11 @@ class NASAImageProcessor:
         # Aplicar filtros de mejora según el tipo
         if image_type == "wallpaper":
             # Mejorar wallpapers ligeramente
-            enhancer = ImageEnhance.Sharpness(image)
-            image = enhancer.enhance(1.1)
+            sharpness_enhancer = ImageEnhance.Sharpness(image)
+            image = sharpness_enhancer.enhance(1.1)
 
-            enhancer = ImageEnhance.Color(image)
-            image = enhancer.enhance(1.05)
+            color_enhancer = ImageEnhance.Color(image)
+            image = color_enhancer.enhance(1.05)
 
         return image
 
@@ -209,6 +209,29 @@ class NASAImageProcessor:
                     optimize=True,
                 )
 
+    def get_unique_name(self, image_path: Path, theme_type: str) -> str:
+        """
+        Genera un nombre único basado en la imagen original
+
+        Args:
+            image_path: Ruta de la imagen original
+            theme_type: Tipo de tema ('light', 'dark')
+
+        Returns:
+            Nombre único para el archivo
+        """
+        # Obtener nombre base sin extensión
+        base_name = image_path.stem
+
+        # Limpiar el nombre (remover caracteres especiales)
+        clean_name = "".join(c for c in base_name if c.isalnum() or c in "-_")
+
+        # Truncar si es muy largo
+        if len(clean_name) > 20:
+            clean_name = clean_name[:20]
+
+        return f"nasa_{theme_type}_{clean_name}"
+
     def process_wallpaper(
         self, image_path: Path, theme_type: str = "auto"
     ) -> List[Path]:
@@ -230,7 +253,7 @@ class NASAImageProcessor:
             with Image.open(image_path) as img:
                 # Detectar tema automáticamente si es necesario
                 if theme_type == "auto":
-                    # Calcular brillo promedio para determinar si es claro u oscuro
+                    # Calcular brillo promedio para determinar tema
                     grayscale = img.convert("L")
                     avg_brightness = sum(grayscale.getdata()) / len(grayscale.getdata())
                     theme_type = "light" if avg_brightness > 128 else "dark"
@@ -239,10 +262,13 @@ class NASAImageProcessor:
                 # Optimizar imagen
                 img = self.optimize_image_quality(img, "wallpaper")
 
+                # Generar nombre único basado en la imagen original
+                unique_name = self.get_unique_name(image_path, theme_type)
+
                 # Generar diferentes tamaños
                 for width, height in self.WALLPAPER_SIZES:
-                    # Crear nombre de archivo
-                    base_name = f"nasa_{theme_type}_{width}x{height}"
+                    # Crear nombre de archivo único
+                    base_name = f"{unique_name}_{width}x{height}"
 
                     # Redimensionar imagen
                     resized_img = self.resize_image(
@@ -316,7 +342,8 @@ class NASAImageProcessor:
                     # Mostrar información
                     file_size = output_path.stat().st_size / 1024  # KB
                     self.log(
-                        f"  ✓ {width}x{height}: {icon_name}.png ({file_size:.1f} KB)"
+                        f"  ✓ {width}x{height}: {icon_name}.png "
+                        f"({file_size:.1f} KB)"
                     )
 
         except Exception as e:
@@ -366,7 +393,9 @@ class NASAImageProcessor:
                     # Mostrar información
                     file_size = output_path.stat().st_size / 1024  # KB
                     self.log(
-                        f"  ✓ {width}x{height}: {texture_name}_{width}x{height}.png ({file_size:.1f} KB)"
+                        f"  ✓ {width}x{height}: "
+                        f"{texture_name}_{width}x{height}.png "
+                        f"({file_size:.1f} KB)"
                     )
 
         except Exception as e:
@@ -386,7 +415,8 @@ class NASAImageProcessor:
 
         Args:
             image_path: Ruta de la imagen
-            process_type: Tipo de procesamiento ('wallpaper', 'icon', 'texture', 'auto')
+            process_type: Tipo de procesamiento
+                         ('wallpaper', 'icon', 'texture', 'auto')
             theme_type: Tipo de tema para wallpapers ('light', 'dark', 'auto')
             custom_name: Nombre personalizado para el archivo
 
@@ -458,6 +488,220 @@ class NASAImageProcessor:
 
         return results
 
+    def generate_presentation_html(self, results: Dict[str, List[Path]]) -> None:
+        """
+        Genera un archivo HTML para presentar todos los wallpapers
+
+        Args:
+            results: Diccionario con archivos generados por imagen
+        """
+        html_content = """
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Theme - Galería de Wallpapers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a2e, #16213e);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 3em;
+            margin: 0;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.8;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .wallpaper-set {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .wallpaper-set h3 {
+            margin-top: 0;
+            color: #4facfe;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 10px;
+        }
+        .wallpaper-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .wallpaper-item {
+            text-align: center;
+        }
+        .wallpaper-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .wallpaper-item img:hover {
+            transform: scale(1.05);
+            border-color: #4facfe;
+        }
+        .wallpaper-item span {
+            display: block;
+            font-size: 0.8em;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+        .stats {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.1em;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5%;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 NASA Theme Gallery</h1>
+        <p>Colección de wallpapers inspirados en la NASA</p>
+    </div>
+
+    <div class="stats">
+        <p>Total de wallpapers: <strong>{total_wallpapers}</strong> |
+           Resoluciones: 6 diferentes |
+           Temas: Claro y Oscuro</p>
+    </div>
+
+    <div class="gallery">
+        {gallery_content}
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const span = document.getElementsByClassName('close')[0];
+
+        document.querySelectorAll('.wallpaper-item img').forEach(img => {
+            img.onclick = function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+            }
+        });
+
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+        """
+
+        # Agrupar wallpapers por imagen original
+        wallpaper_groups = {}
+        total_wallpapers = 0
+
+        for original_path, generated_files in results.items():
+            wallpapers = [f for f in generated_files if f.parent.name == "wallpapers"]
+            if wallpapers:
+                original_name = Path(original_path).stem
+                wallpaper_groups[original_name] = wallpapers
+                total_wallpapers += len(wallpapers)
+
+        # Generar contenido de la galería
+        gallery_content = ""
+        for original_name, wallpapers in wallpaper_groups.items():
+            gallery_content += f"""
+        <div class="wallpaper-set">
+            <h3>{original_name}</h3>
+            <div class="wallpaper-grid">
+            """
+
+            for wallpaper in wallpapers:
+                rel_path = wallpaper.relative_to(self.output_dir)
+                file_size = wallpaper.stat().st_size / (1024 * 1024)  # MB
+                resolution = wallpaper.stem.split("_")[-1]
+
+                gallery_content += f"""
+                <div class="wallpaper-item">
+                    <img src="{rel_path}" alt="{wallpaper.name}">
+                    <span>{resolution}<br>{file_size:.1f} MB</span>
+                </div>
+                """
+
+            gallery_content += """
+            </div>
+        </div>
+            """
+
+        # Escribir archivo HTML
+        html_file = self.output_dir / "nasa_theme_gallery.html"
+        with open(html_file, "w", encoding="utf-8") as f:
+            f.write(
+                html_content.format(
+                    total_wallpapers=total_wallpapers, gallery_content=gallery_content
+                )
+            )
+
+        self.log(f"Galería de presentación generada: {html_file}")
+
     def generate_report(self, results: Dict[str, List[Path]]) -> None:
         """Genera un reporte de los archivos procesados"""
         total_files = sum(len(files) for files in results.values())
@@ -506,6 +750,7 @@ Ejemplos de uso:
   python image_processor.py ./images/ --type wallpaper --theme dark
   python image_processor.py icon.png --type icon --name custom_icon
   python image_processor.py ./textures/ --recursive --output ./processed/
+  python image_processor.py ./images/ --presentation  # Modo presentación
         """,
     )
 
@@ -538,6 +783,12 @@ Ejemplos de uso:
     )
     parser.add_argument(
         "--quiet", "-q", action="store_true", help="Modo silencioso (menos output)"
+    )
+    parser.add_argument(
+        "--presentation",
+        "-p",
+        action="store_true",
+        help="Generar galería HTML de presentación",
     )
 
     args = parser.parse_args()
@@ -575,6 +826,10 @@ Ejemplos de uso:
         # Generar reporte
         if not args.quiet:
             processor.generate_report(results)
+
+        # Generar presentación HTML si se solicita
+        if args.presentation:
+            processor.generate_presentation_html(results)
 
         return 0
 
