@@ -1,5 +1,9 @@
 # NASA Theme - Temas Claro y Oscuro para Windows y Linux
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![GitHub](https://img.shields.io/badge/GitHub-NASA--Theme-blue)](https://github.com/llopgui/NASA-Theme)
+[![Python](https://img.shields.io/badge/Python-3.7%2B-green)](https://python.org)
+
 ## Descripción
 
 Colección de temas inspirados en la NASA para Windows y Linux, disponibles en modo claro y oscuro.
@@ -90,7 +94,15 @@ python image_processor.py wallpaper.jpg --type wallpaper --theme dark
 
 ## Contribuir
 
-Las contribuciones son bienvenidas. Por favor lee la documentación antes de enviar pull requests.
+Las contribuciones son bienvenidas. Por favor:
+
+1. Haz fork del repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/nueva-caracteristica`)
+3. Haz commit de tus cambios (`git commit -am 'Añadir nueva característica'`)
+4. Push a la rama (`git push origin feature/nueva-caracteristica`)
+5. Abre un Pull Request
+
+📖 **Contribuir**: [`CONTRIBUTORS.md`](CONTRIBUTORS.md)
 
 ## Licencia
 
@@ -107,7 +119,14 @@ Este proyecto está licenciado bajo **CC BY-NC-SA 4.0** (Creative Commons Attrib
 ### Cómo Citar
 
 ```
-NASA Theme por [NASA Theme Project]
+NASA Theme por llopgui
 Licencia: CC BY-NC-SA 4.0
-URL: [repositorio del proyecto]
+URL: https://github.com/llopgui/NASA-Theme
 ```
+
+## Enlaces
+
+- **Repositorio**: [https://github.com/llopgui/NASA-Theme](https://github.com/llopgui/NASA-Theme)
+- **Issues**: [https://github.com/llopgui/NASA-Theme/issues](https://github.com/llopgui/NASA-Theme/issues)
+- **Documentación**: [docs/](docs/)
+- **Herramientas**: [tools/README.md](tools/README.md)

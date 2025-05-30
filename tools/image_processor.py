@@ -3,7 +3,8 @@
 NASA Theme Image Processor
 Procesador de imágenes para el proyecto NASA Theme
 
-Autor: NASA Theme Project
+Autor: llopgui (NASA Theme Project)
+Repositorio: https://github.com/llopgui/NASA-Theme
 Versión: 1.0.0
 Licencia: CC BY-NC-SA 4.0
 
@@ -13,12 +14,11 @@ necesarios para los temas NASA en Windows y Linux.
 
 import argparse
 import json
-import os
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import Image, ImageEnhance
 
 
 class NASAImageProcessor:
@@ -272,7 +272,9 @@ class NASAImageProcessor:
 
         return generated_files
 
-    def process_icon(self, image_path: Path, icon_name: str = None) -> List[Path]:
+    def process_icon(
+        self, image_path: Path, icon_name: Optional[str] = None
+    ) -> List[Path]:
         """
         Procesa una imagen como icono
 
@@ -322,7 +324,9 @@ class NASAImageProcessor:
 
         return generated_files
 
-    def process_texture(self, image_path: Path, texture_name: str = None) -> List[Path]:
+    def process_texture(
+        self, image_path: Path, texture_name: Optional[str] = None
+    ) -> List[Path]:
         """
         Procesa una imagen como textura
 
@@ -375,7 +379,7 @@ class NASAImageProcessor:
         image_path: Path,
         process_type: str = "auto",
         theme_type: str = "auto",
-        custom_name: str = None,
+        custom_name: Optional[str] = None,
     ) -> List[Path]:
         """
         Procesa una sola imagen
@@ -549,7 +553,11 @@ Ejemplos de uso:
 
     # Suprimir logs si está en modo silencioso
     if args.quiet:
-        processor.log = lambda msg, level="INFO": None
+        # Crear función silenciosa compatible con la firma original
+        def silent_log(message: str, level: str = "INFO") -> None:
+            pass
+
+        processor.log = silent_log
 
     try:
         # Procesar según el tipo de entrada

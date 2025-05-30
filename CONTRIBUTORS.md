@@ -1,6 +1,14 @@
-# Contribuir al Proyecto NASA Theme
+# Guía para Contribuidores - NASA Theme
 
-¡Gracias por tu interés en contribuir al proyecto NASA Theme! Este documento te guiará sobre cómo contribuir de manera efectiva respetando nuestra licencia.
+## Bienvenido al Proyecto NASA Theme
+
+¡Gracias por tu interés en contribuir al proyecto NASA Theme! Este documento te guiará para hacer contribuciones efectivas.
+
+## 📋 Información del Repositorio
+
+- **URL**: https://github.com/llopgui/NASA-Theme
+- **Licencia**: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
+- **Mantenedor**: [@llopgui](https://github.com/llopgui)
 
 ## 📄 Licencia del Proyecto
 

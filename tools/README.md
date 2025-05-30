@@ -1,6 +1,12 @@
 # 🚀 NASA Theme Image Processor
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![GitHub](https://img.shields.io/badge/GitHub-NASA--Theme-blue)](https://github.com/llopgui/NASA-Theme)
+[![Python](https://img.shields.io/badge/Python-3.7%2B-green)](https://python.org)
+
 Procesador automático de imágenes para generar todos los formatos y tamaños necesarios para los temas NASA en Windows y Linux.
+
+**Repositorio**: [https://github.com/llopgui/NASA-Theme](https://github.com/llopgui/NASA-Theme)
 
 ## 📋 Características
 
@@ -232,14 +238,20 @@ cat nasa_theme_resources/processing_report.json
 
 Este script está licenciado bajo **CC BY-NC-SA 4.0** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International).
 
+**Repositorio del proyecto**: [https://github.com/llopgui/NASA-Theme](https://github.com/llopgui/NASA-Theme)
+
 ## 🤝 Contribuir
 
 Las mejoras al procesador son bienvenidas. Por favor:
 
-1. Mantén la compatibilidad con las especificaciones del tema
-2. Documenta nuevas características
-3. Incluye ejemplos de uso
-4. Respeta la licencia CC BY-NC-SA 4.0
+1. Haz fork del [repositorio](https://github.com/llopgui/NASA-Theme)
+2. Mantén la compatibilidad con las especificaciones del tema
+3. Documenta nuevas características
+4. Incluye ejemplos de uso
+5. Respeta la licencia CC BY-NC-SA 4.0
+6. Envía un Pull Request
+
+**Issues y sugerencias**: [GitHub Issues](https://github.com/llopgui/NASA-Theme/issues)
 
 ---
 
