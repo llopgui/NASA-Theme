@@ -1,8 +1,9 @@
 [Theme]
-; NASA Dark Theme para Windows
-; Autor: NASA Theme Project
-; Versión: 1.0.0
-; Descripción: Tema oscuro inspirado en la NASA y el cosmos profundo
+; NASA Dark Theme para Windows - Verdaderamente Oscuro
+; Autor: llopgui (NASA Theme Project)
+; Repositorio: https://github.com/llopgui/NASA-Theme
+; Versión: 2.0.0
+; Descripción: Tema oscuro real inspirado en la NASA y el cosmos profundo
 ;
 ; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
 ; URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
@@ -15,53 +16,71 @@ Path=%SystemRoot%\Resources\Themes\NASA_Dark\
 ThemeId={87654321-4321-4321-4321-210987654321}
 
 [Control Panel\Desktop]
-Wallpaper=%SystemRoot%\Resources\Themes\NASA_Dark\nasa_dark_wallpaper.jpg
+Wallpaper=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\nasa_dark_wallpaper.jpg
 TileWallpaper=0
 WallpaperStyle=6
 Pattern=
 
 [Control Panel\Colors]
-; Colores principales del sistema en modo oscuro
-ActiveBorder=30 64 175
-ActiveTitle=30 64 175
-AppWorkspace=30 41 59
-Background=15 23 42
-ButtonAlternativeFace=51 65 85
-ButtonDkShadow=15 23 42
-ButtonFace=30 41 59
-ButtonHilight=51 65 85
-ButtonLight=100 116 139
-ButtonShadow=30 41 59
-ButtonText=248 250 252
-CaptionText=248 250 252
-GradientActiveTitle=30 64 175
-GradientInactiveTitle=51 65 85
-GrayText=100 116 139
-Hilight=59 130 246
-HilightText=15 23 42
-HotTrackingColor=59 130 246
-InactiveBorder=51 65 85
-InactiveTitle=51 65 85
-InactiveTitleText=148 163 184
-InfoText=248 250 252
-InfoWindow=30 41 59
-Menu=30 41 59
-MenuBar=15 23 42
-MenuHilight=59 130 246
-MenuText=248 250 252
-Scrollbar=51 65 85
-TitleText=248 250 252
-Window=15 23 42
-WindowFrame=51 65 85
-WindowText=248 250 252
+; Colores ultra oscuros inspirados en el espacio profundo
+ActiveBorder=10 10 20
+ActiveTitle=15 20 35
+AppWorkspace=8 8 15
+Background=5 5 10
+ButtonAlternativeFace=20 25 40
+ButtonDkShadow=0 0 0
+ButtonFace=12 15 25
+ButtonHilight=25 30 50
+ButtonLight=40 45 70
+ButtonShadow=8 10 18
+ButtonText=220 225 235
+CaptionText=235 240 250
+GradientActiveTitle=15 30 60
+GradientInactiveTitle=20 25 40
+GrayText=80 85 95
+Hilight=30 100 200
+HilightText=255 255 255
+HotTrackingColor=50 120 220
+InactiveBorder=15 15 25
+InactiveTitle=18 20 30
+InactiveTitleText=120 125 140
+InfoText=240 245 255
+InfoWindow=12 15 25
+Menu=8 10 18
+MenuBar=5 5 10
+MenuHilight=30 100 200
+MenuText=235 240 250
+Scrollbar=20 25 40
+TitleText=250 255 255
+Window=8 8 15
+WindowFrame=15 18 30
+WindowText=235 240 250
 
 [VisualStyles]
-Path=%SystemRoot%\Resources\Themes\NASA_Dark\nasa_dark.msstyles
+Path=%SystemRoot%\Resources\Themes\aero\aerolite.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
 AutoColorization=0
-ColorizationColor=0x1E40AF
+ColorizationColor=0x1E1E3C
 SystemMode=Dark
+
+[Control Panel\Appearance]
+; Configuración adicional para el modo oscuro
+SchemeName=NASA Deep Space
+
+[Control Panel\Desktop\WindowMetrics]
+; Configuración de ventanas para tema oscuro
+BorderWidth=-15
+CaptionHeight=-330
+CaptionWidth=-330
+IconSpacing=-1125
+IconVerticalSpacing=-1125
+MenuHeight=-285
+MenuWidth=-285
+ScrollHeight=-255
+ScrollWidth=-255
+SmCaptionHeight=-225
+SmCaptionWidth=-225
 
 [boot]
 SCRNSAVE.EXE=
@@ -72,3 +91,9 @@ MTSM=RJSPBS
 [Sounds]
 ; Usar sonidos predeterminados del sistema
 SchemeName=.Default
+
+[Slideshow]
+; Configuración para presentación de wallpapers
+Interval=1800000
+Shuffle=1
+ImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\

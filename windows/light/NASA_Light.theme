@@ -1,8 +1,9 @@
 [Theme]
-; NASA Light Theme para Windows
-; Autor: NASA Theme Project
-; Versión: 1.0.0
-; Descripción: Tema claro inspirado en la NASA y el espacio
+; NASA Light Theme para Windows - Cosmos Claro
+; Autor: llopgui (NASA Theme Project)
+; Repositorio: https://github.com/llopgui/NASA-Theme
+; Versión: 2.0.0
+; Descripción: Tema claro inspirado en la NASA y el cosmos luminoso
 ;
 ; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
 ; URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
@@ -15,53 +16,71 @@ Path=%SystemRoot%\Resources\Themes\NASA_Light\
 ThemeId={12345678-1234-1234-1234-123456789012}
 
 [Control Panel\Desktop]
-Wallpaper=%SystemRoot%\Resources\Themes\NASA_Light\nasa_light_wallpaper.jpg
+Wallpaper=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\nasa_light_wallpaper.jpg
 TileWallpaper=0
 WallpaperStyle=6
 Pattern=
 
 [Control Panel\Colors]
-; Colores principales del sistema
-ActiveBorder=11 61 145
-ActiveTitle=11 61 145
-AppWorkspace=248 250 252
+; Colores claros inspirados en el cosmos luminoso
+ActiveBorder=220 230 255
+ActiveTitle=180 200 255
+AppWorkspace=248 250 255
 Background=255 255 255
-ButtonAlternativeFace=226 232 240
-ButtonDkShadow=71 85 105
-ButtonFace=248 250 252
+ButtonAlternativeFace=235 240 255
+ButtonDkShadow=160 170 190
+ButtonFace=240 245 255
 ButtonHilight=255 255 255
-ButtonLight=226 232 240
-ButtonShadow=148 163 184
-ButtonText=15 23 42
-CaptionText=255 255 255
-GradientActiveTitle=11 61 145
-GradientInactiveTitle=148 163 184
-GrayText=100 116 139
-Hilight=59 130 246
+ButtonLight=250 252 255
+ButtonShadow=200 210 230
+ButtonText=30 40 60
+CaptionText=20 30 50
+GradientActiveTitle=180 200 255
+GradientInactiveTitle=220 230 245
+GrayText=120 130 150
+Hilight=70 130 255
 HilightText=255 255 255
-HotTrackingColor=30 58 138
-InactiveBorder=226 232 240
-InactiveTitle=148 163 184
-InactiveTitleText=71 85 105
-InfoText=15 23 42
-InfoWindow=248 250 252
-Menu=255 255 255
-MenuBar=248 250 252
-MenuHilight=59 130 246
-MenuText=15 23 42
-Scrollbar=226 232 240
-TitleText=255 255 255
+HotTrackingColor=50 100 200
+InactiveBorder=230 235 250
+InactiveTitle=240 245 255
+InactiveTitleText=100 110 130
+InfoText=30 40 60
+InfoWindow=250 252 255
+Menu=245 248 255
+MenuBar=255 255 255
+MenuHilight=70 130 255
+MenuText=30 40 60
+Scrollbar=230 235 250
+TitleText=20 30 50
 Window=255 255 255
-WindowFrame=71 85 105
-WindowText=15 23 42
+WindowFrame=200 210 230
+WindowText=30 40 60
 
 [VisualStyles]
-Path=%SystemRoot%\Resources\Themes\NASA_Light\nasa_light.msstyles
+Path=%SystemRoot%\Resources\Themes\aero\aero.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
 AutoColorization=0
-ColorizationColor=0x0B3D91
+ColorizationColor=0xB4C8FF
 SystemMode=Light
+
+[Control Panel\Appearance]
+; Configuración adicional para el modo claro
+SchemeName=NASA Bright Space
+
+[Control Panel\Desktop\WindowMetrics]
+; Configuración de ventanas para tema claro
+BorderWidth=-15
+CaptionHeight=-330
+CaptionWidth=-330
+IconSpacing=-1125
+IconVerticalSpacing=-1125
+MenuHeight=-285
+MenuWidth=-285
+ScrollHeight=-255
+ScrollWidth=-255
+SmCaptionHeight=-225
+SmCaptionWidth=-225
 
 [boot]
 SCRNSAVE.EXE=
@@ -72,3 +91,9 @@ MTSM=RJSPBS
 [Sounds]
 ; Usar sonidos predeterminados del sistema
 SchemeName=.Default
+
+[Slideshow]
+; Configuración para presentación de wallpapers
+Interval=1800000
+Shuffle=1
+ImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\

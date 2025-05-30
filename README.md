@@ -6,7 +6,7 @@
 
 ## Descripción
 
-Colección de temas inspirados en la NASA para Windows y Linux, disponibles en modo claro y oscuro.
+Colección de temas inspirados en la NASA para Windows y Linux, disponibles en modo claro y oscuro con **colores verdaderamente oscuros** y wallpapers de alta calidad.
 
 ## Estructura del Proyecto
 
@@ -28,13 +28,53 @@ NASA_THEME/
 └── docs/                # Documentación
 ```
 
-## Instalación
+## 🚀 Instalación Rápida
+
+### **Windows 10/11 - Instalación Automática**
+
+#### **Opción 1: Instalación Completa (Recomendada)**
+```cmd
+# 1. Generar wallpapers de alta calidad
+generate_wallpapers.bat
+
+# 2. Instalar temas (como administrador)
+install_nasa_theme.bat
+```
+
+#### **Opción 2: Solo instalar temas**
+```cmd
+# Instalar solo los archivos de tema (como administrador)
+install_nasa_theme.bat
+```
+
+### **Características de los Temas v2.0**
+
+✅ **NASA Dark Theme**:
+- **Colores ultra oscuros** (RGB 5-25 en lugar de 30-60)
+- **Modo oscuro real** del sistema Windows
+- **Presentación automática** de wallpapers
+- **Configuración completa** de colores del sistema
+
+✅ **NASA Light Theme**:
+- **Colores espaciales claros** inspirados en el cosmos
+- **Interfaz luminosa** con acentos azules
+- **Optimizado para productividad** diurna
+
+## Instalación Manual
 
 ### Windows
 
-1. Navega a la carpeta `windows/light` o `windows/dark`
-2. Ejecuta el archivo `.theme` correspondiente
-3. Windows aplicará automáticamente el tema
+#### **Método Automático (Recomendado)**
+1. **Ejecuta como administrador**: `install_nasa_theme.bat`
+2. Sigue las instrucciones en pantalla
+3. Ve a **Configuración > Personalización > Temas**
+4. Selecciona **NASA Dark Theme** o **NASA Light Theme**
+
+#### **Método Manual**
+1. Copia los archivos `.theme` a `%SystemRoot%\Resources\Themes\`
+2. Crea carpetas: `%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\`
+3. Copia wallpapers a las carpetas correspondientes
+4. Aplica el tema desde **Configuración > Personalización**
 
 ### Linux (GTK)
 
@@ -48,7 +88,7 @@ NASA_THEME/
 
 ## 🖼️ Procesador de Imágenes
 
-### Instalación del Procesador
+### **Instalación del Procesador**
 ```bash
 # Navegar al directorio de herramientas
 cd tools/
@@ -57,40 +97,59 @@ cd tools/
 pip install -r requirements.txt
 ```
 
-### Uso Básico
+### **Uso Básico**
 ```bash
-# Procesar una imagen individual
-python image_processor.py imagen.jpg
+# Procesar todas las imágenes automáticamente
+python image_processor.py ../resources/RAW_IMAGES/ --recursive --presentation
 
-# Procesar un directorio completo
-python image_processor.py ./imagenes/ --recursive
+# Procesar imagen específica
+python image_processor.py imagen.jpg --type wallpaper --theme dark
 
-# Generar wallpapers específicos
-python image_processor.py wallpaper.jpg --type wallpaper --theme dark
+# Generar galería HTML de presentación
+python image_processor.py ./imagenes/ --presentation
 ```
 
-### Funcionalidades
-- **🔄 Procesamiento automático** de wallpapers, iconos y texturas
+### **Funcionalidades v1.1**
+- **🔄 Nombres únicos** - Ya no sobrescribe wallpapers
 - **📐 Múltiples resoluciones** (1366x768 hasta 4K)
 - **🎨 Optimización inteligente** de calidad y compresión
 - **🤖 Detección automática** de tipo de imagen y tema
 - **📊 Reportes detallados** de archivos generados
+- **🌐 Galería HTML** interactiva con previsualización
 
 📖 **Documentación completa**: [`tools/README.md`](tools/README.md)
 
 ## Características
 
-- **Modo Claro**: Colores suaves inspirados en el espacio
-- **Modo Oscuro**: Tonos profundos del cosmos
-- **Compatibilidad multiplataforma**
-- **Iconos personalizados**
-- **Fondos de pantalla de alta calidad**
+- **✨ Modo Claro**: Colores suaves inspirados en el espacio
+- **🌃 Modo Oscuro**: Colores ultra oscuros del cosmos profundo
+- **🖥️ Compatibilidad multiplataforma** (Windows 10/11, Linux)
+- **🎨 Iconos personalizados** del sistema
+- **🖼️ Wallpapers de alta calidad** en múltiples resoluciones
+- **🔧 Instalación automática** con scripts inteligentes
+
+## 🔧 Solución de Problemas
+
+### **El tema oscuro no es suficientemente oscuro**
+- Asegúrate de usar la **versión 2.0** del tema
+- Ejecuta `install_nasa_theme.bat` **como administrador**
+- Verifica que Windows esté en **modo oscuro** en Configuración
+
+### **Los wallpapers no aparecen**
+- Ejecuta `generate_wallpapers.bat` primero
+- Verifica que existan imágenes en `resources/RAW_IMAGES/`
+- Reinstala con `install_nasa_theme.bat` como administrador
+
+### **Error de permisos en Windows**
+- **Ejecuta siempre como administrador** los scripts de instalación
+- Verifica que no tengas antivirus bloqueando la escritura
 
 ## Requisitos
 
-- Windows 10/11 o distribución Linux moderna
-- Permisos de administrador para la instalación
-- Python 3.7+ (para el procesador de imágenes)
+- **Windows**: 10/11 o superior
+- **Linux**: Distribución moderna con GTK 3.20+ o Qt 5+
+- **Python**: 3.7+ (para el procesador de imágenes)
+- **Permisos**: Administrador para instalación
 
 ## Contribuir
 
