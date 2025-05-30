@@ -1,0 +1,74 @@
+[Theme]
+; NASA Dark Theme para Windows
+; Autor: NASA Theme Project
+; Versión: 1.0.0
+; Descripción: Tema oscuro inspirado en la NASA y el cosmos profundo
+;
+; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
+; URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
+;
+; Este trabajo está licenciado bajo una Licencia Creative Commons
+; Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+
+DisplayName=NASA Dark Theme
+Path=%SystemRoot%\Resources\Themes\NASA_Dark\
+ThemeId={87654321-4321-4321-4321-210987654321}
+
+[Control Panel\Desktop]
+Wallpaper=%SystemRoot%\Resources\Themes\NASA_Dark\nasa_dark_wallpaper.jpg
+TileWallpaper=0
+WallpaperStyle=6
+Pattern=
+
+[Control Panel\Colors]
+; Colores principales del sistema en modo oscuro
+ActiveBorder=30 64 175
+ActiveTitle=30 64 175
+AppWorkspace=30 41 59
+Background=15 23 42
+ButtonAlternativeFace=51 65 85
+ButtonDkShadow=15 23 42
+ButtonFace=30 41 59
+ButtonHilight=51 65 85
+ButtonLight=100 116 139
+ButtonShadow=30 41 59
+ButtonText=248 250 252
+CaptionText=248 250 252
+GradientActiveTitle=30 64 175
+GradientInactiveTitle=51 65 85
+GrayText=100 116 139
+Hilight=59 130 246
+HilightText=15 23 42
+HotTrackingColor=59 130 246
+InactiveBorder=51 65 85
+InactiveTitle=51 65 85
+InactiveTitleText=148 163 184
+InfoText=248 250 252
+InfoWindow=30 41 59
+Menu=30 41 59
+MenuBar=15 23 42
+MenuHilight=59 130 246
+MenuText=248 250 252
+Scrollbar=51 65 85
+TitleText=248 250 252
+Window=15 23 42
+WindowFrame=51 65 85
+WindowText=248 250 252
+
+[VisualStyles]
+Path=%SystemRoot%\Resources\Themes\NASA_Dark\nasa_dark.msstyles
+ColorStyle=NormalColor
+Size=NormalSize
+AutoColorization=0
+ColorizationColor=0x1E40AF
+SystemMode=Dark
+
+[boot]
+SCRNSAVE.EXE=
+
+[MasterThemeSelector]
+MTSM=RJSPBS
+
+[Sounds]
+; Usar sonidos predeterminados del sistema
+SchemeName=.Default

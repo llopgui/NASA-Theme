@@ -1,0 +1,221 @@
+/*
+ * NASA Light Theme para GTK 3.0+
+ * Autor: NASA Theme Project
+ * Versión: 1.0.0
+ * Descripción: Tema claro inspirado en la NASA y el espacio
+ *
+ * Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
+ * URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
+ *
+ * Este trabajo está licenciado bajo una Licencia Creative Commons
+ * Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+ */
+
+/* Variables de color principales */
+@define-color nasa_blue #0B3D91;
+@define-color space_blue #1E3A8A;
+@define-color light_blue #3B82F6;
+@define-color cosmic_white #FFFFFF;
+@define-color star_silver #F8FAFC;
+@define-color moon_gray #E2E8F0;
+@define-color space_gray #475569;
+@define-color text_primary #0F172A;
+@define-color text_secondary #334155;
+
+/* Colores base del tema */
+@define-color theme_bg_color @star_silver;
+@define-color theme_fg_color @text_primary;
+@define-color theme_base_color @cosmic_white;
+@define-color theme_text_color @text_primary;
+@define-color theme_selected_bg_color @light_blue;
+@define-color theme_selected_fg_color @cosmic_white;
+@define-color theme_tooltip_bg_color @space_gray;
+@define-color theme_tooltip_fg_color @cosmic_white;
+
+/* Ventanas principales */
+window {
+    background-color: @theme_bg_color;
+    color: @theme_fg_color;
+}
+
+/* Barras de título */
+headerbar {
+    background: linear-gradient(to bottom, @nasa_blue, @space_blue);
+    color: @cosmic_white;
+    border-bottom: 1px solid @space_gray;
+    min-height: 46px;
+}
+
+headerbar:backdrop {
+    background: @moon_gray;
+    color: @text_secondary;
+}
+
+/* Botones de la barra de título */
+headerbar button {
+    background: transparent;
+    border: none;
+    color: @cosmic_white;
+    min-width: 16px;
+    min-height: 16px;
+    margin: 0 2px;
+    border-radius: 50%;
+}
+
+headerbar button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+headerbar button:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Botones generales */
+button {
+    background: @theme_base_color;
+    border: 1px solid @moon_gray;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: @theme_text_color;
+    transition: all 200ms ease;
+}
+
+button:hover {
+    background: @star_silver;
+    border-color: @light_blue;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+    background: @moon_gray;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button.suggested-action {
+    background: @nasa_blue;
+    color: @cosmic_white;
+    border-color: @nasa_blue;
+}
+
+button.suggested-action:hover {
+    background: @space_blue;
+    border-color: @space_blue;
+}
+
+/* Campos de entrada */
+entry {
+    background: @theme_base_color;
+    border: 1px solid @moon_gray;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: @theme_text_color;
+}
+
+entry:focus {
+    border-color: @light_blue;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Menús */
+menubar {
+    background: @theme_bg_color;
+    border-bottom: 1px solid @moon_gray;
+}
+
+menubar > menuitem {
+    padding: 8px 12px;
+    color: @theme_fg_color;
+}
+
+menubar > menuitem:hover {
+    background: @light_blue;
+    color: @cosmic_white;
+}
+
+menu {
+    background: @theme_base_color;
+    border: 1px solid @moon_gray;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+menu menuitem {
+    padding: 8px 12px;
+    color: @theme_text_color;
+}
+
+menu menuitem:hover {
+    background: @star_silver;
+}
+
+/* Barras de desplazamiento */
+scrollbar {
+    background: @star_silver;
+    border-radius: 3px;
+}
+
+scrollbar slider {
+    background: @moon_gray;
+    border-radius: 3px;
+    min-width: 6px;
+    min-height: 6px;
+}
+
+scrollbar slider:hover {
+    background: @space_gray;
+}
+
+/* Pestañas */
+notebook {
+    background: @theme_base_color;
+}
+
+notebook header {
+    background: @theme_bg_color;
+    border-bottom: 1px solid @moon_gray;
+}
+
+notebook tab {
+    padding: 8px 16px;
+    color: @text_secondary;
+    border-bottom: 2px solid transparent;
+}
+
+notebook tab:checked {
+    color: @nasa_blue;
+    border-bottom-color: @nasa_blue;
+}
+
+/* Barras de progreso */
+progressbar progress {
+    background: linear-gradient(to right, @nasa_blue, @light_blue);
+    border-radius: 3px;
+}
+
+progressbar trough {
+    background: @moon_gray;
+    border-radius: 3px;
+}
+
+/* Selectores */
+checkbutton check,
+radiobutton radio {
+    border: 1px solid @moon_gray;
+    background: @theme_base_color;
+}
+
+checkbutton check:checked,
+radiobutton radio:checked {
+    background: @nasa_blue;
+    border-color: @nasa_blue;
+    color: @cosmic_white;
+}
+
+/* Tooltips */
+tooltip {
+    background: @theme_tooltip_bg_color;
+    color: @theme_tooltip_fg_color;
+    border-radius: 6px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

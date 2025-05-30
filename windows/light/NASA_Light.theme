@@ -1,0 +1,74 @@
+[Theme]
+; NASA Light Theme para Windows
+; Autor: NASA Theme Project
+; Versión: 1.0.0
+; Descripción: Tema claro inspirado en la NASA y el espacio
+;
+; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
+; URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
+;
+; Este trabajo está licenciado bajo una Licencia Creative Commons
+; Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+
+DisplayName=NASA Light Theme
+Path=%SystemRoot%\Resources\Themes\NASA_Light\
+ThemeId={12345678-1234-1234-1234-123456789012}
+
+[Control Panel\Desktop]
+Wallpaper=%SystemRoot%\Resources\Themes\NASA_Light\nasa_light_wallpaper.jpg
+TileWallpaper=0
+WallpaperStyle=6
+Pattern=
+
+[Control Panel\Colors]
+; Colores principales del sistema
+ActiveBorder=11 61 145
+ActiveTitle=11 61 145
+AppWorkspace=248 250 252
+Background=255 255 255
+ButtonAlternativeFace=226 232 240
+ButtonDkShadow=71 85 105
+ButtonFace=248 250 252
+ButtonHilight=255 255 255
+ButtonLight=226 232 240
+ButtonShadow=148 163 184
+ButtonText=15 23 42
+CaptionText=255 255 255
+GradientActiveTitle=11 61 145
+GradientInactiveTitle=148 163 184
+GrayText=100 116 139
+Hilight=59 130 246
+HilightText=255 255 255
+HotTrackingColor=30 58 138
+InactiveBorder=226 232 240
+InactiveTitle=148 163 184
+InactiveTitleText=71 85 105
+InfoText=15 23 42
+InfoWindow=248 250 252
+Menu=255 255 255
+MenuBar=248 250 252
+MenuHilight=59 130 246
+MenuText=15 23 42
+Scrollbar=226 232 240
+TitleText=255 255 255
+Window=255 255 255
+WindowFrame=71 85 105
+WindowText=15 23 42
+
+[VisualStyles]
+Path=%SystemRoot%\Resources\Themes\NASA_Light\nasa_light.msstyles
+ColorStyle=NormalColor
+Size=NormalSize
+AutoColorization=0
+ColorizationColor=0x0B3D91
+SystemMode=Light
+
+[boot]
+SCRNSAVE.EXE=
+
+[MasterThemeSelector]
+MTSM=RJSPBS
+
+[Sounds]
+; Usar sonidos predeterminados del sistema
+SchemeName=.Default

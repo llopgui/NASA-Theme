@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=NASA Dark
+Name[es]=NASA Oscuro
+Comment=Tema oscuro inspirado en la NASA y el cosmos profundo
+Comment[es]=Tema oscuro inspirado en la NASA y el cosmos profundo
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=NASA-Dark
+MetacityTheme=NASA-Dark
+IconTheme=hicolor
+CursorTheme=default
+ButtonLayout=close,minimize,maximize:
