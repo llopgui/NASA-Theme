@@ -2,7 +2,7 @@
 ; NASA Dark Theme para Windows - James Webb Space Telescope Edition
 ; Autor: llopgui (NASA Theme Project)
 ; Repositorio: https://github.com/llopgui/NASA-Theme
-; Versión: 3.0.0 - JWST Edition
+; Versión: 4.0.0 - JWST Professional Edition
 ; Descripción: Tema oscuro inspirado en la paleta de colores del Telescopio Espacial James Webb
 ; Paleta: Mystical, Lavender Gray, Ginger Bread, Steel Gray, Beech, Foxtrot
 ;
@@ -11,20 +11,32 @@
 ;
 ; Este trabajo está licenciado bajo una Licencia Creative Commons
 ; Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+;
+; Compatible con Windows 10 Build 19041+ y Windows 11
+; Instalador profesional incluido: Install-NASATheme.ps1
 
-DisplayName=NASA Dark Theme - JWST Edition
+DisplayName=NASA Dark Theme - JWST Edition v4.0
 Path=%SystemRoot%\Resources\Themes\NASA_Dark\
 ThemeId={87654321-4321-4321-4321-210987654321}
+Version=4.0.0
+Author=llopgui (@NASA-Theme)
+Description=Tema profesional inspirado en el Telescopio Espacial James Webb
+Website=https://github.com/llopgui/NASA-Theme
 
 [Control Panel\Desktop]
 Wallpaper=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\nasa_dark_wallpaper.jpg
 TileWallpaper=0
 WallpaperStyle=6
 Pattern=
-; Modo presentación activado
+; Presentación automática de wallpapers activada
 SlideshowEnabled=1
 SlideshowInterval=1800000
 SlideshowShuffle=1
+SlideshowImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\
+; Configuración avanzada de wallpaper
+WallpaperOriginX=0
+WallpaperOriginY=0
+WallpaperFitMode=6
 
 [Control Panel\Colors]
 ; Paleta de colores inspirada en James Webb Space Telescope
@@ -35,6 +47,7 @@ SlideshowShuffle=1
 ; PANTONE 19-0618 TCX "Beech": RGB(85, 95, 75) = #555F4B
 ; PANTONE 18-1025 TCX "Foxtrot": RGB(185, 165, 145) = #B9A591
 
+; Elementos principales del sistema
 ActiveBorder=45 35 75
 ActiveTitle=105 115 125
 AppWorkspace=25 20 45
@@ -68,26 +81,47 @@ Window=25 20 45
 WindowFrame=45 35 75
 WindowText=220 215 235
 
+; Elementos adicionales para Windows 11
+ActiveBorderGradient=65 55 95
+InactiveBorderGradient=35 25 55
+ActiveTitleGradient=105 115 125
+InactiveTitleGradient=55 45 75
+
 [VisualStyles]
 Path=%SystemRoot%\Resources\Themes\aero\aerolite.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
 AutoColorization=1
 ; Color de énfasis basado en Ginger Bread (PANTONE 18-1244 TCX)
-ColorizationColor=0xA55541
+ColorizationColor=0xFFA55541
 ; Modo oscuro activado
 SystemMode=Dark
-; Efectos de transparencia activados
+AppMode=Dark
+; Efectos de transparencia y composición activados
 EnableTransparency=1
 ColorizationColorBalance=89
-ColorizationAfterGlow=0xA55541
+ColorizationAfterGlow=0xFFA55541
 ColorizationAfterGlowBalance=43
 ColorizationBlurBalance=49
 ColorizationGlassReflectionIntensity=0
+ColorizationOpacity=40
+; Configuración para Windows 11
+EnableAcrylic=1
+EnableMica=1
 
 [Control Panel\Appearance]
 ; Configuración adicional para el modo oscuro JWST
-SchemeName=NASA JWST Deep Space
+SchemeName=NASA JWST Deep Space Professional
+FontSize=9
+FontName=Segoe UI
+; Configuraciones avanzadas de apariencia
+BorderWidth=1
+CaptionFont=Segoe UI, 9pt, Bold
+IconFont=Segoe UI, 8pt
+MenuFont=Segoe UI, 9pt
+MessageFont=Segoe UI, 9pt
+SmCaptionFont=Segoe UI, 8pt
+StatusFont=Segoe UI, 8pt
 
 [Control Panel\Desktop\WindowMetrics]
 ; Configuración de ventanas optimizada para tema JWST
@@ -114,10 +148,16 @@ MTSM=RJSPBS
 SchemeName=.Default
 
 [Slideshow]
-; Configuración para presentación de wallpapers activada
+; Configuración avanzada para presentación de wallpapers
 Interval=1800000
 Shuffle=1
 ImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\
+; Configuraciones adicionales
+Timeout=30000
+FitMode=6
+ShowFilenames=0
+AllowTransitions=1
+TransitionMode=Fade
 
 ; Configuraciones específicas de Windows 10/11
 [Control Panel\PersonalizationCSP]
@@ -128,6 +168,7 @@ AppsUseLightTheme=0
 ; Efectos de transparencia y acrílico
 EnableTransparency=1
 EnableBlur=1
+EnableAcrylic=1
 
 ; Color de énfasis automático basado en wallpaper
 AutoColorization=1
@@ -146,6 +187,7 @@ AccentColorMenu=0xFFA55541
 [Control Panel\Accessibility]
 ; Desactivar temas de contraste alto
 HighContrast=0
+HighContrastScheme=
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
 ; Configuraciones adicionales del sistema
@@ -155,7 +197,7 @@ EnableTransparency=dword:00000001
 ColorPrevalence=dword:00000001
 
 [Control Panel\DWM]
-; Desktop Window Manager - Efectos de composición
+; Desktop Window Manager - Efectos de composición avanzados
 Composition=1
 ; Efectos de transparencia y acrílico
 EnableAeroPeek=1
@@ -163,3 +205,28 @@ AlwaysHibernateThumbnails=0
 ; Color de énfasis en elementos del sistema
 AccentColorInactive=0xFF555F4B
 AccentColorActive=0xFFA55541
+; Configuraciones para Windows 11
+EnableRoundedCorners=1
+EnableShadows=1
+EnableAnimations=1
+
+; Configuraciones específicas para Explorer
+[Control Panel\Colors\Explorer]
+; Configuraciones específicas del explorador de archivos
+BackgroundColor=15 10 25
+TextColor=220 215 235
+SelectionColor=165 85 65
+SelectionTextColor=255 255 255
+
+; Metadatos del tema
+[ThemeMetadata]
+Name=NASA Dark Theme - JWST Edition
+Version=4.0.0
+Author=llopgui
+Repository=https://github.com/llopgui/NASA-Theme
+License=CC BY-NC-SA 4.0
+Description=Tema profesional inspirado en el Telescopio Espacial James Webb con paleta científica auténtica
+Keywords=NASA,JWST,Dark,Space,Cosmos,Professional
+Compatibility=Windows 10 19041+, Windows 11
+InstallDate=
+LastModified=

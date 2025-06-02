@@ -1,8 +1,8 @@
 [Theme]
-; NASA Light Theme para Windows - Cosmos Claro
+; NASA Light Theme para Windows - Cosmos Luminoso Professional
 ; Autor: llopgui (NASA Theme Project)
 ; Repositorio: https://github.com/llopgui/NASA-Theme
-; Versión: 2.0.0
+; Versión: 4.0.0 - Professional Edition
 ; Descripción: Tema claro inspirado en la NASA y el cosmos luminoso
 ;
 ; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
@@ -10,19 +10,38 @@
 ;
 ; Este trabajo está licenciado bajo una Licencia Creative Commons
 ; Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+;
+; Compatible con Windows 10 Build 19041+ y Windows 11
+; Instalador profesional incluido: Install-NASATheme.ps1
 
-DisplayName=NASA Light Theme
+DisplayName=NASA Light Theme - Cosmos Luminoso v4.0
 Path=%SystemRoot%\Resources\Themes\NASA_Light\
 ThemeId={12345678-1234-1234-1234-123456789012}
+Version=4.0.0
+Author=llopgui (@NASA-Theme)
+Description=Tema profesional inspirado en el cosmos luminoso y misiones espaciales
+Website=https://github.com/llopgui/NASA-Theme
 
 [Control Panel\Desktop]
 Wallpaper=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\nasa_light_wallpaper.jpg
 TileWallpaper=0
 WallpaperStyle=6
 Pattern=
+; Presentación automática de wallpapers
+SlideshowEnabled=1
+SlideshowInterval=1800000
+SlideshowShuffle=1
+SlideshowImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\
+; Configuración avanzada de wallpaper
+WallpaperOriginX=0
+WallpaperOriginY=0
+WallpaperFitMode=6
 
 [Control Panel\Colors]
-; Colores claros inspirados en el cosmos luminoso
+; Colores claros inspirados en el cosmos luminoso y misiones NASA
+; Paleta inspirada en cielos terrestres, océanos cósmicos y la luminosidad del espacio
+
+; Elementos principales del sistema
 ActiveBorder=220 230 255
 ActiveTitle=180 200 255
 AppWorkspace=248 250 255
@@ -56,17 +75,45 @@ Window=255 255 255
 WindowFrame=200 210 230
 WindowText=30 40 60
 
+; Elementos adicionales para Windows 11
+ActiveBorderGradient=200 220 255
+InactiveBorderGradient=230 235 250
+ActiveTitleGradient=160 180 235
+InactiveTitleGradient=220 230 245
+
 [VisualStyles]
 Path=%SystemRoot%\Resources\Themes\aero\aero.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
-AutoColorization=0
-ColorizationColor=0xB4C8FF
+AutoColorization=1
+ColorizationColor=0xFFB4C8FF
 SystemMode=Light
+AppMode=Light
+; Efectos de transparencia habilitados
+EnableTransparency=1
+ColorizationColorBalance=75
+ColorizationAfterGlow=0xFFB4C8FF
+ColorizationAfterGlowBalance=35
+ColorizationBlurBalance=40
+ColorizationGlassReflectionIntensity=30
+ColorizationOpacity=20
+; Configuración para Windows 11
+EnableAcrylic=1
+EnableMica=1
 
 [Control Panel\Appearance]
-; Configuración adicional para el modo claro
-SchemeName=NASA Bright Space
+; Configuración adicional para el modo claro NASA
+SchemeName=NASA Bright Space Professional
+FontSize=9
+FontName=Segoe UI
+; Configuraciones avanzadas de apariencia
+BorderWidth=1
+CaptionFont=Segoe UI, 9pt, Bold
+IconFont=Segoe UI, 8pt
+MenuFont=Segoe UI, 9pt
+MessageFont=Segoe UI, 9pt
+SmCaptionFont=Segoe UI, 8pt
+StatusFont=Segoe UI, 8pt
 
 [Control Panel\Desktop\WindowMetrics]
 ; Configuración de ventanas para tema claro
@@ -93,7 +140,85 @@ MTSM=RJSPBS
 SchemeName=.Default
 
 [Slideshow]
-; Configuración para presentación de wallpapers
+; Configuración avanzada para presentación de wallpapers
 Interval=1800000
 Shuffle=1
 ImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\
+; Configuraciones adicionales
+Timeout=30000
+FitMode=6
+ShowFilenames=0
+AllowTransitions=1
+TransitionMode=Fade
+
+; Configuraciones específicas de Windows 10/11
+[Control Panel\PersonalizationCSP]
+; Modo claro para aplicaciones y sistema
+SystemUsesLightTheme=1
+AppsUseLightTheme=1
+
+; Efectos de transparencia
+EnableTransparency=1
+EnableBlur=1
+EnableAcrylic=1
+
+; Color de énfasis automático
+AutoColorization=1
+; Mostrar color de énfasis en inicio y barra de tareas
+ColorPrevalence=1
+; Mostrar color de énfasis en barras de título y bordes de ventana
+EnableColorOnTitleBarAndWindowBorder=1
+
+; Temas de contraste desactivado
+HighContrast=0
+
+; Color de énfasis principal (azul espacial)
+AccentColor=0xFFB4C8FF
+AccentColorMenu=0xFFB4C8FF
+
+[Control Panel\Accessibility]
+; Desactivar temas de contraste alto
+HighContrast=0
+HighContrastScheme=
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+; Configuraciones adicionales del sistema
+SystemUsesLightTheme=dword:00000001
+AppsUseLightTheme=dword:00000001
+EnableTransparency=dword:00000001
+ColorPrevalence=dword:00000001
+
+[Control Panel\DWM]
+; Desktop Window Manager - Efectos de composición avanzados
+Composition=1
+; Efectos de transparencia y acrílico
+EnableAeroPeek=1
+AlwaysHibernateThumbnails=0
+; Color de énfasis en elementos del sistema
+AccentColorInactive=0xFF9AB1E8
+AccentColorActive=0xFFB4C8FF
+; Configuraciones para Windows 11
+EnableRoundedCorners=1
+EnableShadows=1
+EnableAnimations=1
+
+; Configuraciones específicas para Explorer
+[Control Panel\Colors\Explorer]
+; Configuraciones específicas del explorador de archivos
+BackgroundColor=255 255 255
+TextColor=30 40 60
+SelectionColor=70 130 255
+SelectionTextColor=255 255 255
+
+; Metadatos del tema
+[ThemeMetadata]
+Name=NASA Light Theme - Cosmos Luminoso
+Version=4.0.0
+Author=llopgui
+Repository=https://github.com/llopgui/NASA-Theme
+License=CC BY-NC-SA 4.0
+Description=Tema profesional inspirado en el cosmos luminoso y misiones espaciales de la NASA
+Keywords=NASA,Light,Space,Cosmos,Professional,Bright
+Compatibility=Windows 10 19041+, Windows 11
+InstallDate=
+LastModified=
