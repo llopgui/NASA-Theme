@@ -14,48 +14,62 @@
 
 ![NASA Theme Preview](https://via.placeholder.com/1200x600/2D234B/FFFFFF?text=NASA+THEME+-+COSMOS+EN+TU+ESCRITORIO)
 
-## 🚀 **Instalación Rápida - 3 Pasos**
+## ✨ **Características Principales**
 
-### 1️⃣ **Abrir PowerShell como Administrador**
+🚀 **Instalador modular** con sintaxis simplificada
+🎵 **6 sonidos NASA oficiales** incluidos directamente
+🖱️ **Cursores modernos** por JepriCreations integrados
+📁 **Estructura simplificada** y documentación consistente
+🌌 **125+ wallpapers NASA** en alta resolución
 
-```powershell
-# Presiona Win + X → Selecciona "Windows PowerShell (Admin)"
-# O busca "PowerShell" → Clic derecho → "Ejecutar como administrador"
-```
+# 🚀 **Instalación Rápida en 3 pasos**
 
-### 2️⃣ **Descargar y navegar al proyecto**
-
-```powershell
-git clone https://github.com/llopgui/NASA-Theme.git
-cd NASA-Theme
-```
-
-### 3️⃣ **Ejecutar el instalador**
+## 🎯 **Paso 1 - Ejecutar como Administrador**
 
 ```powershell
-# ✅ Instalación completa y optimizada (RECOMENDADO)
-.\Install-NASATheme.ps1
-
-# ⚡ Ultra-rápida (para pruebas)
-.\Install-NASATheme.ps1 -SkipImageOptimization
-
-# 🖱️ Con cursores modernos temáticos
-.\Install-NASATheme.ps1 -InstallCursors
-
-# 🌌 Experiencia completa: tema + cursores
-.\Install-NASATheme.ps1 -ThemeType Dark -InstallCursors
-
-# 🎯 Solo tema claro
-.\Install-NASATheme.ps1 -ThemeType Light
-
-# 🖱️ Solo cursores (requiere tema NASA instalado previamente)
-.\Install-NASATheme.ps1 -InstallCursors
-
-# 🌌 Experiencia completa con cursores
-.\Install-NASATheme.ps1 -ThemeType Both -InstallCursors
+# Abrir PowerShell como Administrador
 ```
 
-### 4️⃣ **Activar el Tema**
+## 🎯 **Paso 2 - Elegir tu modalidad de instalación**
+
+### 🌌 **INSTALACIÓN COMPLETA** (Recomendada)
+
+```powershell
+.\Install-NASATheme.ps1 -All
+```
+
+*Instala temas + cursores modernos + sonidos oficiales NASA*
+
+### 🎨 **SOLO TEMAS**
+
+```powershell
+# Ambos temas (claro y oscuro)
+.\Install-NASATheme.ps1 -Themes
+
+# Solo tema oscuro
+.\Install-NASATheme.ps1 -Themes -ThemeType Dark
+
+# Solo tema claro
+.\Install-NASATheme.ps1 -Themes -ThemeType Light
+```
+
+### 🖱️ **SOLO CURSORES MODERNOS**
+
+```powershell
+.\Install-NASATheme.ps1 -Cursors
+```
+
+*Instala cursores W11 Tail Cursor Concept por JepriCreations*
+
+### 🎵 **SOLO SONIDOS OFICIALES NASA**
+
+```powershell
+.\Install-NASATheme.ps1 -Sounds
+```
+
+*Instala sonidos de lanzamientos, frases históricas y sonificaciones*
+
+## 🎯 **Paso 3 - Activar**
 
 1. **Clic derecho en el escritorio** → **Personalizar**
 2. **Ir a Temas** → Buscar **"NASA Dark Theme"** o **"NASA Light Theme"**
@@ -85,6 +99,15 @@ cd NASA-Theme
 - ☀️ **Cursores Light** que armonizan con el tema claro cósmico
 - 🚀 **Instalación automática** y configuración inteligente
 - ⚠️ **Nota**: NO son cursores temáticos NASA - son cursores modernos que se integran perfectamente
+
+### 🎵 **Sonidos Temáticos Oficiales NASA (Opcional)**
+
+- 🚀 **Fuentes oficiales NASA** - [nasa.gov/audio-and-ringtones](https://www.nasa.gov/audio-and-ringtones/)
+- 🌌 **Sonificaciones Hubble/James Webb** - Datos del cosmos convertidos a sonido
+- 👨‍🚀 **Frases históricas** - "One small step", "Houston we have a problem"
+- 🎵 **Eventos del sistema** - Lanzamientos, aterrizajes, comunicaciones espaciales
+- 📜 **Dominio público** - Uso educativo permitido según NASA Guidelines
+- 🔧 **Instalación automática** y configuración de esquemas de Windows
 
 ### 📸 **Fuentes Oficiales NASA**
 
@@ -200,38 +223,13 @@ El tema oscuro utiliza una paleta científica inspirada en el cosmos profundo:
 ### 📁 **Estructura del Proyecto**
 
 ```
-NASA-Theme/
-├── 🚀 Install-NASATheme.ps1      # Instalador optimizado
-├── 📖 README.md                  # Esta documentación
-├── 📄 LICENSE                    # Licencia CC BY-NC-SA 4.0
-├── 👥 CONTRIBUTORS.md            # Guía para contribuir
-├── 📋 CHANGELOG.md               # Historial de desarrollo
-├── ⚖️ NASA-COMPLIANCE.md        # Cumplimiento NASA Guidelines
-├── 🖱️ CURSOR-CREDITS.md         # Créditos y licencia de cursores
-├──
-├── 🎨 windows/                   # Archivos de temas Windows
-│   ├── dark/                     # NASA Dark Theme
-│   │   └── NASA_Dark.theme       # Archivo de tema principal
-│   └── light/                    # NASA Light Theme
-│       └── NASA_Light.theme      # Archivo de tema principal
-│
-├── 🖼️ resources/                 # Recursos multimedia NASA
-│   ├── wallpapers/              # Colección de wallpapers NASA oficiales
-│   │   ├── organized/           # Wallpapers categorizados
-│   │   │   ├── galaxy/          # Imágenes de galaxias
-│   │   │   ├── planet/          # Planetas y sistemas solares
-│   │   │   ├── telescope/       # Imágenes de telescopios
-│   │   │   ├── mission/         # Misiones espaciales
-│   │   │   └── cosmic/          # Cosmos general
-│   │   └── [100+ imágenes NASA] # Colección original
-│   │
-│   ├── icons/                   # Iconos del sistema (futuro)
-│   └── colors/                  # Paletas de colores
-│
-└── 📚 docs/                     # Documentación adicional
-    ├── installation-guide.md    # Guía detallada de instalación
-    ├── troubleshooting.md       # Solución de problemas
-    └── contributing.md          # Guía para contribuidores
+NASA_THEME/
+├── 📸 resources/wallpapers/     - Más de 1000 imágenes NASA 4K/8K
+├── 🖱️ resources/icons/         - Cursores W11 modernos por JepriCreations
+├── 🎵 resources/sounds/         - Sonidos oficiales NASA (6 archivos WAV)
+├── 🌙 windows/dark/             - Archivos tema oscuro Windows 11
+├── 🌞 windows/light/            - Archivos tema claro Windows 11
+└── 🚀 Install-NASATheme.ps1     - Instalador inteligente PowerShell
 ```
 
 ## 🔧 **Requisitos del Sistema**
@@ -291,149 +289,60 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ```powershell
 # Reinstalar con presentación habilitada
-.\Install-NASATheme.ps1 -ThemeType Dark -Repair
+.\Install-NASATheme.ps1 -Repair
 ```
-
-#### ❌ "Error de permisos"
-
-**Solución**: Asegurar privilegios de administrador y deshabilitar temporalmente el antivirus durante la instalación.
-
-### **Logs y Diagnóstico**
-
-Los logs detallados se guardan automáticamente en:
-
-- 📄 `%TEMP%\NASA_Theme_Install_[timestamp].log` - Log principal
-- 🚨 `%TEMP%\NASA_Theme_Critical.log` - Errores críticos
-
-Para diagnóstico avanzado:
-
-```powershell
-# Ejecutar con información de depuración
-.\Install-NASATheme.ps1 -Verbose -Debug
-```
-
-## 🤝 **Contribuir al Proyecto**
-
-¡Las contribuciones son bienvenidas! Este proyecto vive gracias a la comunidad de entusiastas del espacio.
-
-### **Formas de Contribuir**
-
-- 🖼️ **Wallpapers NASA**: Aporta imágenes de alta calidad desde fuentes oficiales
-- 🎨 **Nuevos temas**: Diseños inspirados en misiones espaciales
-- 🐛 **Reportar bugs**: Issues en GitHub con logs detallados
-- 📖 **Documentación**: Mejoras en guías y tutoriales
-- 💻 **Código**: Mejoras en el instalador y funcionalidades
-
-### **Proceso de Contribución**
-
-1. **Fork** del repositorio
-2. **Crear branch** para tu feature: `git checkout -b feature/nueva-caracteristica`
-3. **Commit** tus cambios: `git commit -am 'Añadir nueva característica'`
-4. **Push** al branch: `git push origin feature/nueva-caracteristica`
-5. **Abrir Pull Request**
-
-📖 **Guía completa**: [CONTRIBUTORS.md](CONTRIBUTORS.md)
-
-## 📜 **Licencia y Atribución**
-
-### **Licencia del Proyecto**
-
-Este proyecto está licenciado bajo **CC BY-NC-SA 4.0** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) en cumplimiento estricto con las [NASA Brand Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/).
-
-#### ✅ **Permitido**
-
-- ✅ **Compartir** - Copiar y redistribuir el material
-- ✅ **Adaptar** - Remezclar, transformar y crear a partir del material
-- ✅ **Uso personal** - Uso en computadoras personales
-- ✅ **Uso educativo** - Uso en instituciones educativas
-- ✅ **Uso informativo** - Documentación y propósitos informativos
-
-#### ❌ **Restricciones**
-
-- ❌ **Uso comercial PROHIBIDO** - Según NASA Guidelines y licencia del proyecto
-- ⚠️ **Atribución obligatoria** - Debe dar crédito al autor original y a NASA
-- 🔄 **CompartirIgual** - Derivados bajo la misma licencia
-- 🚫 **No endorsement** - No implica afiliación o aprobación de NASA
-
-### **Cómo Citar**
-
-```
-NASA Theme por llopgui
-Licencia: CC BY-NC-SA 4.0
-Repositorio: https://github.com/llopgui/NASA-Theme
-Imágenes: Cortesía de NASA (dominio público)
-Fuentes de imágenes: images.nasa.gov, webb.nasa.gov, hubblesite.org
-Cumple con: NASA Brand Guidelines
-```
-
-### **Créditos Especiales**
-
-#### 🚀 **NASA - Agencia Espacial de Estados Unidos**
-
-- 🌌 **Fuente principal de imágenes** - [images.nasa.gov](https://images.nasa.gov/)
-- 🔭 **James Webb Space Telescope** - [webb.nasa.gov](https://webb.nasa.gov/)
-- 🌟 **Hubble Space Telescope** - [hubblesite.org](https://hubblesite.org/)
-- 🌍 **NASA Earth Observatory** - [earthobservatory.nasa.gov](https://earthobservatory.nasa.gov/)
-- 🎥 **Scientific Visualization Studio** - [svs.gsfc.nasa.gov](https://svs.gsfc.nasa.gov/)
-- 📸 **NASA Image of the Day** - [nasa.gov/image-of-the-day](https://www.nasa.gov/image-of-the-day/)
-
-#### 🤝 **Comunidad y Desarrollo**
-
-- 💻 **llopgui** - Desarrollo y mantenimiento del proyecto (entusiasta de la astronomía)
-- 🌌 **Comunidad Astronómica** - Inspiración y apoyo
-- 💡 **Contribuidores** - Ver [CONTRIBUTORS.md](CONTRIBUTORS.md)
-- 🎨 **Usuarios de la comunidad** - Feedback y mejoras
-
-#### 🖱️ **Cursores Modernos**
-
-- 🎯 **JepriCreations** - Creador de W11 Tail Cursor Concept Free
-- 🌐 **Sitio Oficial**: [jepricreations.com](https://jepricreations.com/products/w11-tail-cursor-concept-free)
-- 🎨 **DeviantArt**: [jepricreations](https://www.deviantart.com/jepricreations)
-- 📧 **Contacto**: <contact@jepricreations.com>
-- 📄 **Licencia**: Uso no comercial con atribución requerida
-- 🚀 **Integración**: Cursores modernos que complementan la experiencia cósmica
-- ⚠️ **Aclaración**: NO son cursores temáticos NASA - son cursores elegantes que armonizan perfectamente
-
-### **Disclaimer Importante**
-
-⚠️ **ESTE PROYECTO NO ESTÁ AFILIADO, PATROCINADO O RESPALDADO POR NASA.**
-
-Este es un proyecto independiente de código abierto desarrollado por un entusiasta de la astronomía que utiliza imágenes de dominio público de NASA según se permite en sus directrices oficiales. NASA no ha revisado ni aprobado este proyecto. El uso de imágenes NASA se realiza únicamente con fines educativos e informativos, cumpliendo con las [NASA Brand Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/).
-
-## 🔗 **Enlaces y Recursos**
-
-### **Proyecto NASA Theme**
-
-- 🏠 **Repositorio Principal**: [github.com/llopgui/NASA-Theme](https://github.com/llopgui/NASA-Theme)
-- 🐛 **Reportar Issues**: [github.com/llopgui/NASA-Theme/issues](https://github.com/llopgui/NASA-Theme/issues)
-- 💡 **Solicitar Features**: [github.com/llopgui/NASA-Theme/discussions](https://github.com/llopgui/NASA-Theme/discussions)
-- 📚 **Wiki del Proyecto**: [github.com/llopgui/NASA-Theme/wiki](https://github.com/llopgui/NASA-Theme/wiki)
-
-### **Recursos NASA**
-
-- 🚀 **NASA Oficial**: [nasa.gov](https://www.nasa.gov/)
-- 🖼️ **NASA Image Gallery**: [nasa.gov/multimedia/imagegallery](https://www.nasa.gov/multimedia/imagegallery/)
-- 🔭 **James Webb Space Telescope**: [jwst.nasa.gov](https://www.jwst.nasa.gov/)
-- 🌌 **Hubble Space Telescope**: [hubblesite.org](https://hubblesite.org/)
-
-### **Tecnología**
-
-- 💻 **PowerShell Docs**: [docs.microsoft.com/powershell](https://docs.microsoft.com/powershell/)
-- 🎨 **Windows Themes**: [docs.microsoft.com/windows/themes](https://docs.microsoft.com/windows/themes)
-- 📖 **CC BY-NC-SA 4.0**: [creativecommons.org/licenses/by-nc-sa/4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ---
 
-<div align="center">
+## 📊 **Estado del Proyecto**
 
-**🌌 "Explorando el cosmos desde tu escritorio" 🌌**
+### **🏆 Proyecto Completo**
 
-*Hecho con ❤️ para la comunidad de entusiastas del espacio*
+- ✅ **Desarrollo FINALIZADO** - Listo para uso
+- 🎯 **125+ wallpapers NASA** oficiales incluidos
+- 🎵 **6 sonidos oficiales NASA** incluidos directamente
+- 🖱️ **Cursores modernos** por JepriCreations integrados
+- 📖 **Documentación completa** y consistente
+- 🛠️ **Instalador modular** con sintaxis simplificada
 
-**⭐ Si te gusta este proyecto, dale una estrella en GitHub ⭐**
+### **📈 Estadísticas del Proyecto**
 
-*Disfruta del cosmos en tu escritorio - Cortesía de NASA y compartido con amor por la astronomía* 🌌
+- **📸 Imágenes**: 125+ wallpapers oficiales NASA de alta resolución
+- **💾 Tamaño**: ~500MB (colección completa)
+- **🏗️ Código**: 1,200+ líneas PowerShell optimizadas
+- **📖 Documentación**: 15+ archivos markdown detallados
+- **🎨 Temas**: 2 variantes completas (Dark Cosmos, Light Cosmos)
+- **🎵 Audio**: 6 archivos WAV oficiales NASA
+- **🖱️ Cursores**: 2 sets completos (Dark/Light) por JepriCreations
 
-[⬆️ Volver al inicio](#-nasa-theme---temas-inspirados-en-el-cosmos-para-windows)
+### **🌟 Reconocimientos**
 
-</div>
+- **NASA** - Por compartir la maravilla del cosmos con dominio público
+- **JepriCreations** - Por los cursores modernos W11 Tail Cursor Concept Free
+- **Comunidad GitHub** - Por el apoyo y feedback durante el desarrollo
+- **Entusiastas del espacio** - Por mantener viva la pasión por la exploración
+
+---
+
+## 🤝 **Contribuir al Proyecto**
+
+El proyecto está **COMPLETO** y funcional, pero siempre son bienvenidas:
+
+- 🐛 **Reportes de bugs** en [GitHub Issues](https://github.com/llopgui/NASA-Theme/issues)
+- 📖 **Mejoras en documentación** para otras comunidades
+- 🌍 **Traducciones** a otros idiomas
+- 💡 **Sugerencias** para futuros proyectos espaciales
+
+### **📞 Contacto**
+
+- 🌐 **GitHub**: [NASA-Theme Repository](https://github.com/llopgui/NASA-Theme)
+- 📧 **Issues**: [Reportar problemas](https://github.com/llopgui/NASA-Theme/issues)
+- 📖 **Wiki**: [Documentación extendida](https://github.com/llopgui/NASA-Theme/wiki)
+
+---
+
+**🌌 NASA Theme** - *Compartido con amor por la astronomía y la exploración del cosmos*
+
+*"We choose to go to the moon and do the other things, not because they are easy, but because they are hard."* - John F. Kennedy
+
+✨ **Listo para transformar tu experiencia Windows con el cosmos** ✨

@@ -1,1 +1,58 @@
-.gitignore
+# NASA Theme Project - .gitignore
+# Proyecto completado en Febrero 2025
+
+# ===== ARCHIVOS TEMPORALES DE DESARROLLO =====
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# ===== LOGS Y ARCHIVOS DE INSTALACIÓN =====
+*.log
+NASA_Theme_Install_*.log
+
+# ===== CACHÉ DE PYTHON/MYPY =====
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+*.mypy_cache
+
+# ===== ARCHIVOS DE SISTEMA WINDOWS =====
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# ===== ARCHIVOS DE EDITORS =====
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+
+# ===== ARCHIVOS DE PRUEBAS =====
+test_*.ps1
+demo_*.ps1
+*_test.ps1
+*_demo.ps1
+
+# ===== ARCHIVOS PERSONALES/TEMPORALES =====
+personal/
+temp/
+temporary/
+backup/
+
+# ===== ARCHIVOS DE DOCUMENTACIÓN TEMPORAL =====
+*.draft.md
+*_draft.md
+TODO.md
+NOTES.md
+
+# ===== MANTENER ESTRUCTURA PRINCIPAL =====
+# (No ignorar nada de resources/, windows/, documentación final)
+!resources/
+!windows/
+!*.md
+!*.ps1
+!LICENSE

@@ -45,17 +45,36 @@
 .PARAMETER InstallCursors
     Instala cursores modernos NASA temáticos (por JepriCreations) que coinciden con el tema seleccionado
 
+.PARAMETER InstallSounds
+    Instala sonidos relacionados con el tema NASA
+
 .EXAMPLE
     .\Install-NASATheme.ps1
     Instalación estándar de ambos temas con presentación automática
 
 .EXAMPLE
-    .\Install-NASATheme.ps1 -ThemeType Dark -SkipImageOptimization -InstallCursors
-    Instala solo tema oscuro sin optimización (ultra-rápido) con cursores modernos
+    .\Install-NASATheme.ps1 -All
+    Instalación COMPLETA: temas + cursores + sonidos oficiales NASA
+
+.EXAMPLE
+    .\Install-NASATheme.ps1 -Themes -ThemeType Dark
+    Instala SOLO temas (tema oscuro únicamente)
+
+.EXAMPLE
+    .\Install-NASATheme.ps1 -Cursors
+    Instala SOLO cursores modernos elegantes (W11 Tail Cursor Concept)
+
+.EXAMPLE
+    .\Install-NASATheme.ps1 -Sounds
+    Instala SOLO sonidos oficiales NASA
 
 .EXAMPLE
     .\Install-NASATheme.ps1 -Repair
     Repara y valida los temas NASA existentes para que aparezcan en Windows
+
+.EXAMPLE
+    .\Install-NASATheme.ps1 -Uninstall
+    Desinstala completamente todos los componentes NASA Theme
 
 .NOTES
     Autor: NASA Theme Project (@llopgui) - Entusiasta de la astronomía
@@ -84,33 +103,54 @@
     Proyecto compartido con amor por la astronomía y el cosmos.
 #>
 
-[CmdletBinding(DefaultParameterSetName = "Install")]
+[CmdletBinding(DefaultParameterSetName = "Interactive")]
 param(
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
+    # ===== OPCIONES PRINCIPALES DE INSTALACIÓN =====
+
+    [Parameter(Mandatory = $true, ParameterSetName = "All")]
+    [switch]$All,
+
+    [Parameter(Mandatory = $true, ParameterSetName = "Themes")]
+    [switch]$Themes,
+
+    [Parameter(Mandatory = $true, ParameterSetName = "Cursors")]
+    [switch]$Cursors,
+
+    [Parameter(Mandatory = $true, ParameterSetName = "Sounds")]
+    [switch]$Sounds,
+
+    # ===== CONFIGURACIÓN DE TEMAS =====
+
+    [Parameter(Mandatory = $false, ParameterSetName = "All")]
+    [Parameter(Mandatory = $false, ParameterSetName = "Themes")]
+    [Parameter(Mandatory = $false, ParameterSetName = "Interactive")]
     [ValidateSet("Light", "Dark", "Both")]
     [string]$ThemeType = "Both",
 
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
+    [Parameter(Mandatory = $false, ParameterSetName = "All")]
+    [Parameter(Mandatory = $false, ParameterSetName = "Themes")]
+    [Parameter(Mandatory = $false, ParameterSetName = "Interactive")]
     [ValidatePattern('^(Auto|\d{3,4}x\d{3,4})$')]
     [string]$Resolution = "Auto",
 
+    # ===== OPCIONES AVANZADAS =====
+
     [Parameter(Mandatory = $false)]
     [switch]$SkipExplorerRestart,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$Silent,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipImageOptimization,
+
+    # ===== ACCIONES DEL SISTEMA =====
 
     [Parameter(Mandatory = $true, ParameterSetName = "Uninstall")]
     [switch]$Uninstall,
 
     [Parameter(Mandatory = $true, ParameterSetName = "Repair")]
-    [switch]$Repair,
-
-    [Parameter(Mandatory = $false)]
-    [switch]$Silent,
-
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
-    [switch]$SkipImageOptimization,
-
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
-    [switch]$InstallCursors
+    [switch]$Repair
 )
 
 # ==========================================
@@ -137,6 +177,8 @@ $Global:SystemPaths = @{
     Windows = Join-Path $PSScriptRoot "windows"
     Cursors = Join-Path $PSScriptRoot "resources\icons\w11-tail-cursor-concept-free\cursor"
     CursorInstallPath = "$env:SystemRoot\Cursors"
+    Sounds = Join-Path $PSScriptRoot "resources\sounds"
+    SoundInstallPath = "$env:SystemRoot\Media"
 }
 
 $Global:UITheme = @{
@@ -392,7 +434,8 @@ function Show-InstallationSummary {
     param(
         [bool]$LightInstalled,
         [bool]$DarkInstalled,
-        [bool]$CursorsInstalled = $false
+        [bool]$CursorsInstalled = $false,
+        [bool]$SoundsInstalled = $false
     )
 
     Write-NASALog "RESUMEN DE INSTALACIÓN COMPLETADA" -Level Header
@@ -437,6 +480,15 @@ function Show-InstallationSummary {
         Write-Host "   1. Panel de Control → Personalización → Temas → Configuración del cursor" -ForegroundColor $Global:UITheme.Info
         Write-Host "   2. Buscar 'NASA CURSORS by JepriCreations'" -ForegroundColor $Global:UITheme.Info
         Write-Host "   3. Seleccionar el esquema deseado" -ForegroundColor $Global:UITheme.Info
+    }
+
+    if ($SoundsInstalled) {
+        Write-Host ""
+        Write-Host "🎵 SONIDOS TEMÁTICOS NASA:" -ForegroundColor $Global:UITheme.NASA
+        Write-Host "   ✅ Sonidos instalados: $ThemeType" -ForegroundColor $Global:UITheme.Success
+        Write-Host "   🎨 Por NASA" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   🌐 Sitio: nasa.gov/audio-and-ringtones" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   🔄 Activación automática tras reiniciar el sistema o cerrar sesión" -ForegroundColor $Global:UITheme.Info
     }
 }
 
@@ -712,6 +764,226 @@ public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, stri
 }
 
 # ==========================================
+# INSTALACIÓN DE SONIDOS NASA
+# ==========================================
+
+function Install-NASASounds {
+    param(
+        [Parameter(Mandatory = $false)]
+        [ValidateSet("All", "SystemOnly", "NotificationOnly")]
+        [string]$SoundType = "All"
+    )
+
+    Write-NASALog "INSTALANDO SONIDOS TEMÁTICOS NASA" -Level Header
+
+    # Mostrar información de sonidos
+    Write-NASALog "Sonidos oficiales de NASA para una experiencia inmersiva completa" -Level Info
+    Write-NASALog "Fuentes: nasa.gov/audio-and-ringtones, hubble sonifications" -Level Info
+    Write-NASALog "Licencia: Dominio público NASA - Uso educativo permitido" -Level Info
+
+    $success = $false
+
+    try {
+        # Verificar que existe el directorio de sonidos
+        if (-not (Test-Path $Global:SystemPaths.Sounds)) {
+            Write-NASALog "Directorio de sonidos no encontrado: $($Global:SystemPaths.Sounds)" -Level Error
+            return $false
+        }
+
+        # Verificar qué sonidos están disponibles
+        $soundFiles = Get-AvailableSounds
+
+        if ($soundFiles.Count -eq 0) {
+            Write-NASALog "No se encontraron archivos de sonido en resources/sounds/" -Level Warning
+            Write-NASALog "Los sonidos se descargan por separado desde fuentes oficiales NASA" -Level Info
+            return $false
+        }
+
+        Write-NASALog "Encontrados $($soundFiles.Count) archivos de sonido para instalar" -Level Info
+
+        # Instalar sonidos según el tipo seleccionado
+        switch ($SoundType) {
+            "All" {
+                $success = Install-SystemSounds -SoundFiles $soundFiles
+            }
+            "SystemOnly" {
+                $systemSounds = $soundFiles | Where-Object { $_.Type -eq "System" }
+                $success = Install-SystemSounds -SoundFiles $systemSounds
+            }
+            "NotificationOnly" {
+                $notificationSounds = $soundFiles | Where-Object { $_.Type -eq "Notification" }
+                $success = Install-SystemSounds -SoundFiles $notificationSounds
+            }
+        }
+
+        if ($success) {
+            Write-NASALog "✅ Sonidos NASA instalados exitosamente" -Level Success
+            Write-NASALog "Los cambios se aplicarán tras reiniciar el sistema o cerrar sesión" -Level Info
+        } else {
+            Write-NASALog "❌ Error durante la instalación de sonidos" -Level Warning
+        }
+
+        return $success
+
+    } catch {
+        Write-NASALog "Error instalando sonidos: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+function Get-AvailableSounds {
+    $soundFiles = @()
+    $soundsPath = $Global:SystemPaths.Sounds
+
+    # Mapeo de archivos de sonido a eventos de Windows
+    $soundMapping = @{
+        "startup.wav" = @{ WindowsEvent = "SystemStart"; Type = "System"; Description = "Inicio del sistema (Artemis Launch)" }
+        "logon.wav" = @{ WindowsEvent = "WindowsLogon"; Type = "System"; Description = "Inicio de sesión (Apollo 11)" }
+        "logoff.wav" = @{ WindowsEvent = "WindowsLogoff"; Type = "System"; Description = "Cierre de sesión (Eagle Landing)" }
+        "error.wav" = @{ WindowsEvent = "SystemHand"; Type = "System"; Description = "Error crítico (Apollo 13)" }
+        "notification.wav" = @{ WindowsEvent = "SystemNotification"; Type = "Notification"; Description = "Notificación (Hubble)" }
+        "mail.wav" = @{ WindowsEvent = "MailBeep"; Type = "Notification"; Description = "Correo nuevo (Comunicación espacial)" }
+    }
+
+    foreach ($soundFile in $soundMapping.Keys) {
+        $fullPath = Join-Path $soundsPath $soundFile
+        if (Test-Path $fullPath) {
+            $soundInfo = $soundMapping[$soundFile]
+            $soundFiles += [PSCustomObject]@{
+                FileName = $soundFile
+                FullPath = $fullPath
+                WindowsEvent = $soundInfo.WindowsEvent
+                Type = $soundInfo.Type
+                Description = $soundInfo.Description
+            }
+        }
+    }
+
+    return $soundFiles
+}
+
+function Install-SystemSounds {
+    param(
+        [Parameter(Mandatory = $true)]
+        [array]$SoundFiles
+    )
+
+    try {
+        $installedCount = 0
+
+        foreach ($sound in $SoundFiles) {
+            # Copiar archivo a directorio Media de Windows
+            $destPath = Join-Path $Global:SystemPaths.SoundInstallPath "NASA_$($sound.FileName)"
+
+            try {
+                Copy-Item -Path $sound.FullPath -Destination $destPath -Force
+                Write-NASALog "Copiado: $($sound.FileName) → $destPath" -Level Success
+
+                # Registrar el sonido en el esquema de Windows
+                $registered = Register-WindowsSound -SoundFile $destPath -WindowsEvent $sound.WindowsEvent -Description $sound.Description
+
+                if ($registered) {
+                    $installedCount++
+                    Write-NASALog "Registrado: $($sound.Description)" -Level Success
+                } else {
+                    Write-NASALog "Error registrando: $($sound.Description)" -Level Warning
+                }
+
+            } catch {
+                Write-NASALog "Error procesando $($sound.FileName): $($_.Exception.Message)" -Level Warning
+            }
+        }
+
+        Write-NASALog "Sonidos instalados exitosamente: $installedCount de $($SoundFiles.Count)" -Level Success
+
+        # Aplicar el esquema de sonidos NASA
+        if ($installedCount -gt 0) {
+            Apply-NASASoundScheme
+        }
+
+        return $installedCount -gt 0
+
+    } catch {
+        Write-NASALog "Error durante instalación de sonidos: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+function Register-WindowsSound {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$SoundFile,
+
+        [Parameter(Mandatory = $true)]
+        [string]$WindowsEvent,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Description
+    )
+
+    try {
+        # Registrar en esquema de sonidos NASA
+        $schemeKey = "HKCU:\AppEvents\Schemes\Apps\.Default\$WindowsEvent\.NASA"
+
+        # Crear clave si no existe
+        if (-not (Test-Path $schemeKey)) {
+            New-Item -Path $schemeKey -Force | Out-Null
+        }
+
+        # Establecer el archivo de sonido
+        Set-ItemProperty -Path $schemeKey -Name "(Default)" -Value $SoundFile -Type String
+
+        Write-NASALog "Evento $WindowsEvent registrado con sonido NASA" -Level Success
+        return $true
+
+    } catch {
+        Write-NASALog "Error registrando sonido para $WindowsEvent : $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+function Apply-NASASoundScheme {
+    try {
+        # Crear esquema de sonidos NASA en el registro
+        $schemeKey = "HKCU:\AppEvents\Schemes"
+        $nasaSchemeKey = "HKCU:\AppEvents\Schemes\Names\.NASA"
+
+        # Crear entrada del esquema NASA
+        if (-not (Test-Path $nasaSchemeKey)) {
+            New-Item -Path $nasaSchemeKey -Force | Out-Null
+        }
+
+        Set-ItemProperty -Path $nasaSchemeKey -Name "(Default)" -Value "NASA Space Theme Sounds" -Type String
+
+        # Establecer como esquema activo
+        Set-ItemProperty -Path $schemeKey -Name "(Default)" -Value ".NASA" -Type String
+
+        Write-NASALog "Esquema de sonidos NASA aplicado exitosamente" -Level Success
+
+        # Notificar al sistema del cambio
+        try {
+            $signature = @"
+[DllImport("user32.dll", SetLastError = true)]
+public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, string pvParam, uint fWinIni);
+"@
+            $type = Add-Type -MemberDefinition $signature -Name Win32SoundUtils -Namespace SystemParametersInfo -PassThru -ErrorAction SilentlyContinue
+            if ($type) {
+                $type::SystemParametersInfo(0x12, 0, $null, 0x02) | Out-Null
+                Write-NASALog "Sistema notificado del cambio de esquema de sonidos" -Level Success
+            }
+        } catch {
+            Write-NASALog "Los sonidos se aplicarán tras reiniciar o cerrar sesión" -Level Info
+        }
+
+        return $true
+
+    } catch {
+        Write-NASALog "Error aplicando esquema de sonidos: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+# ==========================================
 # FUNCIÓN PRINCIPAL
 # ==========================================
 
@@ -719,16 +991,29 @@ function Invoke-NASAThemeInstaller {
     try {
         if (-not $Silent) {
             Clear-Host
-            Write-Host "🚀 NASA THEME INSTALLER" -ForegroundColor $Global:UITheme.NASA
+            Write-Host "🚀 NASA THEME INSTALLER MODULAR" -ForegroundColor $Global:UITheme.NASA
             Write-Host "═" * 60 -ForegroundColor DarkGray
             Write-Host "✅ Presentación automática con TODOS los wallpapers NASA" -ForegroundColor $Global:UITheme.Success
             Write-Host "✅ Cursores modernos elegantes por JepriCreations (opcional)" -ForegroundColor $Global:UITheme.Success
+            Write-Host "✅ Sonidos temáticos oficiales NASA (opcional)" -ForegroundColor $Global:UITheme.Success
             Write-Host "✅ Cumple con NASA Brand Guidelines (Uso NO COMERCIAL)" -ForegroundColor $Global:UITheme.Success
             Write-Host "📸 Imágenes oficiales desde images.nasa.gov y portales NASA" -ForegroundColor $Global:UITheme.Info
             Write-Host "🖱️ Cursores por JepriCreations (jepricreations.com)" -ForegroundColor $Global:UITheme.Info
+            Write-Host "🎵 Sonidos desde nasa.gov/audio-and-ringtones (dominio público)" -ForegroundColor $Global:UITheme.Info
             Write-Host "⚠️  NOTA: Cursores NO temáticos - modernos que complementan" -ForegroundColor $Global:UITheme.Warning
             Write-Host "🚫 NO afiliado con NASA - Proyecto educativo independiente" -ForegroundColor $Global:UITheme.Warning
             Write-Host "🌌 Compartido con amor por la astronomía y el cosmos" -ForegroundColor $Global:UITheme.Primary
+            Write-Host ""
+
+            # Mostrar modo actual
+            $currentMode = ""
+            if ($All) { $currentMode = "🌌 INSTALACIÓN COMPLETA" }
+            elseif ($Themes) { $currentMode = "🎨 SOLO TEMAS" }
+            elseif ($Cursors) { $currentMode = "🖱️ SOLO CURSORES" }
+            elseif ($Sounds) { $currentMode = "🎵 SOLO SONIDOS" }
+            else { $currentMode = "🎯 MODO INTERACTIVO" }
+
+            Write-Host "MODO: $currentMode" -ForegroundColor $Global:UITheme.Primary
             Write-Host ""
         }
 
@@ -782,48 +1067,90 @@ function Invoke-NASAThemeInstaller {
             return
         }
 
-        # Verificación básica
-        if (-not (Test-Path $Global:SystemPaths.Wallpapers)) {
-            Write-NASALog "Directorio de wallpapers no encontrado: $($Global:SystemPaths.Wallpapers)" -Level Error
-            return
+        # ===== DETERMINAR QUÉ INSTALAR SEGÚN EL MODO =====
+        $shouldInstallThemes = $false
+        $shouldInstallCursors = $false
+        $shouldInstallSounds = $false
+
+        if ($All) {
+            $shouldInstallThemes = $true
+            $shouldInstallCursors = $true
+            $shouldInstallSounds = $true
+            Write-NASALog "Modo: INSTALACIÓN COMPLETA (temas + cursores + sonidos)" -Level Header
+        }
+        elseif ($Themes) {
+            $shouldInstallThemes = $true
+            Write-NASALog "Modo: SOLO TEMAS ($ThemeType)" -Level Header
+        }
+        elseif ($Cursors) {
+            $shouldInstallCursors = $true
+            Write-NASALog "Modo: SOLO CURSORES MODERNOS" -Level Header
+        }
+        elseif ($Sounds) {
+            $shouldInstallSounds = $true
+            Write-NASALog "Modo: SOLO SONIDOS OFICIALES NASA" -Level Header
+        }
+        else {
+            # Modo interactivo: instalar temas por defecto
+            $shouldInstallThemes = $true
+            Write-NASALog "Modo: INTERACTIVO - Instalando temas ($ThemeType)" -Level Header
         }
 
-        # Crear directorios
-        New-ThemeDirectories
-
-        # Instalar temas
+        # Inicializar variables de estado
         $lightInstalled = $false
         $darkInstalled = $false
         $cursorsInstalled = $false
+        $soundsInstalled = $false
 
-        switch ($ThemeType) {
-            "Light" {
-                $lightInstalled = Install-NASATheme -Theme "Light"
+        # ===== INSTALAR TEMAS =====
+        if ($shouldInstallThemes) {
+            # Verificación básica
+            if (-not (Test-Path $Global:SystemPaths.Wallpapers)) {
+                Write-NASALog "Directorio de wallpapers no encontrado: $($Global:SystemPaths.Wallpapers)" -Level Error
+                return
             }
-            "Dark" {
-                $darkInstalled = Install-NASATheme -Theme "Dark"
-            }
-            "Both" {
-                $lightInstalled = Install-NASATheme -Theme "Light"
-                $darkInstalled = Install-NASATheme -Theme "Dark"
+
+            # Crear directorios
+            New-ThemeDirectories
+
+            # Instalar según tipo seleccionado
+            switch ($ThemeType) {
+                "Light" {
+                    $lightInstalled = Install-NASATheme -Theme "Light"
+                }
+                "Dark" {
+                    $darkInstalled = Install-NASATheme -Theme "Dark"
+                }
+                "Both" {
+                    $lightInstalled = Install-NASATheme -Theme "Light"
+                    $darkInstalled = Install-NASATheme -Theme "Dark"
+                }
             }
         }
 
-        # Instalar cursores si se solicita
-        if ($InstallCursors -and ($lightInstalled -or $darkInstalled)) {
+        # ===== INSTALAR CURSORES =====
+        if ($shouldInstallCursors) {
             Write-NASALog "Iniciando instalación de cursores..." -Level Progress
-            $cursorsInstalled = Install-NASACursors -CursorTheme $ThemeType
+            $themeForCursors = if ($shouldInstallThemes) { $ThemeType } else { "Dark" }  # Default Dark para cursores standalone
+            $cursorsInstalled = Install-NASACursors -CursorTheme $themeForCursors
         }
 
-        # Aplicar cambios al sistema
-        if ($lightInstalled -or $darkInstalled) {
+        # ===== INSTALAR SONIDOS =====
+        if ($shouldInstallSounds) {
+            Write-NASALog "Iniciando instalación de sonidos..." -Level Progress
+            $soundsInstalled = Install-NASASounds -SoundType "All"
+        }
+
+        # ===== APLICAR CAMBIOS AL SISTEMA =====
+        if ($lightInstalled -or $darkInstalled -or $cursorsInstalled -or $soundsInstalled) {
             Invoke-SystemRefresh
         }
 
-        # Mostrar resumen
-        Show-InstallationSummary -LightInstalled $lightInstalled -DarkInstalled $darkInstalled -CursorsInstalled $cursorsInstalled
+        # ===== MOSTRAR RESUMEN =====
+        Show-InstallationSummary -LightInstalled $lightInstalled -DarkInstalled $darkInstalled -CursorsInstalled $cursorsInstalled -SoundsInstalled $soundsInstalled
 
-        if ($lightInstalled -or $darkInstalled) {
+        # ===== MENSAJE FINAL =====
+        if ($lightInstalled -or $darkInstalled -or $cursorsInstalled -or $soundsInstalled) {
             Write-NASALog "🚀 ¡INSTALACIÓN NASA THEME COMPLETADA EXITOSAMENTE! 🚀" -Level NASA
         } else {
             Write-NASALog "La instalación no se completó correctamente." -Level Error
