@@ -1,155 +1,273 @@
-# Guía para Contribuidores - NASA Theme
+# 🤝 Guía para Contribuidores - NASA Theme
 
-## Bienvenido al Proyecto NASA Theme
+## 🌌 Bienvenido a la Comunidad Astronómica
 
-¡Gracias por tu interés en contribuir al proyecto NASA Theme! Este documento te guiará para hacer contribuciones efectivas.
+¡Gracias por tu interés en contribuir al proyecto NASA Theme! Este proyecto nació de la pasión por la astronomía y se mantiene gracias a entusiastas del espacio como tú.
 
-## 📋 Información del Repositorio
+## 📋 Información del Proyecto
 
-- **URL**: https://github.com/llopgui/NASA-Theme
+- **Repositorio**: <https://github.com/llopgui/NASA-Theme>
 - **Licencia**: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0)
-- **Mantenedor**: [@llopgui](https://github.com/llopgui)
+- **Mantenedor**: [@llopgui](https://github.com/llopgui) - Entusiasta de la astronomía
+- **Tipo**: Proyecto personal compartido con la comunidad
 
-## 📄 Licencia del Proyecto
+## 🚀 Filosofía del Proyecto
 
-Este proyecto está licenciado bajo **CC BY-NC-SA 4.0** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International).
+Este proyecto es **"por y para la comunidad de amantes del espacio"**:
 
-### ¿Qué significa esto?
+- 🌌 **Educativo y sin fines comerciales** - Solo por amor a la astronomía
+- 🎨 **Accesible para todos** - Windows temas que cualquiera pueda disfrutar
+- 📖 **Código abierto** - Transparente y colaborativo
+- ⚖️ **Respetuoso con NASA** - Cumpliendo estrictamente sus guidelines
+- 🤝 **Comunitario** - Las mejores ideas vienen de todos nosotros
 
-- **✅ Puedes**: Usar, modificar, y distribuir el proyecto
-- **❌ No puedes**: Usar el proyecto para fines comerciales
-- **📝 Debes**: Dar crédito adecuado y mantener la misma licencia
+## 📄 Licencia Simplificada
 
-## 🤝 Cómo Contribuir
+Este proyecto usa **CC BY-NC-SA 4.0**, que significa:
 
-### 1. Tipos de Contribuciones Bienvenidas
+### ✅ **SÍ Puedes**
 
-- **🎨 Mejoras visuales**: Nuevos colores, efectos, estilos
-- **🐛 Corrección de errores**: Problemas de compatibilidad, bugs
-- **📚 Documentación**: Mejoras en README, guías técnicas
-- **🌐 Traducciones**: Soporte para más idiomas
-- **🖼️ Recursos**: Fondos de pantalla, iconos (con licencia compatible)
-- **⚡ Optimizaciones**: Rendimiento, instaladores
+- Usar el proyecto en tu computadora personal
+- Modificar y mejorar el código
+- Compartir con otros entusiastas del espacio
+- Crear tu propia versión (con la misma licencia)
+- Usar en proyectos educativos
 
-### 2. Proceso de Contribución
+### ❌ **NO Puedes**
 
-1. **Fork** el repositorio
-2. **Crea una rama** para tu contribución:
-   ```bash
-   git checkout -b feature/nueva-funcionalidad
-   ```
-3. **Realiza tus cambios** siguiendo nuestras guías de estilo
-4. **Agrega tests** si es aplicable
-5. **Actualiza la documentación** si es necesario
-6. **Envía un Pull Request** con descripción detallada
+- Venderlo o usarlo comercialmente
+- Quitar los créditos a NASA o al proyecto
+- Cambiar la licencia a una comercial
 
-### 3. Guías de Estilo
+### 📝 **Debes**
 
-#### Código CSS (GTK)
-```css
-/* Comentario descriptivo */
-.selector {
-    property: value; /* Comentario inline si es necesario */
+- Dar crédito adecuado (NASA + llopgui + proyecto)
+- Mantener la misma licencia en derivados
+- Respetar las NASA Brand Guidelines
+
+## 🤝 Formas de Contribuir
+
+### 🌟 **Para Entusiastas del Espacio**
+
+- 🖼️ **Sugerir wallpapers**: Comparte enlaces a imágenes NASA increíbles
+- 🎨 **Ideas de temas**: Propón temas de misiones específicas (Apollo, Mars, etc.)
+- 🐛 **Reportar problemas**: Si algo no funciona, cuéntanos
+- 📖 **Mejorar documentación**: Ayuda a explicar mejor las cosas
+- 🌍 **Traducciones**: Lleva el proyecto a más idiomas
+
+### 💻 **Para Programadores**
+
+- 🔧 **Mejoras en el instalador**: PowerShell más robusto
+- ⚡ **Optimizaciones**: Instalación más rápida
+- 🎯 **Nuevas características**: Funcionalidades que la comunidad necesite
+- 🔍 **Debugging**: Solucionar problemas técnicos
+- 📊 **Testing**: Probar en diferentes sistemas
+
+### 🎨 **Para Diseñadores**
+
+- 🌈 **Paletas de colores**: Inspiradas en misiones espaciales reales
+- 🖌️ **Temas nuevos**: Diseños que capturen la magia del cosmos
+- 📐 **Optimización visual**: Mejor experiencia de usuario
+- 🎭 **Elementos UI**: Iconos, cursores, efectos
+- 📱 **Interfaces**: Mejoras en configuradores
+
+### 📚 **Para Educadores**
+
+- 🎓 **Contenido educativo**: Información astronómica en los temas
+- 📖 **Guías didácticas**: Enseñar mientras se personaliza Windows
+- 🌍 **Recursos**: Enlaces a contenido NASA educativo
+- 🔗 **Integraciones**: Conectar con herramientas educativas
+
+## 🛠️ Proceso de Contribución
+
+### 1️⃣ **Preparación**
+
+```bash
+# Hacer fork del repositorio en GitHub
+git clone https://github.com/TU_USUARIO/NASA-Theme.git
+cd NASA-Theme
+```
+
+### 2️⃣ **Desarrollo**
+
+```bash
+# Crear rama para tu contribución
+git checkout -b feature/nombre-descriptivo
+
+# Ejemplos de nombres de rama:
+# feature/tema-apollo-11
+# fix/instalador-windows-11
+# docs/guia-principiantes
+# wallpapers/james-webb-nuevas
+```
+
+### 3️⃣ **Commits Descriptivos**
+
+```bash
+# Ejemplos de commits bien escritos:
+git commit -m "feat(theme): agregar tema Apollo 11 con colores dorados"
+git commit -m "fix(installer): corregir error en Windows 11 22H2"
+git commit -m "docs(readme): simplificar guía de instalación"
+git commit -m "wallpapers: añadir 15 imágenes JWST alta resolución"
+```
+
+### 4️⃣ **Pull Request**
+
+- 📝 **Descripción clara**: Explica qué hace tu contribución
+- 🖼️ **Screenshots**: Si hay cambios visuales
+- ✅ **Testing**: Confirma que funciona en tu sistema
+- 🌟 **Entusiasmo**: ¡Comparte por qué te emociona esto!
+
+## 📏 Estándares de Calidad
+
+### 💻 **Código PowerShell**
+
+```powershell
+# Usa comentarios descriptivos
+# Instalar tema NASA Dark con validación completa
+function Install-NASATheme {
+    [CmdletBinding()]
+    param(
+        [string]$ThemeType = "Dark"  # Dark o Light
+    )
+
+    Write-Host "🚀 Iniciando instalación del cosmos..." -ForegroundColor Cyan
+    # ... código ...
 }
 ```
 
-#### Archivos de Configuración
-- Usar comentarios descriptivos
-- Mantener consistencia en nomenclatura
-- Documentar cambios importantes
+### 🎨 **Configuración de Temas**
 
-#### Nomenclatura
-- **Archivos**: `snake_case` para archivos de recursos
-- **Colores**: Nombres descriptivos (`nasa_blue`, `cosmic_white`)
-- **Variables**: Consistentes con el contexto del sistema operativo
+```ini
+; Comentarios descriptivos para cada sección
+[Control Panel\Desktop]
+Wallpaper=  ; Ruta del wallpaper del cosmos
+TileWallpaper=0  ; No repetir imagen
 
-## 📜 Declaración de Licencia
-
-Al contribuir a este proyecto, **automáticamente aceptas** que:
-
-1. **Tus contribuciones** se licenciarán bajo CC BY-NC-SA 4.0
-2. **Garantizas** que tienes el derecho de licenciar tu contribución
-3. **Aceptas** que tus contribuciones pueden ser modificadas por otros bajo la misma licencia
-
-### Ejemplo de Atribución en Commits
-```
-feat(gtk): agregar soporte para botones redondeados
-
-- Implementa border-radius en componentes de botón
-- Mejora la consistencia visual con el tema NASA
-- Mantiene compatibilidad con GTK 3.20+
-
-Contribuido por: [Tu Nombre] <email@ejemplo.com>
-Licencia: CC BY-NC-SA 4.0
+[Control Panel\Colors]
+; Colores inspirados en el cosmos profundo
+Background=45 35 75  ; Mystical - Fondo principal
 ```
 
-## 🚫 Restricciones de Uso Comercial
+### 📖 **Documentación**
 
-### ❌ **No Permitido**:
-- Vender el tema o derivados
-- Incluir en productos comerciales sin autorización
-- Usar en aplicaciones comerciales de pago
-- Distribuir en plataformas comerciales como tema premium
-
-### ✅ **Permitido**:
-- Uso personal y educativo
-- Proyectos de código abierto
-- Contribuciones a la comunidad
-- Modificaciones para uso no comercial
+- **Lenguaje cercano**: Como si explicaras a un amigo
+- **Ejemplos prácticos**: Comandos que realmente funcionan
+- **Emojis descriptivos**: Ayudan a navegar y entender
+- **Enlaces verificados**: Todos funcionando y actualizados
 
 ## 🔍 Revisión de Contribuciones
 
-### Checklist para Pull Requests
+### ✅ **Checklist de Calidad**
 
-- [ ] **Funcionalidad**: ¿Funciona correctamente en ambos temas (claro/oscuro)?
-- [ ] **Compatibilidad**: ¿Es compatible con las versiones objetivo?
-- [ ] **Documentación**: ¿Está documentado adecuadamente?
-- [ ] **Licencia**: ¿Respeta los términos de CC BY-NC-SA 4.0?
-- [ ] **Calidad**: ¿Sigue las guías de estilo del proyecto?
+- [ ] **Funciona correctamente** en Windows 10/11
+- [ ] **Sigue las NASA Guidelines** (no comercial, atribución)
+- [ ] **Documentación actualizada** si es necesario
+- [ ] **Respeta la licencia** CC BY-NC-SA 4.0
+- [ ] **Mantiene el espíritu** entusiasta del proyecto
+- [ ] **No rompe funcionalidades** existentes
 
-### Proceso de Revisión
+### 🌟 **Proceso de Revisión**
 
-1. **Revisión automática**: Tests y linters
-2. **Revisión técnica**: Funcionalidad y compatibilidad
-3. **Revisión de licencia**: Cumplimiento de términos
-4. **Revisión final**: Aprobación para merge
+1. **Revisión técnica**: ¿Funciona bien?
+2. **Revisión de contenido**: ¿Aporta valor?
+3. **Revisión legal**: ¿Cumple con licencias?
+4. **Revisión comunitaria**: ¿Encaja con el proyecto?
 
-## 🎯 Áreas Prioritarias
+## 🎯 Prioridades Actuales
 
-### 🔥 Alta Prioridad
-- Corrección de bugs críticos
-- Mejoras de accesibilidad
-- Compatibilidad con nuevas versiones de SO
+### 🔥 **Alta Prioridad**
 
-### 📈 Media Prioridad
-- Nuevos componentes visuales
-- Optimizaciones de rendimiento
-- Documentación mejorada
+- 🐛 **Bugs críticos**: Problemas que impiden usar el tema
+- 🔧 **Compatibilidad**: Windows 11 22H2/23H2
+- 📊 **Performance**: Instalación más rápida y eficiente
+- 🖼️ **Wallpapers nuevos**: Imágenes JWST y misiones recientes
 
-### 💡 Baja Prioridad
-- Características experimentales
-- Temas adicionales
-- Integraciones con terceros
+### 📈 **Media Prioridad**
 
-## 📞 Contacto y Soporte
+- 🎨 **Temas nuevos**: Apollo, Mars, Artemis
+- 📱 **UI/UX**: Mejor experiencia de instalación
+- 🌍 **Internacionalización**: Soporte para más idiomas
+- 📖 **Documentación**: Guías más completas
 
-- **Issues**: Para reportar bugs o solicitar características
-- **Discussions**: Para preguntas generales y discusiones
-- **Email**: [Contacto del proyecto] para asuntos de licencia
+### 💡 **Baja Prioridad**
 
-## 🙏 Reconocimientos
+- 🔊 **Sonidos temáticos**: Efectos de audio espaciales
+- 🖱️ **Cursores**: Cursores temáticos del espacio
+- 📱 **Widgets**: Información astronómica en tiempo real
+- 🌐 **API NASA**: Integración automática con datos
 
-Todos los contribuidores serán reconocidos en:
-- Archivo `CONTRIBUTORS.md` (este archivo)
-- Sección de créditos en el README principal
-- Releases notes cuando corresponda
+## 🏆 Reconocimientos
 
-### Lista de Contribuidores
+### 🌟 **Hall of Fame de Contribuidores**
 
-- **[NASA Theme Project]** - Creador original y mantenedor principal
+- **[@llopgui](https://github.com/llopgui)** - Creador y mantenedor principal
+  - 🚀 Desarrolló el concepto original
+  - 🎨 Diseñó los temas Dark y Light
+  - 💻 Creó el instalador PowerShell
+  - 📖 Escribió toda la documentación inicial
+
+*¡Tu nombre podría estar aquí! Cada contribución cuenta y es valorada por la comunidad.*
+
+### 🎖️ **Tipos de Reconocimiento**
+
+- **Mención en README.md** para contribuciones significativas
+- **Crédito en releases** cuando se publiquen nuevas versiones
+- **Agradecimiento en changelog** por correcciones importantes
+- **Badge especial** para contribuidores recurrentes
+
+## 📞 Comunicación y Soporte
+
+### 💬 **Canales de Comunicación**
+
+- 🐛 **Issues en GitHub**: Para bugs y sugerencias
+- 💡 **Discussions**: Para ideas y preguntas generales
+- 📧 **Email directo**: Para temas de licencia o privacidad
+
+### 🤝 **Código de Conducta**
+
+- 🌟 **Respeto mutuo**: Todos somos entusiastas aprendiendo
+- 🚀 **Pasión por el espacio**: Compartimos amor por la astronomía
+- 📚 **Constructividad**: Feedback útil y mejoras reales
+- 🌍 **Inclusividad**: Bienvenidos programadores de todos los niveles
+- ⚖️ **Legalidad**: Respeto a licencias y derechos de autor
+
+## 🌌 Inspiración y Valores
+
+### 🎯 **Misión**
+
+*"Acercar las maravillas del cosmos a cada escritorio, inspirando a las futuras generaciones de exploradores espaciales."*
+
+### 🌟 **Valores Core**
+
+- **🔬 Precisión científica**: Colores y datos reales del espacio
+- **🎨 Belleza accesible**: El cosmos al alcance de todos
+- **📚 Educación**: Aprender mientras personalizamos
+- **🤝 Comunidad**: Construido por y para entusiastas
+- **⚖️ Ética**: Respeto total a NASA y derechos de autor
 
 ---
 
-**Nota Legal**: Este proyecto no está afiliado con la NASA. Los nombres y referencias son utilizados únicamente como inspiración temática bajo principios de fair use y reconocimiento educativo.
+## 🚀 ¡Únete a la Exploración
 
-¡Gracias por contribuir a hacer este proyecto mejor para toda la comunidad! 🚀
+**¿Listo para contribuir al proyecto?**
+
+1. 🍴 **Fork** el repositorio
+2. 🔧 **Implementa** tu mejora
+3. 📝 **Documenta** tu cambio
+4. 🎯 **Envía** tu Pull Request
+5. 🌟 **Comparte** con la comunidad
+
+**Cada línea de código, cada imagen sugerida, cada bug reportado nos acerca más a nuestro objetivo: ¡llevar el cosmos a millones de escritorios!**
+
+---
+
+<div align="center">
+
+**🌌 "Juntos exploramos el cosmos desde nuestros escritorios" 🌌**
+
+*Proyecto mantenido con ❤️ por entusiastas del espacio para entusiastas del espacio*
+
+**¿Te gusta el proyecto? ⭐ Dale una estrella en GitHub ⭐**
+
+</div>

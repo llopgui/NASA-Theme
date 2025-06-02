@@ -3,16 +3,23 @@
 
 <#
 .SYNOPSIS
-    🚀 NASA Theme Installer - Instalador Oficial para Windows 11
+    🚀 NASA Theme Installer - Instalador para Windows 11
 
 .DESCRIPTION
-    Instalador profesional para los temas NASA inspirados en el cosmos. Incluye:
-    - Tema NASA Dark (JWST Edition) con paleta James Webb Space Telescope
+    Instalador para los temas NASA inspirados en el cosmos. Incluye:
+    - Tema NASA Dark inspirado en el cosmos profundo
     - Tema NASA Light con colores del cosmos luminoso
-    - Wallpapers optimizados y presentación automática
+    - PRESENTACIÓN AUTOMÁTICA con TODOS los wallpapers cada 10 minutos
     - Configuración completa del sistema Windows 11
     - Modo oscuro avanzado con efectos de transparencia
     - Paleta de colores científicamente inspirada
+
+    CUMPLIMIENTO NASA BRAND GUIDELINES:
+    Este proyecto es GRATUITO y NO COMERCIAL, cumple estrictamente con las NASA Brand Guidelines.
+    Todas las imágenes provienen de fuentes oficiales de NASA como images.nasa.gov, webb.nasa.gov,
+    hubblesite.org, y earthobservatory.nasa.gov. Este proyecto NO está afiliado con NASA.
+
+    Creado por un entusiasta de la astronomía para compartir con la comunidad de amantes del espacio.
 
 .PARAMETER ThemeType
     Especifica qué tema instalar: 'Light', 'Dark', o 'Both' (por defecto)
@@ -20,52 +27,61 @@
 .PARAMETER Resolution
     Resolución de pantalla para optimizar wallpapers: 'Auto' (detección), '1920x1080', '2560x1440', '3840x2160', etc.
 
-.PARAMETER WallpaperPath
-    Ruta a una imagen personalizada para usar como wallpaper
-
-.PARAMETER EnableSlideshow
-    Habilita la presentación automática de wallpapers (30 minutos por defecto)
-
-.PARAMETER SlideshowInterval
-    Intervalo en minutos para cambio de wallpapers (5-120 minutos)
-
 .PARAMETER SkipExplorerRestart
     Omite el reinicio automático de Windows Explorer
 
 .PARAMETER Uninstall
     Desinstala completamente los temas NASA del sistema
 
+.PARAMETER Repair
+    Repara los temas NASA del sistema
+
 .PARAMETER Silent
     Instalación silenciosa sin interacción del usuario
 
-.PARAMETER BackupCurrentTheme
-    Crea respaldo del tema actual antes de instalar
+.PARAMETER SkipImageOptimization
+    Omite la optimización de imágenes para ahorrar tiempo de instalación
+
+.PARAMETER InstallCursors
+    Instala cursores modernos NASA temáticos (por JepriCreations) que coinciden con el tema seleccionado
 
 .EXAMPLE
     .\Install-NASATheme.ps1
-    Instalación estándar de ambos temas con detección automática
+    Instalación estándar de ambos temas con presentación automática
 
 .EXAMPLE
-    .\Install-NASATheme.ps1 -ThemeType Dark -Resolution "2560x1440" -EnableSlideshow
-    Instala solo tema oscuro para QHD con presentación de wallpapers
+    .\Install-NASATheme.ps1 -ThemeType Dark -SkipImageOptimization -InstallCursors
+    Instala solo tema oscuro sin optimización (ultra-rápido) con cursores modernos
 
 .EXAMPLE
-    .\Install-NASATheme.ps1 -WallpaperPath "C:\Pictures\cosmos.jpg" -SlideshowInterval 15
-    Instala temas con wallpaper personalizado y cambio cada 15 minutos
-
-.EXAMPLE
-    .\Install-NASATheme.ps1 -Uninstall
-    Desinstala completamente los temas NASA
+    .\Install-NASATheme.ps1 -Repair
+    Repara y valida los temas NASA existentes para que aparezcan en Windows
 
 .NOTES
-    Autor: NASA Theme Project (@llopgui)
-    Versión: 4.0.0 - Professional Edition
-    Licencia: CC BY-NC-SA 4.0
-    Repositorio: https://github.com/llopgui/NASA-Theme
+    Autor: NASA Theme Project (@llopgui) - Entusiasta de la astronomía
+    Licencia: CC BY-NC-SA 4.0 (Uso NO COMERCIAL únicamente)
     Soporte: Windows 10 2004+ / Windows 11
+    Repositorio: https://github.com/llopgui/NASA-Theme
 
-.LINK
-    https://github.com/llopgui/NASA-Theme
+    CRÉDITOS DE IMÁGENES NASA:
+    - NASA Image and Video Library (images.nasa.gov)
+    - NASA Image of the Day (nasa.gov/image-of-the-day)
+    - James Webb Space Telescope Gallery (webb.nasa.gov)
+    - Hubble Space Telescope Gallery (hubblesite.org)
+    - NASA Earth Observatory (earthobservatory.nasa.gov)
+    - NASA's Scientific Visualization Studio (svs.gsfc.nasa.gov)
+
+    CRÉDITOS DE CURSORES:
+    - W11 Tail Cursor Concept Free por JepriCreations
+    - Sitio Oficial: https://jepricreations.com/products/w11-tail-cursor-concept-free
+    - DeviantArt: https://www.deviantart.com/jepricreations
+    - Email: contact@jepricreations.com
+    - Distribuido bajo permiso para uso no comercial con atribución requerida
+    - NOTA: NO son cursores temáticos NASA - son cursores modernos que complementan la experiencia
+
+    IMPORTANTE: Este proyecto NO está afiliado, patrocinado o respaldado por NASA.
+    Cumple con NASA Brand Guidelines para uso educativo e informativo únicamente.
+    Proyecto compartido con amor por la astronomía y el cosmos.
 #>
 
 [CmdletBinding(DefaultParameterSetName = "Install")]
@@ -78,71 +94,37 @@ param(
     [ValidatePattern('^(Auto|\d{3,4}x\d{3,4})$')]
     [string]$Resolution = "Auto",
 
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
-    [ValidateScript({
-        if ($_ -and -not (Test-Path $_ -PathType Leaf)) {
-            throw "El archivo de wallpaper '$_' no existe o no es un archivo válido."
-        }
-        if ($_ -and $_ -notmatch '\.(jpg|jpeg|png|bmp|webp)$') {
-            throw "El archivo debe ser una imagen válida (jpg, jpeg, png, bmp, webp)."
-        }
-        return $true
-    })]
-    [string]$WallpaperPath,
-
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
-    [switch]$EnableSlideshow,
-
-    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
-    [ValidateRange(5, 120)]
-    [int]$SlideshowInterval = 30,
-
     [Parameter(Mandatory = $false)]
     [switch]$SkipExplorerRestart,
 
     [Parameter(Mandatory = $true, ParameterSetName = "Uninstall")]
     [switch]$Uninstall,
 
+    [Parameter(Mandatory = $true, ParameterSetName = "Repair")]
+    [switch]$Repair,
+
     [Parameter(Mandatory = $false)]
     [switch]$Silent,
 
     [Parameter(Mandatory = $false, ParameterSetName = "Install")]
-    [switch]$BackupCurrentTheme
+    [switch]$SkipImageOptimization,
+
+    [Parameter(Mandatory = $false, ParameterSetName = "Install")]
+    [switch]$InstallCursors
 )
 
 # ==========================================
-# CONFIGURACIÓN GLOBAL AVANZADA
+# CONFIGURACIÓN GLOBAL
 # ==========================================
 
 $Global:NASAThemeConfig = @{
-    # Información del proyecto
-    Name = "NASA Theme Installer Professional"
-    Version = "4.0.0"
-    Edition = "Professional Edition"
-    Author = "NASA Theme Project (@llopgui)"
-    Repository = "https://github.com/llopgui/NASA-Theme"
-    License = "CC BY-NC-SA 4.0"
-    SupportedOS = @("Windows 10 2004+", "Windows 11")
-
-    # Configuración del sistema
-    RequiredPSVersion = "5.1"
-    RequiredOSBuild = 19041  # Windows 10 2004
-    MinDiskSpace = 200MB
-
-    # Archivos y rutas
+    Name = "NASA Theme Installer"
+    Author = "NASA Theme Project (@llopgui) - Entusiasta de la astronomía"
     LogFile = "$env:TEMP\NASA_Theme_Install_$(Get-Date -Format 'yyyyMMdd_HHmmss').log"
-    BackupDir = "$env:TEMP\NASA_Theme_Backup_$(Get-Date -Format 'yyyyMMdd_HHmmss')"
-    TempDir = "$env:TEMP\NASA_Theme_Temp"
-
-    # Configuración de colores JWST
-    JWSTColors = @{
-        Mystical = @{ RGB = @(45, 35, 75); Hex = "#2D234B"; Pantone = "18-3620 TCX" }
-        LavenderGray = @{ RGB = @(150, 145, 165); Hex = "#9691A5"; Pantone = "17-3910 TCX" }
-        GingerBread = @{ RGB = @(165, 85, 65); Hex = "#A55541"; Pantone = "18-1244 TCX" }
-        SteelGray = @{ RGB = @(105, 115, 125); Hex = "#69737D"; Pantone = "18-4005 TCX" }
-        Beech = @{ RGB = @(85, 95, 75); Hex = "#555F4B"; Pantone = "19-0618 TCX" }
-        Foxtrot = @{ RGB = @(185, 165, 145); Hex = "#B9A591"; Pantone = "18-1025 TCX" }
-    }
+    License = "CC BY-NC-SA 4.0 (Non-Commercial Use Only)"
+    Repository = "https://github.com/llopgui/NASA-Theme"
+    NASACompliance = "Cumple con NASA Brand Guidelines - Uso educativo e informativo únicamente"
+    Purpose = "Compartido con amor por la astronomía y el cosmos"
 }
 
 $Global:SystemPaths = @{
@@ -153,7 +135,8 @@ $Global:SystemPaths = @{
     Resources = Join-Path $PSScriptRoot "resources"
     Wallpapers = Join-Path $PSScriptRoot "resources\wallpapers"
     Windows = Join-Path $PSScriptRoot "windows"
-    WindowsApps = "$env:LOCALAPPDATA\Microsoft\WindowsApps"
+    Cursors = Join-Path $PSScriptRoot "resources\icons\w11-tail-cursor-concept-free\cursor"
+    CursorInstallPath = "$env:SystemRoot\Cursors"
 }
 
 $Global:UITheme = @{
@@ -162,55 +145,35 @@ $Global:UITheme = @{
     Warning = "Yellow"
     Error = "Red"
     Header = "Magenta"
-    Accent = "Blue"
+    NASA = "Blue"
     Info = "White"
     Progress = "DarkCyan"
-    Debug = "DarkGray"
-    NASA = "Blue"
 }
 
 # ==========================================
-# SISTEMA DE LOGGING Y INTERFAZ AVANZADA
+# SISTEMA DE LOGGING
 # ==========================================
 
 function Write-NASALog {
-    <#
-    .SYNOPSIS
-        Sistema avanzado de logging con múltiples niveles y formato profesional
-    #>
-    [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
         [string]$Message,
 
         [Parameter(Mandatory = $false)]
-        [ValidateSet("Info", "Success", "Warning", "Error", "Header", "Progress", "Debug", "NASA", "System")]
+        [ValidateSet("Info", "Success", "Warning", "Error", "Header", "Progress", "NASA")]
         [string]$Level = "Info",
 
         [Parameter(Mandatory = $false)]
-        [switch]$NoConsole,
-
-        [Parameter(Mandatory = $false)]
-        [switch]$NoLog,
-
-        [Parameter(Mandatory = $false)]
-        [switch]$Critical
+        [switch]$NoConsole
     )
 
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
     $logEntry = "[$timestamp] [$Level] $Message"
 
     # Escribir al archivo de log
-    if (-not $NoLog) {
-        try {
-            if (-not (Test-Path (Split-Path $Global:NASAThemeConfig.LogFile))) {
-                New-Item -Path (Split-Path $Global:NASAThemeConfig.LogFile) -ItemType Directory -Force | Out-Null
-            }
-            Add-Content -Path $Global:NASAThemeConfig.LogFile -Value $logEntry -Encoding UTF8 -ErrorAction SilentlyContinue
-        } catch {
-            # Silenciar errores de logging
-        }
-    }
+    try {
+        Add-Content -Path $Global:NASAThemeConfig.LogFile -Value $logEntry -Encoding UTF8 -ErrorAction SilentlyContinue
+    } catch { }
 
     # Mostrar en consola si no está en modo silencioso
     if (-not $NoConsole -and -not $Silent) {
@@ -221,10 +184,7 @@ function Write-NASALog {
             "Error" { "[✗ ERROR]" }
             "Header" { "[NASA]" }
             "Progress" { "[→ PROC]" }
-            "Debug" { "[DEBUG]" }
             "NASA" { "[🚀 NASA]" }
-            "System" { "[⚙ SYS]" }
-            default { "[INFO]" }
         }
 
         $color = $Global:UITheme[$Level]
@@ -232,489 +192,19 @@ function Write-NASALog {
 
         if ($Level -eq "Header") {
             Write-Host ""
-            Write-Host "═" * 100 -ForegroundColor $color
+            Write-Host "═" * 80 -ForegroundColor $color
             Write-Host "$prefix $Message" -ForegroundColor $color
-            Write-Host "═" * 100 -ForegroundColor $color
+            Write-Host "═" * 80 -ForegroundColor $color
             Write-Host ""
         } else {
             Write-Host "$prefix " -ForegroundColor $color -NoNewline
-
-            # Colorear mensaje crítico
-            if ($Critical) {
-                Write-Host $Message -ForegroundColor Red -BackgroundColor Yellow
-            } else {
-                Write-Host $Message -ForegroundColor White
-            }
-        }
-    }
-
-    # Log crítico adicional
-    if ($Critical) {
-        $criticalEntry = "[$timestamp] [CRITICAL] $Message"
-        Add-Content -Path "$env:TEMP\NASA_Theme_Critical.log" -Value $criticalEntry -Encoding UTF8 -ErrorAction SilentlyContinue
-    }
-}
-
-function Show-NASAWelcome {
-    <#
-    .SYNOPSIS
-        Muestra la pantalla de bienvenida profesional con arte ASCII
-    #>
-    if (-not $Silent) {
-        Clear-Host
-
-        # Arte ASCII personalizado NASA
-        $nasaArt = @"
-    ████████╗███████╗███╗   ███╗ █████╗     ███╗   ██╗ █████╗ ███████╗ █████╗
-    ╚══██╔══╝██╔════╝████╗ ████║██╔══██╗    ████╗  ██║██╔══██╗██╔════╝██╔══██╗
-       ██║   █████╗  ██╔████╔██║███████║    ██╔██╗ ██║███████║███████╗███████║
-       ██║   ██╔══╝  ██║╚██╔╝██║██╔══██║    ██║╚██╗██║██╔══██║╚════██║██╔══██║
-       ██║   ███████╗██║ ╚═╝ ██║██║  ██║    ██║ ╚████║██║  ██║███████║██║  ██║
-       ╚═╝   ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝    ╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-"@
-
-        Write-Host $nasaArt -ForegroundColor $Global:UITheme.NASA
-        Write-Host ""
-        Write-Host "🌌 " -ForegroundColor $Global:UITheme.NASA -NoNewline
-        Write-Host "INSTALADOR PROFESIONAL PARA WINDOWS 11" -ForegroundColor $Global:UITheme.Header
-        Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
-
-        # Información del proyecto
-        Write-Host "📦 Versión: " -ForegroundColor $Global:UITheme.Info -NoNewline
-        Write-Host "$($Global:NASAThemeConfig.Version) - $($Global:NASAThemeConfig.Edition)" -ForegroundColor $Global:UITheme.Success
-
-        Write-Host "👨‍💻 Desarrollado por: " -ForegroundColor $Global:UITheme.Info -NoNewline
-        Write-Host $Global:NASAThemeConfig.Author -ForegroundColor $Global:UITheme.Accent
-
-        Write-Host "🔗 Repositorio: " -ForegroundColor $Global:UITheme.Info -NoNewline
-        Write-Host $Global:NASAThemeConfig.Repository -ForegroundColor $Global:UITheme.NASA
-
-        Write-Host "📜 Licencia: " -ForegroundColor $Global:UITheme.Info -NoNewline
-        Write-Host $Global:NASAThemeConfig.License -ForegroundColor $Global:UITheme.Warning
-
-        Write-Host ""
-        Write-Host "🎨 Características:" -ForegroundColor $Global:UITheme.Header
-        Write-Host "   • Tema NASA Dark - Edición James Webb Space Telescope" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Tema NASA Light - Cosmos Luminoso" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Wallpapers optimizados para múltiples resoluciones" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Configuración automática de Windows 11" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Paleta científica inspirada en misiones espaciales" -ForegroundColor $Global:UITheme.Success
-        Write-Host ""
-    }
-}
-
-# ==========================================
-# VALIDACIÓN Y DIAGNÓSTICO DEL SISTEMA
-# ==========================================
-
-function Test-SystemCompatibility {
-    <#
-    .SYNOPSIS
-        Realiza verificación completa de compatibilidad del sistema
-    #>
-    Write-NASALog "Iniciando diagnóstico completo del sistema..." -Level Progress
-
-    $compatibility = @{
-        OSVersion = $false
-        PSVersion = $false
-        AdminRights = $false
-        DiskSpace = $false
-        Architecture = $false
-        WindowsFeatures = $false
-        Score = 0
-    }
-
-    try {
-        # Verificar versión del OS
-        $osInfo = Get-CimInstance -ClassName Win32_OperatingSystem
-        $buildNumber = [int]$osInfo.BuildNumber
-
-        if ($buildNumber -ge $Global:NASAThemeConfig.RequiredOSBuild) {
-            $compatibility.OSVersion = $true
-            Write-NASALog "Sistema Operativo: $($osInfo.Caption) Build $buildNumber ✓" -Level Success
-        } else {
-            Write-NASALog "Sistema no compatible. Requiere Windows 10 Build $($Global:NASAThemeConfig.RequiredOSBuild)+ o Windows 11" -Level Error
-        }
-
-        # Verificar PowerShell
-        $psVersion = $PSVersionTable.PSVersion
-        if ($psVersion.Major -ge 5 -and $psVersion.Minor -ge 1) {
-            $compatibility.PSVersion = $true
-            Write-NASALog "PowerShell: $($psVersion.ToString()) ✓" -Level Success
-        } else {
-            Write-NASALog "PowerShell $($Global:NASAThemeConfig.RequiredPSVersion)+ requerido. Actual: $($psVersion.ToString())" -Level Error
-        }
-
-        # Verificar privilegios
-        $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
-        $principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
-        if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-            $compatibility.AdminRights = $true
-            Write-NASALog "Privilegios de administrador: Confirmados ✓" -Level Success
-        } else {
-            Write-NASALog "Se requieren privilegios de administrador" -Level Error -Critical
-        }
-
-        # Verificar espacio en disco
-        $systemDrive = Get-CimInstance -ClassName Win32_LogicalDisk | Where-Object { $_.DeviceID -eq ($env:SystemRoot.Substring(0,2)) }
-        $freeSpace = $systemDrive.FreeSpace
-        if ($freeSpace -gt $Global:NASAThemeConfig.MinDiskSpace) {
-            $compatibility.DiskSpace = $true
-            $freeSpaceMB = [math]::Round($freeSpace / 1MB, 2)
-            Write-NASALog "Espacio libre: ${freeSpaceMB} MB ✓" -Level Success
-        } else {
-            Write-NASALog "Espacio insuficiente. Requerido: $($Global:NASAThemeConfig.MinDiskSpace / 1MB) MB" -Level Error
-        }
-
-        # Verificar arquitectura
-        $arch = $env:PROCESSOR_ARCHITECTURE
-        if ($arch -eq "AMD64" -or $arch -eq "x86") {
-            $compatibility.Architecture = $true
-            Write-NASALog "Arquitectura: $arch ✓" -Level Success
-        } else {
-            Write-NASALog "Arquitectura no soportada: $arch" -Level Warning
-        }
-
-        # Verificar características de Windows
-        try {
-            $dwm = Get-Service -Name "Dwm" -ErrorAction SilentlyContinue
-            $themes = Get-Service -Name "Themes" -ErrorAction SilentlyContinue
-
-            if ($dwm -and $themes) {
-                $compatibility.WindowsFeatures = $true
-                Write-NASALog "Servicios de temas: Disponibles ✓" -Level Success
-            } else {
-                Write-NASALog "Servicios de temas no disponibles" -Level Warning
-            }
-        } catch {
-            Write-NASALog "No se pudieron verificar los servicios de Windows" -Level Warning
-        }
-
-        # Calcular puntuación
-        $trueCount = ($compatibility.GetEnumerator() | Where-Object { $_.Key -ne "Score" -and $_.Value -eq $true }).Count
-        $totalChecks = ($compatibility.GetEnumerator() | Where-Object { $_.Key -ne "Score" }).Count
-        $compatibility.Score = [math]::Round(($trueCount / $totalChecks) * 100, 1)
-
-        Write-NASALog "Puntuación de compatibilidad: $($compatibility.Score)%" -Level NASA
-
-        if ($compatibility.Score -ge 80) {
-            Write-NASALog "Sistema apto para instalación de NASA Theme ✓" -Level Success
-            return $true
-        } elseif ($compatibility.Score -ge 60) {
-            Write-NASALog "Sistema parcialmente compatible. Algunos problemas menores detectados" -Level Warning
-            return $true
-        } else {
-            Write-NASALog "Sistema no compatible. Resuelva los problemas críticos antes de continuar" -Level Error -Critical
-            return $false
-        }
-
-    } catch {
-        Write-NASALog "Error durante el diagnóstico: $($_.Exception.Message)" -Level Error -Critical
-        return $false
-    }
-}
-
-function Get-OptimalResolution {
-    <#
-    .SYNOPSIS
-        Detecta la resolución óptima y características de pantalla
-    #>
-    Write-NASALog "Detectando configuración de pantalla..." -Level Progress
-
-    try {
-        Add-Type -AssemblyName System.Windows.Forms -ErrorAction SilentlyContinue
-
-        $screens = [System.Windows.Forms.Screen]::AllScreens
-        $primary = [System.Windows.Forms.Screen]::PrimaryScreen
-
-        $resolution = "$($primary.Bounds.Width)x$($primary.Bounds.Height)"
-        $dpi = $primary.Bounds.Width / $primary.WorkingArea.Width
-
-        # Clasificar resolución
-        $category = switch ($resolution) {
-            "1366x768" { "HD" }
-            "1920x1080" { "Full HD" }
-            "2560x1440" { "QHD" }
-            "3840x2160" { "4K UHD" }
-            "5120x2880" { "5K" }
-            "7680x4320" { "8K" }
-            default { "Personalizada" }
-        }
-
-        Write-NASALog "Pantalla principal: $resolution ($category)" -Level Success
-        Write-NASALog "Pantallas detectadas: $($screens.Count)" -Level Info
-
-        if ($screens.Count -gt 1) {
-            Write-NASALog "Configuración multi-monitor detectada" -Level Info
-            foreach ($screen in $screens) {
-                $screenRes = "$($screen.Bounds.Width)x$($screen.Bounds.Height)"
-                $isPrimary = if ($screen.Primary) { " (Principal)" } else { "" }
-                Write-NASALog "  • Monitor: $screenRes$isPrimary" -Level Debug
-            }
-        }
-
-        return @{
-            Resolution = $resolution
-            Category = $category
-            Primary = $primary
-            AllScreens = $screens
-            IsMultiMonitor = ($screens.Count -gt 1)
-        }
-
-    } catch {
-        Write-NASALog "No se pudo detectar la resolución. Usando 1920x1080 por defecto" -Level Warning
-        return @{
-            Resolution = "1920x1080"
-            Category = "Full HD"
-            Primary = $null
-            AllScreens = @()
-            IsMultiMonitor = $false
+            Write-Host $Message -ForegroundColor White
         }
     }
 }
 
 # ==========================================
-# GESTIÓN AVANZADA DE WALLPAPERS
-# ==========================================
-
-function Optimize-WallpaperCollection {
-    <#
-    .SYNOPSIS
-        Organiza y optimiza la colección completa de wallpapers
-    #>
-    Write-NASALog "Optimizando colección de wallpapers NASA..." -Level Header
-
-    $wallpaperDir = $Global:SystemPaths.Wallpapers
-    if (-not (Test-Path $wallpaperDir)) {
-        Write-NASALog "Directorio de wallpapers no encontrado: $wallpaperDir" -Level Error
-        return $false
-    }
-
-    # Buscar todas las imágenes
-    $imageExtensions = @("*.jpg", "*.jpeg", "*.png", "*.webp", "*.bmp")
-    $allImages = @()
-
-    foreach ($ext in $imageExtensions) {
-        $images = Get-ChildItem -Path $wallpaperDir -Filter $ext -Recurse -ErrorAction SilentlyContinue
-        $allImages += $images
-    }
-
-    if ($allImages.Count -eq 0) {
-        Write-NASALog "No se encontraron imágenes en la colección" -Level Warning
-        return $false
-    }
-
-    Write-NASALog "Encontradas $($allImages.Count) imágenes para procesar" -Level Info
-
-    # Crear estructura organizada
-    $organizedDir = Join-Path $wallpaperDir "organized"
-    $categorizedDirs = @{
-        "cosmic" = Join-Path $organizedDir "cosmic"
-        "galaxy" = Join-Path $organizedDir "galaxy"
-        "planet" = Join-Path $organizedDir "planet"
-        "telescope" = Join-Path $organizedDir "telescope"
-        "mission" = Join-Path $organizedDir "mission"
-        "astronaut" = Join-Path $organizedDir "astronaut"
-        "stellar" = Join-Path $organizedDir "stellar"
-        "space" = Join-Path $organizedDir "space"
-    }
-
-    # Crear directorios
-    foreach ($dir in $categorizedDirs.Values) {
-        if (-not (Test-Path $dir)) {
-            New-Item -Path $dir -ItemType Directory -Force | Out-Null
-        }
-    }
-
-    # Procesar y categorizar imágenes
-    $processed = 0
-    $categorized = @{}
-
-    foreach ($image in $allImages) {
-        try {
-            # Determinar categoría basada en nombre y características
-            $category = Get-ImageCategory -ImagePath $image.FullName
-            $quality = Get-ImageQuality -ImagePath $image.FullName
-
-            # Generar nombre descriptivo
-            $newName = "nasa_$($category)_$($quality)_$(Get-Date -Format 'yyyyMMdd')_$($processed.ToString('000'))"
-            $newPath = Join-Path $categorizedDirs[$category] "$newName$($image.Extension)"
-
-            # Evitar duplicados
-            $counter = 1
-            while (Test-Path $newPath) {
-                $baseName = [System.IO.Path]::GetFileNameWithoutExtension($newName)
-                $newPath = Join-Path $categorizedDirs[$category] "${baseName}_${counter}$($image.Extension)"
-                $counter++
-            }
-
-            # Copiar imagen
-            Copy-Item -Path $image.FullName -Destination $newPath -Force
-
-            # Estadísticas
-            if (-not $categorized.ContainsKey($category)) {
-                $categorized[$category] = 0
-            }
-            $categorized[$category]++
-            $processed++
-
-            if ($processed % 10 -eq 0) {
-                Write-NASALog "Procesadas $processed de $($allImages.Count) imágenes..." -Level Progress
-            }
-
-        } catch {
-            Write-NASALog "Error procesando $($image.Name): $($_.Exception.Message)" -Level Warning
-        }
-    }
-
-    # Mostrar estadísticas
-    Write-NASALog "Optimización completada: $processed imágenes procesadas" -Level Success
-    foreach ($cat in $categorized.GetEnumerator()) {
-        Write-NASALog "  • $($cat.Key): $($cat.Value) imágenes" -Level Info
-    }
-
-    return $true
-}
-
-function Get-ImageCategory {
-    <#
-    .SYNOPSIS
-        Determina la categoría de una imagen basándose en su nombre y metadatos
-    #>
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ImagePath
-    )
-
-    $fileName = [System.IO.Path]::GetFileNameWithoutExtension($ImagePath).ToLower()
-
-    # Categorización inteligente basada en palabras clave
-    $categoryMap = @{
-        "galaxy|galaxia|nebula|nebulosa|milky|via|lactea" = "galaxy"
-        "planet|planeta|mars|tierra|earth|jupiter|saturn|venus|mercury" = "planet"
-        "star|estrella|solar|sun|sol|stellar" = "stellar"
-        "space|espacio|cosmos|cosmic|universe|universo" = "space"
-        "telescope|telescopio|hubble|webb|jwst|james|observatory" = "telescope"
-        "astronaut|astronauta|spacewalk|eva|crew|tripulacion" = "astronaut"
-        "mission|mision|rover|perseverance|curiosity|apollo|artemis" = "mission"
-    }
-
-    foreach ($pattern in $categoryMap.GetEnumerator()) {
-        if ($fileName -match $pattern.Key) {
-            return $pattern.Value
-        }
-    }
-
-    return "cosmic"  # Categoría por defecto
-}
-
-function Get-ImageQuality {
-    <#
-    .SYNOPSIS
-        Determina la calidad de una imagen basándose en su tamaño
-    #>
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ImagePath
-    )
-
-    $fileInfo = Get-Item $ImagePath
-    $sizeMB = $fileInfo.Length / 1MB
-
-    return switch ($sizeMB) {
-        { $_ -gt 20 } { "ultra_hq" }
-        { $_ -gt 10 } { "high_quality" }
-        { $_ -gt 5 } { "medium_quality" }
-        { $_ -gt 1 } { "standard" }
-        default { "compressed" }
-    }
-}
-
-function Get-BestWallpaper {
-    <#
-    .SYNOPSIS
-        Selecciona el mejor wallpaper para un tema y resolución específicos
-    #>
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet("light", "dark")]
-        [string]$ThemeVariant,
-
-        [Parameter(Mandatory = $true)]
-        [string]$TargetResolution,
-
-        [Parameter(Mandatory = $false)]
-        [string]$CustomWallpaperPath
-    )
-
-    Write-NASALog "Seleccionando wallpaper óptimo para tema $ThemeVariant ($TargetResolution)..." -Level Progress
-
-    # Si hay wallpaper personalizado, validarlo y usarlo
-    if ($CustomWallpaperPath -and (Test-Path $CustomWallpaperPath)) {
-        Write-NASALog "Usando wallpaper personalizado: $(Split-Path $CustomWallpaperPath -Leaf)" -Level Success
-        return $CustomWallpaperPath
-    }
-
-    $wallpaperDir = $Global:SystemPaths.Wallpapers
-    $searchDirs = @($wallpaperDir)
-
-    # Buscar en directorio organizado si existe
-    $organizedDir = Join-Path $wallpaperDir "organized"
-    if (Test-Path $organizedDir) {
-        $searchDirs = @($organizedDir) + $searchDirs
-    }
-
-    # Patrones de búsqueda específicos por tema
-    $themePatterns = switch ($ThemeVariant) {
-        "dark" {
-            @(
-                "*galaxy*", "*nebula*", "*deep*", "*dark*", "*black*", "*night*",
-                "*cosmos*", "*stellar*", "*void*", "*mystery*"
-            )
-        }
-        "light" {
-            @(
-                "*earth*", "*planet*", "*blue*", "*bright*", "*light*", "*day*",
-                "*solar*", "*mission*", "*apollo*", "*telescope*"
-            )
-        }
-    }
-
-    $candidates = @()
-
-    # Buscar en cada directorio
-    foreach ($searchDir in $searchDirs) {
-        foreach ($pattern in $themePatterns) {
-            $matches = Get-ChildItem -Path $searchDir -Filter "$pattern.*" -Recurse -ErrorAction SilentlyContinue
-            $candidates += $matches | Where-Object { $_.Extension -match '\.(jpg|jpeg|png|webp|bmp)$' }
-        }
-    }
-
-    if ($candidates.Count -gt 0) {
-        # Ordenar por calidad (tamaño) y seleccionar el mejor
-        $bestCandidate = $candidates | Sort-Object Length -Descending | Select-Object -First 1
-        Write-NASALog "Wallpaper seleccionado: $($bestCandidate.Name) ($([math]::Round($bestCandidate.Length/1MB, 2)) MB)" -Level Success
-        return $bestCandidate.FullName
-    }
-
-    # Fallback: buscar cualquier imagen de calidad
-    Write-NASALog "Aplicando selección de respaldo..." -Level Warning
-    $allImages = Get-ChildItem -Path $wallpaperDir -Include @("*.jpg", "*.jpeg", "*.png", "*.webp") -Recurse |
-                 Sort-Object Length -Descending |
-                 Select-Object -First 5
-
-    if ($allImages.Count -gt 0) {
-        $fallback = $allImages | Get-Random
-        Write-NASALog "Usando wallpaper de respaldo: $($fallback.Name)" -Level Warning
-        return $fallback.FullName
-    }
-
-    Write-NASALog "No se encontraron wallpapers adecuados" -Level Error
-    return $null
-}
-
-# ==========================================
-# FUNCIONES DE INSTALACIÓN Y CONFIGURACIÓN
+# FUNCIONES PRINCIPALES CORREGIDAS
 # ==========================================
 
 function New-ThemeDirectories {
@@ -732,11 +222,9 @@ function New-ThemeDirectories {
             if (-not (Test-Path $dir)) {
                 New-Item -Path $dir -ItemType Directory -Force | Out-Null
                 Write-NASALog "Directorio creado: $dir" -Level Success
-            } else {
-                Write-NASALog "Directorio existente: $dir" -Level Info
             }
         } catch {
-            Write-NASALog "Error creando directorio $dir : $($_.Exception.Message)" -Level Error -Critical
+            Write-NASALog "Error creando directorio $dir : $($_.Exception.Message)" -Level Error
             throw
         }
     }
@@ -746,16 +234,10 @@ function Install-NASATheme {
     param(
         [Parameter(Mandatory = $true)]
         [ValidateSet("Light", "Dark")]
-        [string]$Theme,
-
-        [Parameter(Mandatory = $true)]
-        [string]$Resolution,
-
-        [Parameter(Mandatory = $false)]
-        [string]$CustomWallpaperPath
+        [string]$Theme
     )
 
-    Write-NASALog "Instalando tema NASA $Theme..." -Level Header
+    Write-NASALog "Instalando tema NASA $Theme con presentación automática..." -Level Header
 
     $themeVariant = $Theme.ToLower()
     $sourceDir = Join-Path $Global:SystemPaths.Windows $themeVariant
@@ -778,80 +260,74 @@ function Install-NASATheme {
         Copy-Item -Path $themeFile.FullName -Destination $targetThemeFile -Force
         Write-NASALog "Archivo de tema copiado: $($themeFile.Name)" -Level Success
 
-        # Instalar wallpaper
-        $wallpaperPath = Get-BestWallpaper -ThemeVariant $themeVariant -TargetResolution $Resolution -CustomWallpaperPath $CustomWallpaperPath
+        # COPIAR TODOS LOS WALLPAPERS PARA PRESENTACIÓN
+        $wallpaperDestDir = Join-Path $targetDir "wallpapers"
+        $sourceWallpaperDir = $Global:SystemPaths.Wallpapers
 
-        if ($wallpaperPath) {
-            $wallpaperDestDir = Join-Path $targetDir "wallpapers"
-            $extension = [System.IO.Path]::GetExtension($wallpaperPath)
-            $destWallpaperName = "nasa_${themeVariant}_wallpaper${extension}"
-            $destWallpaperPath = Join-Path $wallpaperDestDir $destWallpaperName
+        Write-NASALog "Copiando wallpapers para presentación automática cada 10 minutos..." -Level Progress
 
-            Copy-Item -Path $wallpaperPath -Destination $destWallpaperPath -Force
-            Write-NASALog "Wallpaper instalado: $destWallpaperName" -Level Success
+        # Buscar wallpapers SOLO en el directorio raíz (evitar duplicados del directorio "organized")
+        $imageExtensions = @("*.jpg", "*.jpeg", "*.png", "*.webp", "*.bmp")
+        $allWallpapers = @()
 
-            # Actualizar archivo de tema con nueva ruta
-            Update-ThemeWallpaperPath -ThemeFile $targetThemeFile -WallpaperPath $destWallpaperPath
+        foreach ($ext in $imageExtensions) {
+            $images = Get-ChildItem -Path $sourceWallpaperDir -Filter $ext -ErrorAction SilentlyContinue
+            $allWallpapers += $images
         }
 
-        # Configurar presentación si está habilitada
-        if ($EnableSlideshow) {
-            Set-SlideshowConfiguration -ThemeDirectory $targetDir -IntervalMinutes $SlideshowInterval
+        if ($allWallpapers.Count -eq 0) {
+            Write-NASALog "No se encontraron wallpapers en: $sourceWallpaperDir" -Level Warning
+            return $false
         }
 
-        # Configurar registro
-        Set-ThemeRegistryConfiguration -Theme $Theme -ThemePath $targetDir
+        Write-NASALog "📷 Encontrados $($allWallpapers.Count) wallpapers originales para copiar..." -Level Info
 
-        # Configuraciones específicas del tema oscuro
-        if ($Theme -eq "Dark") {
-            Set-JWSTDarkConfiguration
+        # Copiar todos los wallpapers al directorio del tema
+        $copiedCount = 0
+        foreach ($wallpaper in $allWallpapers) {
+            try {
+                $destPath = Join-Path $wallpaperDestDir $wallpaper.Name
+
+                # Evitar duplicados
+                $counter = 1
+                while (Test-Path $destPath) {
+                    $baseName = [System.IO.Path]::GetFileNameWithoutExtension($wallpaper.Name)
+                    $extension = [System.IO.Path]::GetExtension($wallpaper.Name)
+                    $destPath = Join-Path $wallpaperDestDir "${baseName}_${counter}${extension}"
+                    $counter++
+                }
+
+                Copy-Item -Path $wallpaper.FullName -Destination $destPath -Force
+                $copiedCount++
+
+                # Mostrar progreso cada 100 wallpapers
+                if ($copiedCount % 100 -eq 0) {
+                    Write-NASALog "🖼️ Copiados $copiedCount de $($allWallpapers.Count) wallpapers..." -Level Progress
+                }
+            } catch {
+                Write-NASALog "Error copiando $($wallpaper.Name): $($_.Exception.Message)" -Level Warning
+            }
         }
 
-        Write-NASALog "Tema $Theme instalado exitosamente" -Level Success
+        Write-NASALog "✅ $copiedCount wallpapers copiados para presentación automática" -Level Success
+
+        # Configurar presentación automática (10 minutos, aleatorio)
+        Set-SlideshowConfiguration
+
+        Write-NASALog "Tema $Theme instalado exitosamente con $copiedCount wallpapers en presentación" -Level Success
         return $true
     } catch {
-        Write-NASALog "Error instalando tema $Theme : $($_.Exception.Message)" -Level Error -Critical
+        Write-NASALog "Error instalando tema $Theme : $($_.Exception.Message)" -Level Error
         return $false
     }
 }
 
-function Update-ThemeWallpaperPath {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ThemeFile,
-
-        [Parameter(Mandatory = $true)]
-        [string]$WallpaperPath
-    )
-
-    try {
-        $content = Get-Content -Path $ThemeFile -Encoding UTF8
-        $updatedContent = $content | ForEach-Object {
-            if ($_ -match "^Wallpaper=") {
-                "Wallpaper=$WallpaperPath"
-            } else {
-                $_
-            }
-        }
-
-        Set-Content -Path $ThemeFile -Value $updatedContent -Encoding UTF8
-        Write-NASALog "Ruta de wallpaper actualizada en archivo de tema" -Level Success
-    } catch {
-        Write-NASALog "Error actualizando ruta de wallpaper: $($_.Exception.Message)" -Level Warning
-    }
-}
-
 function Set-SlideshowConfiguration {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$ThemeDirectory,
-
-        [Parameter(Mandatory = $true)]
-        [int]$IntervalMinutes
-    )
+    Write-NASALog "Configurando presentación automática cada 10 minutos (aleatorio)..." -Level Progress
 
     try {
-        $intervalMs = $IntervalMinutes * 60 * 1000
+        # Configuración exacta según capturas del usuario - 10 minutos
+        $intervalMs = 600000  # 10 minutos en milisegundos
 
         # Configurar registro para presentación
         $slideshowPath = "HKCU:\Control Panel\Desktop"
@@ -859,121 +335,47 @@ function Set-SlideshowConfiguration {
         Set-ItemProperty -Path $slideshowPath -Name "SlideshowInterval" -Value $intervalMs -Type DWord
         Set-ItemProperty -Path $slideshowPath -Name "SlideshowShuffle" -Value 1 -Type DWord
 
-        Write-NASALog "Presentación de wallpapers configurada ($IntervalMinutes minutos)" -Level Success
-    } catch {
-        Write-NASALog "Error configurando presentación: $($_.Exception.Message)" -Level Warning
-    }
-}
+        # Configuraciones adicionales según capturas
+        Set-ItemProperty -Path $slideshowPath -Name "WallpaperStyle" -Value 6 -Type DWord  # Expandir
+        Set-ItemProperty -Path $slideshowPath -Name "FitMode" -Value 6 -Type DWord
 
-function Set-ThemeRegistryConfiguration {
-    param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet("Light", "Dark")]
-        [string]$Theme,
+        # Configuración de batería - NO ejecutar en batería como en capturas
+        Set-ItemProperty -Path $slideshowPath -Name "SlideshowRunOnBattery" -Value 0 -Type DWord
 
-        [Parameter(Mandatory = $true)]
-        [string]$ThemePath
-    )
-
-    Write-NASALog "Configurando registro de Windows para tema $Theme..." -Level Progress
-
-    try {
-        $themeRegistryPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes"
-        if (-not (Test-Path $themeRegistryPath)) {
-            New-Item -Path $themeRegistryPath -Force | Out-Null
-        }
-
-        $themeEntryPath = "$themeRegistryPath\NASA_$Theme"
-        New-Item -Path $themeEntryPath -Force | Out-Null
-        Set-ItemProperty -Path $themeEntryPath -Name "DisplayName" -Value "NASA $Theme Theme" -Type String
-        Set-ItemProperty -Path $themeEntryPath -Name "InstallPath" -Value $ThemePath -Type String
-        Set-ItemProperty -Path $themeEntryPath -Name "Version" -Value $Global:NASAThemeConfig.Version -Type String
-
-        Write-NASALog "Registro de tema configurado correctamente" -Level Success
-    } catch {
-        Write-NASALog "Advertencia: No se pudo configurar el registro del tema: $($_.Exception.Message)" -Level Warning
-    }
-}
-
-function Set-JWSTDarkConfiguration {
-    Write-NASALog "Aplicando configuración avanzada James Webb Space Telescope..." -Level Progress
-
-    try {
-        # Personalización del usuario
+        # Configuraciones específicas para Windows 11
         $personalizePath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
         if (-not (Test-Path $personalizePath)) {
             New-Item -Path $personalizePath -Force | Out-Null
         }
 
-        # Modo oscuro completo
-        Set-ItemProperty -Path $personalizePath -Name "SystemUsesLightTheme" -Value 0 -Type DWord
-        Set-ItemProperty -Path $personalizePath -Name "AppsUseLightTheme" -Value 0 -Type DWord
+        # EFECTOS DE TRANSPARENCIA ACTIVADOS - SEGÚN CAPTURAS
         Set-ItemProperty -Path $personalizePath -Name "EnableTransparency" -Value 1 -Type DWord
+        # COLOR DE ÉNFASIS AUTOMÁTICO - SEGÚN CAPTURAS
+        Set-ItemProperty -Path $personalizePath -Name "AutoColorization" -Value 1 -Type DWord
+        # MOSTRAR COLOR EN INICIO Y BARRA DE TAREAS - ACTIVADO SEGÚN CAPTURAS
         Set-ItemProperty -Path $personalizePath -Name "ColorPrevalence" -Value 1 -Type DWord
 
-        # Color de énfasis JWST Ginger Bread
-        $accentColor = 0xFFA55541
-        Set-ItemProperty -Path $personalizePath -Name "AccentColor" -Value $accentColor -Type DWord
-
-        # Desktop Window Manager
-        $dwmPath = "HKCU:\Software\Microsoft\Windows\DWM"
-        if (-not (Test-Path $dwmPath)) {
-            New-Item -Path $dwmPath -Force | Out-Null
-        }
-
-        Set-ItemProperty -Path $dwmPath -Name "ColorPrevalence" -Value 1 -Type DWord
-        Set-ItemProperty -Path $dwmPath -Name "AccentColor" -Value $accentColor -Type DWord
-        Set-ItemProperty -Path $dwmPath -Name "EnableAeroPeek" -Value 1 -Type DWord
-        Set-ItemProperty -Path $dwmPath -Name "Composition" -Value 1 -Type DWord
-
-        # Colores del sistema con paleta JWST
-        $colorsPath = "HKCU:\Control Panel\Colors"
-        $jwstColors = $Global:NASAThemeConfig.JWSTColors
-
-        Set-ItemProperty -Path $colorsPath -Name "Window" -Value "$($jwstColors.Mystical.RGB[0]) $($jwstColors.Mystical.RGB[1]) $($jwstColors.Mystical.RGB[2])" -Type String
-        Set-ItemProperty -Path $colorsPath -Name "WindowText" -Value "220 215 235" -Type String
-        Set-ItemProperty -Path $colorsPath -Name "Hilight" -Value "$($jwstColors.GingerBread.RGB[0]) $($jwstColors.GingerBread.RGB[1]) $($jwstColors.GingerBread.RGB[2])" -Type String
-        Set-ItemProperty -Path $colorsPath -Name "HilightText" -Value "255 255 255" -Type String
-
-        Write-NASALog "Configuración JWST aplicada correctamente" -Level Success
+        Write-NASALog "✅ Presentación configurada: 10 minutos, aleatorio, NO en batería" -Level Success
     } catch {
-        Write-NASALog "Advertencia: No se pudieron aplicar todas las configuraciones JWST: $($_.Exception.Message)" -Level Warning
+        Write-NASALog "Error configurando presentación: $($_.Exception.Message)" -Level Warning
     }
 }
 
 function Invoke-SystemRefresh {
-    param(
-        [Parameter(Mandatory = $false)]
-        [switch]$SkipExplorerRestart
-    )
-
     Write-NASALog "Aplicando cambios al sistema Windows..." -Level Progress
 
     try {
         # Actualizar configuraciones del sistema
-        try {
-            $null = Start-Process -FilePath "rundll32.exe" -ArgumentList "user32.dll,UpdatePerUserSystemParameters" -Wait -WindowStyle Hidden -ErrorAction SilentlyContinue
-            Write-NASALog "Configuraciones del usuario actualizadas" -Level Success
-        } catch {
-            Write-NASALog "Método alternativo para actualización del sistema" -Level Info
-        }
+        $null = Start-Process -FilePath "rundll32.exe" -ArgumentList "user32.dll,UpdatePerUserSystemParameters" -Wait -WindowStyle Hidden -ErrorAction SilentlyContinue
 
         # Reiniciar Windows Explorer si no se omite
         if (-not $SkipExplorerRestart) {
             Write-NASALog "Reiniciando Windows Explorer..." -Level Progress
-
             try {
-                # Finalizar procesos del explorador
-                $explorerProcesses = Get-Process -Name "explorer" -ErrorAction SilentlyContinue
-                if ($explorerProcesses) {
-                    Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
-                    Start-Sleep -Seconds 3
-                }
-
-                # Reiniciar el explorador
+                Stop-Process -Name "explorer" -Force -ErrorAction SilentlyContinue
+                Start-Sleep -Seconds 2
                 Start-Process "explorer.exe"
                 Start-Sleep -Seconds 3
-
                 Write-NASALog "Windows Explorer reiniciado correctamente" -Level Success
             } catch {
                 Write-NASALog "El explorador se reiniciará automáticamente" -Level Info
@@ -986,263 +388,463 @@ function Invoke-SystemRefresh {
     }
 }
 
-function Backup-CurrentTheme {
-    if (-not $BackupCurrentTheme) { return $true }
-
-    Write-NASALog "Creando respaldo del tema actual..." -Level Progress
-
-    try {
-        $backupDir = $Global:NASAThemeConfig.BackupDir
-        if (-not (Test-Path $backupDir)) {
-            New-Item -Path $backupDir -ItemType Directory -Force | Out-Null
-        }
-
-        # Respaldar configuraciones del registro
-        $regBackupPath = Join-Path $backupDir "theme_registry_backup.reg"
-        $exportPaths = @(
-            "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-            "HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM",
-            "HKEY_CURRENT_USER\Control Panel\Colors"
-        )
-
-        foreach ($regPath in $exportPaths) {
-            $null = Start-Process -FilePath "reg.exe" -ArgumentList "export", "`"$regPath`"", "`"$regBackupPath`"", "/y" -Wait -WindowStyle Hidden -ErrorAction SilentlyContinue
-        }
-
-        Write-NASALog "Respaldo creado en: $backupDir" -Level Success
-        return $true
-    } catch {
-        Write-NASALog "Error creando respaldo: $($_.Exception.Message)" -Level Warning
-        return $false
-    }
-}
-
-function Uninstall-NASAThemes {
-    Write-NASALog "Desinstalando temas NASA del sistema..." -Level Header
-
-    $themesToRemove = @(
-        $Global:SystemPaths.LightTheme,
-        $Global:SystemPaths.DarkTheme
-    )
-
-    $removedCount = 0
-
-    foreach ($themePath in $themesToRemove) {
-        if (Test-Path $themePath) {
-            try {
-                Remove-Item -Path $themePath -Recurse -Force
-                Write-NASALog "Tema eliminado: $themePath" -Level Success
-                $removedCount++
-            } catch {
-                Write-NASALog "Error eliminando tema $themePath : $($_.Exception.Message)" -Level Error
-            }
-        }
-    }
-
-    # Limpiar registro
-    try {
-        $registryPaths = @(
-            "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\NASA_Light",
-            "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\NASA_Dark"
-        )
-
-        foreach ($regPath in $registryPaths) {
-            if (Test-Path $regPath) {
-                Remove-Item -Path $regPath -Force -ErrorAction SilentlyContinue
-            }
-        }
-
-        Write-NASALog "Entradas del registro limpiadas" -Level Success
-    } catch {
-        Write-NASALog "Advertencia: No se pudieron limpiar todas las entradas del registro" -Level Warning
-    }
-
-    if ($removedCount -gt 0) {
-        Write-NASALog "Desinstalación completada: $removedCount temas eliminados" -Level Success
-        return $true
-    } else {
-        Write-NASALog "No se encontraron temas NASA para desinstalar" -Level Warning
-        return $false
-    }
-}
-
 function Show-InstallationSummary {
     param(
-        [Parameter(Mandatory = $true)]
         [bool]$LightInstalled,
-
-        [Parameter(Mandatory = $true)]
         [bool]$DarkInstalled,
-
-        [Parameter(Mandatory = $true)]
-        [string]$Resolution
+        [bool]$CursorsInstalled = $false
     )
 
     Write-NASALog "RESUMEN DE INSTALACIÓN COMPLETADA" -Level Header
 
-    # Estado de instalación
     Write-Host ""
     Write-Host "🎨 ESTADO DE TEMAS:" -ForegroundColor $Global:UITheme.NASA
-    Write-Host "   • NASA Light Theme: " -NoNewline -ForegroundColor $Global:UITheme.Info
+
     if ($LightInstalled) {
-        Write-Host "✅ INSTALADO" -ForegroundColor $Global:UITheme.Success
-    } else {
-        Write-Host "❌ NO INSTALADO" -ForegroundColor $Global:UITheme.Error
+        Write-Host "   ✅ NASA Light Theme: INSTALADO con presentación automática" -ForegroundColor $Global:UITheme.Success
+    }
+    if ($DarkInstalled) {
+        Write-Host "   ✅ NASA Dark Theme: INSTALADO con presentación automática" -ForegroundColor $Global:UITheme.Success
     }
 
-    Write-Host "   • NASA Dark Theme (JWST Edition): " -NoNewline -ForegroundColor $Global:UITheme.Info
-    if ($DarkInstalled) {
-        Write-Host "✅ INSTALADO" -ForegroundColor $Global:UITheme.Success
-    } else {
-        Write-Host "❌ NO INSTALADO" -ForegroundColor $Global:UITheme.Error
-    }
-
-    if ($DarkInstalled) {
+    if ($LightInstalled -or $DarkInstalled) {
         Write-Host ""
-        Write-Host "🌌 CARACTERÍSTICAS JWST DARK THEME:" -ForegroundColor $Global:UITheme.NASA
-        Write-Host "   • Paleta científica James Webb Space Telescope" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Modo oscuro completo del sistema Windows 11" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Efectos de transparencia y composición DWM" -ForegroundColor $Global:UITheme.Success
-        Write-Host "   • Color de énfasis: Ginger Bread (PANTONE 18-1244 TCX)" -ForegroundColor $Global:UITheme.Success
-        if ($EnableSlideshow) {
-            Write-Host "   • Presentación automática: $SlideshowInterval minutos" -ForegroundColor $Global:UITheme.Success
-        }
+        Write-Host "🖼️ PRESENTACIÓN AUTOMÁTICA:" -ForegroundColor $Global:UITheme.NASA
+        Write-Host "   • Cambio cada 10 minutos" -ForegroundColor $Global:UITheme.Success
+        Write-Host "   • Orden aleatorio activado" -ForegroundColor $Global:UITheme.Success
+        Write-Host "   • TODOS los wallpapers NASA incluidos" -ForegroundColor $Global:UITheme.Success
+        Write-Host "   • NO ejecutar con batería" -ForegroundColor $Global:UITheme.Success
+
+        Write-Host ""
+        Write-Host "🚀 CÓMO APLICAR:" -ForegroundColor $Global:UITheme.NASA
+        Write-Host "   1. Clic derecho en escritorio → Personalizar" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   2. Ir a 'Temas'" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   3. Seleccionar tema NASA" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   4. ¡La presentación automática inicia inmediatamente!" -ForegroundColor $Global:UITheme.Success
     }
 
-    Write-Host ""
-    Write-Host "💻 CONFIGURACIÓN APLICADA:" -ForegroundColor $Global:UITheme.NASA
-    Write-Host "   • Resolución optimizada: $Resolution" -ForegroundColor $Global:UITheme.Accent
-    Write-Host "   • Wallpapers categorizados y optimizados" -ForegroundColor $Global:UITheme.Success
-    Write-Host "   • Registro de Windows actualizado" -ForegroundColor $Global:UITheme.Success
+    if ($CursorsInstalled) {
+        Write-Host ""
+        Write-Host "🖼️ CURSORES MODERNOS ELEGANTES:" -ForegroundColor $Global:UITheme.NASA
+        Write-Host "   ✅ Cursores modernos instalados: $ThemeType" -ForegroundColor $Global:UITheme.Success
+        Write-Host "   🎨 Por JepriCreations (W11 Tail Cursor Concept Free)" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   🌐 Sitio: jepricreations.com" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   🔄 Activación automática tras reiniciar Explorer" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   ⚠️  NOTA: Cursores elegantes que complementan NASA Theme (no temáticos)" -ForegroundColor $Global:UITheme.Warning
 
-    Write-Host ""
-    Write-Host "🚀 CÓMO APLICAR LOS TEMAS:" -ForegroundColor $Global:UITheme.NASA
-    Write-Host "   1. Clic derecho en el escritorio → Personalizar" -ForegroundColor $Global:UITheme.Accent
-    Write-Host "   2. Navegar a 'Temas' en el panel izquierdo" -ForegroundColor $Global:UITheme.Accent
-    Write-Host "   3. Seleccionar el tema NASA deseado" -ForegroundColor $Global:UITheme.Accent
-    Write-Host "   4. ¡Disfrutar del cosmos en su escritorio!" -ForegroundColor $Global:UITheme.Success
-
-    Write-Host ""
-    Write-Host "📁 RUTAS DE INSTALACIÓN:" -ForegroundColor $Global:UITheme.Info
-    if ($LightInstalled) {
-        Write-Host "   • Light Theme: $($Global:SystemPaths.LightTheme)" -ForegroundColor $Global:UITheme.Accent
+        Write-Host ""
+        Write-Host "🛠️ CONFIGURAR CURSORES MANUALMENTE:" -ForegroundColor $Global:UITheme.NASA
+        Write-Host "   1. Panel de Control → Personalización → Temas → Configuración del cursor" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   2. Buscar 'NASA CURSORS by JepriCreations'" -ForegroundColor $Global:UITheme.Info
+        Write-Host "   3. Seleccionar el esquema deseado" -ForegroundColor $Global:UITheme.Info
     }
-    if ($DarkInstalled) {
-        Write-Host "   • Dark Theme: $($Global:SystemPaths.DarkTheme)" -ForegroundColor $Global:UITheme.Accent
-    }
-
-    Write-Host ""
-    Write-Host "📋 Log detallado: $($Global:NASAThemeConfig.LogFile)" -ForegroundColor $Global:UITheme.Info
-
-    if ($BackupCurrentTheme) {
-        Write-Host "💾 Respaldo creado: $($Global:NASAThemeConfig.BackupDir)" -ForegroundColor $Global:UITheme.Warning
-    }
-
-    Write-Host ""
-    Write-Host "⚠️  NOTA: Si algunos efectos no se ven inmediatamente, reinicie Windows." -ForegroundColor $Global:UITheme.Warning
 }
 
 # ==========================================
-# FUNCIÓN PRINCIPAL DEL INSTALADOR
+# INSTALACIÓN DE CURSORES
+# ==========================================
+
+function Install-NASACursors {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("Light", "Dark", "Both")]
+        [string]$CursorTheme
+    )
+
+    Write-NASALog "INSTALANDO CURSORES MODERNOS ELEGANTES" -Level Header
+
+    # Mostrar créditos de cursores
+    Write-NASALog "Cursores por JepriCreations (jepricreations.com)" -Level Info
+    Write-NASALog "W11 Tail Cursor Concept Free - Distribuido bajo permiso no comercial" -Level Info
+    Write-NASALog "NOTA: Cursores modernos que complementan NASA Theme (no temáticos)" -Level Info
+
+    $success = $false
+
+    try {
+        # Verificar que existen los cursores
+        if (-not (Test-Path $Global:SystemPaths.Cursors)) {
+            Write-NASALog "Directorio de cursores no encontrado: $($Global:SystemPaths.Cursors)" -Level Error
+            return $false
+        }
+
+        # Instalar según el tema seleccionado
+        switch ($CursorTheme) {
+            "Light" {
+                $success = Install-CursorSet -CursorVariant "light"
+            }
+            "Dark" {
+                $success = Install-CursorSet -CursorVariant "dark"
+            }
+            "Both" {
+                $lightSuccess = Install-CursorSet -CursorVariant "light"
+                $darkSuccess = Install-CursorSet -CursorVariant "dark"
+                $success = $lightSuccess -or $darkSuccess
+
+                # Aplicar el cursor que coincida con el tema principal
+                if ($ThemeType -eq "Dark" -and $darkSuccess) {
+                    Apply-CursorScheme -CursorVariant "dark"
+                } elseif ($ThemeType -eq "Light" -and $lightSuccess) {
+                    Apply-CursorScheme -CursorVariant "light"
+                } elseif ($darkSuccess) {
+                    Apply-CursorScheme -CursorVariant "dark"
+                } elseif ($lightSuccess) {
+                    Apply-CursorScheme -CursorVariant "light"
+                }
+            }
+        }
+
+        if ($success) {
+            Write-NASALog "✅ Cursores NASA instalados exitosamente" -Level Success
+            Write-NASALog "Los cursores se activarán tras reiniciar Windows Explorer" -Level Info
+        } else {
+            Write-NASALog "❌ Error durante la instalación de cursores" -Level Warning
+        }
+
+        return $success
+
+    } catch {
+        Write-NASALog "Error instalando cursores: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+function Install-CursorSet {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("light", "dark")]
+        [string]$CursorVariant
+    )
+
+    Write-NASALog "Instalando set de cursores: $CursorVariant" -Level Progress
+
+    $cursorSourcePath = Join-Path $Global:SystemPaths.Cursors $CursorVariant
+    $cursorDestPath = Join-Path $Global:SystemPaths.CursorInstallPath "NASA_$($CursorVariant.ToUpper())"
+
+    if (-not (Test-Path $cursorSourcePath)) {
+        Write-NASALog "Fuente de cursores no encontrada: $cursorSourcePath" -Level Error
+        return $false
+    }
+
+    try {
+        # Crear directorio de destino
+        if (-not (Test-Path $cursorDestPath)) {
+            New-Item -Path $cursorDestPath -ItemType Directory -Force | Out-Null
+            Write-NASALog "Directorio de cursores creado: $cursorDestPath" -Level Success
+        }
+
+        # Copiar archivos de cursores
+        $cursorFiles = Get-ChildItem -Path $cursorSourcePath -Filter "*.cur" -ErrorAction SilentlyContinue
+        $animatedFiles = Get-ChildItem -Path $cursorSourcePath -Filter "*.ani" -ErrorAction SilentlyContinue
+        $allCursorFiles = $cursorFiles + $animatedFiles
+
+        $copiedCount = 0
+        foreach ($file in $allCursorFiles) {
+            try {
+                $destFile = Join-Path $cursorDestPath $file.Name
+                Copy-Item -Path $file.FullName -Destination $destFile -Force
+                $copiedCount++
+            } catch {
+                Write-NASALog "Error copiando $($file.Name): $($_.Exception.Message)" -Level Warning
+            }
+        }
+
+        Write-NASALog "Cursores copiados: $copiedCount archivos" -Level Success
+
+        # Instalar esquema de cursores en el registro
+        $success = Register-CursorScheme -CursorVariant $CursorVariant -CursorPath $cursorDestPath
+
+        if ($success -and $copiedCount -gt 0) {
+            # Aplicar automáticamente si es el único tema instalándose
+            if ($CursorVariant -eq $ThemeType.ToLower() -or $ThemeType -eq "Both") {
+                Apply-CursorScheme -CursorVariant $CursorVariant
+            }
+            return $true
+        }
+
+        return $false
+
+    } catch {
+        Write-NASALog "Error durante instalación de cursores: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+function Register-CursorScheme {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("light", "dark")]
+        [string]$CursorVariant,
+
+        [Parameter(Mandatory = $true)]
+        [string]$CursorPath
+    )
+
+    try {
+        $schemeName = "NASA $($CursorVariant.ToUpper()) Cursors by JepriCreations"
+        $schemeKey = "HKCU:\Control Panel\Cursors\Schemes"
+
+        # Definir mapeo de cursores según Windows
+        $cursorMapping = @{
+            "Arrow" = "arrow.cur"
+            "Help" = "help.cur"
+            "AppStarting" = "appstarting.ani"
+            "Wait" = "wait.ani"
+            "Crosshair" = "crosshair.cur"
+            "IBeam" = "ibeam.cur"
+            "NWPen" = "nwpen.cur"
+            "No" = "no.cur"
+            "SizeNS" = "sizens.cur"
+            "SizeWE" = "sizewe.cur"
+            "SizeNWSE" = "sizenwse.cur"
+            "SizeNESW" = "sizenesw.cur"
+            "SizeAll" = "sizeall.cur"
+            "UpArrow" = "uparrow.cur"
+            "Hand" = "hand.cur"
+            "Person" = "person.cur"
+            "Pin" = "pin.cur"
+        }
+
+        # Construir string del esquema
+        $schemeValue = ""
+        foreach ($cursor in @("Arrow", "Help", "AppStarting", "Wait", "Crosshair", "IBeam", "NWPen", "No", "SizeNS", "SizeWE", "SizeNWSE", "SizeNESW", "SizeAll", "UpArrow", "Hand", "Person", "Pin")) {
+            $cursorFile = $cursorMapping[$cursor]
+            $fullPath = Join-Path $CursorPath $cursorFile
+
+            if (Test-Path $fullPath) {
+                $schemeValue += "$fullPath,"
+            } else {
+                $schemeValue += ","
+            }
+        }
+        $schemeValue = $schemeValue.TrimEnd(",")
+
+        # Registrar esquema
+        if (-not (Test-Path $schemeKey)) {
+            New-Item -Path $schemeKey -Force | Out-Null
+        }
+
+        Set-ItemProperty -Path $schemeKey -Name $schemeName -Value $schemeValue -Type String
+        Write-NASALog "Esquema de cursores registrado: $schemeName" -Level Success
+
+        return $true
+
+    } catch {
+        Write-NASALog "Error registrando esquema de cursores: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+function Apply-CursorScheme {
+    param(
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("light", "dark")]
+        [string]$CursorVariant
+    )
+
+    try {
+        $cursorPath = Join-Path $Global:SystemPaths.CursorInstallPath "NASA_$($CursorVariant.ToUpper())"
+        $cursorKey = "HKCU:\Control Panel\Cursors"
+
+        if (-not (Test-Path $cursorPath)) {
+            Write-NASALog "Ruta de cursores no encontrada: $cursorPath" -Level Error
+            return $false
+        }
+
+        # Aplicar cursores individuales
+        $cursorMapping = @{
+            "Arrow" = "arrow.cur"
+            "Help" = "help.cur"
+            "AppStarting" = "appstarting.ani"
+            "Wait" = "wait.ani"
+            "Crosshair" = "crosshair.cur"
+            "IBeam" = "ibeam.cur"
+            "NWPen" = "nwpen.cur"
+            "No" = "no.cur"
+            "SizeNS" = "sizens.cur"
+            "SizeWE" = "sizewe.cur"
+            "SizeNWSE" = "sizenwse.cur"
+            "SizeNESW" = "sizenesw.cur"
+            "SizeAll" = "sizeall.cur"
+            "UpArrow" = "uparrow.cur"
+            "Hand" = "hand.cur"
+            "Person" = "person.cur"
+            "Pin" = "pin.cur"
+        }
+
+        $appliedCount = 0
+        foreach ($cursorType in $cursorMapping.Keys) {
+            $cursorFile = $cursorMapping[$cursorType]
+            $fullPath = Join-Path $cursorPath $cursorFile
+
+            if (Test-Path $fullPath) {
+                Set-ItemProperty -Path $cursorKey -Name $cursorType -Value $fullPath -Type String
+                $appliedCount++
+            }
+        }
+
+        # Establecer nombre del esquema
+        $schemeName = "NASA $($CursorVariant.ToUpper()) Cursors by JepriCreations"
+        Set-ItemProperty -Path $cursorKey -Name "" -Value $schemeName -Type String
+
+        Write-NASALog "Cursores aplicados: $appliedCount de $($cursorMapping.Count)" -Level Success
+
+        # Notificar al sistema del cambio
+        try {
+            $signature = @"
+[DllImport("user32.dll", SetLastError = true)]
+public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, string pvParam, uint fWinIni);
+"@
+            $type = Add-Type -MemberDefinition $signature -Name Win32Utils -Namespace SystemParametersInfo -PassThru -ErrorAction SilentlyContinue
+            if ($type) {
+                $type::SystemParametersInfo(0x0057, 0, $null, 0x02) | Out-Null
+                Write-NASALog "Sistema notificado del cambio de cursores" -Level Success
+            }
+        } catch {
+            Write-NASALog "Los cursores se aplicarán tras reiniciar Windows Explorer" -Level Info
+        }
+
+        return $true
+
+    } catch {
+        Write-NASALog "Error aplicando cursores: $($_.Exception.Message)" -Level Error
+        return $false
+    }
+}
+
+# ==========================================
+# FUNCIÓN PRINCIPAL
 # ==========================================
 
 function Invoke-NASAThemeInstaller {
     try {
-        # Inicializar logging
-        "=" * 100 | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Encoding UTF8
-        "NASA Theme Installer Professional v$($Global:NASAThemeConfig.Version)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
-        "Inicio: $(Get-Date)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
-        "=" * 100 | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
+        if (-not $Silent) {
+            Clear-Host
+            Write-Host "🚀 NASA THEME INSTALLER" -ForegroundColor $Global:UITheme.NASA
+            Write-Host "═" * 60 -ForegroundColor DarkGray
+            Write-Host "✅ Presentación automática con TODOS los wallpapers NASA" -ForegroundColor $Global:UITheme.Success
+            Write-Host "✅ Cursores modernos elegantes por JepriCreations (opcional)" -ForegroundColor $Global:UITheme.Success
+            Write-Host "✅ Cumple con NASA Brand Guidelines (Uso NO COMERCIAL)" -ForegroundColor $Global:UITheme.Success
+            Write-Host "📸 Imágenes oficiales desde images.nasa.gov y portales NASA" -ForegroundColor $Global:UITheme.Info
+            Write-Host "🖱️ Cursores por JepriCreations (jepricreations.com)" -ForegroundColor $Global:UITheme.Info
+            Write-Host "⚠️  NOTA: Cursores NO temáticos - modernos que complementan" -ForegroundColor $Global:UITheme.Warning
+            Write-Host "🚫 NO afiliado con NASA - Proyecto educativo independiente" -ForegroundColor $Global:UITheme.Warning
+            Write-Host "🌌 Compartido con amor por la astronomía y el cosmos" -ForegroundColor $Global:UITheme.Primary
+            Write-Host ""
+        }
 
-        # Mostrar bienvenida
-        Show-NASAWelcome
+        # Inicializar logging
+        "NASA Theme Installer" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Encoding UTF8
+        "Autor: $($Global:NASAThemeConfig.Author)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
+        "Propósito: $($Global:NASAThemeConfig.Purpose)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
+        "Licencia: $($Global:NASAThemeConfig.License)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
+        "NASA Compliance: $($Global:NASAThemeConfig.NASACompliance)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
+        "Inicio: $(Get-Date)" | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
 
         # Modo desinstalación
         if ($Uninstall) {
-            $uninstallResult = Uninstall-NASAThemes
-            if ($uninstallResult) {
-                Write-NASALog "¡Desinstalación de NASA Theme completada exitosamente!" -Level Success
+            Write-NASALog "Desinstalando temas NASA..." -Level Header
+            $themesToRemove = @($Global:SystemPaths.LightTheme, $Global:SystemPaths.DarkTheme)
+            $removedCount = 0
+
+            foreach ($themePath in $themesToRemove) {
+                if (Test-Path $themePath) {
+                    try {
+                        Remove-Item -Path $themePath -Recurse -Force
+                        Write-NASALog "Tema eliminado: $themePath" -Level Success
+                        $removedCount++
+                    } catch {
+                        Write-NASALog "Error eliminando: $($_.Exception.Message)" -Level Error
+                    }
+                }
+            }
+
+            if ($removedCount -gt 0) {
+                Write-NASALog "Desinstalación completada: $removedCount temas eliminados" -Level Success
             }
             return
         }
 
-        # Diagnóstico del sistema
-        if (-not (Test-SystemCompatibility)) {
-            Write-NASALog "Sistema no compatible. Instalación cancelada." -Level Error -Critical
+        # Modo reparación
+        if ($Repair) {
+            Write-NASALog "Modo reparación - verificando y corrigiendo temas..." -Level Header
+
+            # Reiniciar servicios de temas
+            try {
+                $themeService = Get-Service -Name "Themes" -ErrorAction SilentlyContinue
+                if ($themeService) {
+                    Restart-Service -Name "Themes" -Force -ErrorAction SilentlyContinue
+                    Write-NASALog "Servicio de temas reiniciado" -Level Success
+                }
+            } catch { }
+
+            Invoke-SystemRefresh
+            Write-NASALog "Reparación completada" -Level Success
             return
         }
 
-        # Detectar resolución de pantalla
-        $screenInfo = Get-OptimalResolution
-        $targetResolution = if ($Resolution -eq "Auto") {
-            $screenInfo.Resolution
-        } else {
-            $Resolution
+        # Verificación básica
+        if (-not (Test-Path $Global:SystemPaths.Wallpapers)) {
+            Write-NASALog "Directorio de wallpapers no encontrado: $($Global:SystemPaths.Wallpapers)" -Level Error
+            return
         }
 
-        Write-NASALog "Resolución objetivo: $targetResolution ($($screenInfo.Category))" -Level NASA
-
-        # Crear respaldo si se solicita
-        Backup-CurrentTheme
-
-        # Optimizar wallpapers
-        Optimize-WallpaperCollection
-
-        # Crear estructura de directorios
+        # Crear directorios
         New-ThemeDirectories
 
         # Instalar temas
         $lightInstalled = $false
         $darkInstalled = $false
+        $cursorsInstalled = $false
 
         switch ($ThemeType) {
             "Light" {
-                $lightInstalled = Install-NASATheme -Theme "Light" -Resolution $targetResolution -CustomWallpaperPath $WallpaperPath
+                $lightInstalled = Install-NASATheme -Theme "Light"
             }
             "Dark" {
-                $darkInstalled = Install-NASATheme -Theme "Dark" -Resolution $targetResolution -CustomWallpaperPath $WallpaperPath
+                $darkInstalled = Install-NASATheme -Theme "Dark"
             }
             "Both" {
-                $lightInstalled = Install-NASATheme -Theme "Light" -Resolution $targetResolution -CustomWallpaperPath $WallpaperPath
-                $darkInstalled = Install-NASATheme -Theme "Dark" -Resolution $targetResolution -CustomWallpaperPath $WallpaperPath
+                $lightInstalled = Install-NASATheme -Theme "Light"
+                $darkInstalled = Install-NASATheme -Theme "Dark"
             }
+        }
+
+        # Instalar cursores si se solicita
+        if ($InstallCursors -and ($lightInstalled -or $darkInstalled)) {
+            Write-NASALog "Iniciando instalación de cursores..." -Level Progress
+            $cursorsInstalled = Install-NASACursors -CursorTheme $ThemeType
         }
 
         # Aplicar cambios al sistema
         if ($lightInstalled -or $darkInstalled) {
-            Invoke-SystemRefresh -SkipExplorerRestart:$SkipExplorerRestart
+            Invoke-SystemRefresh
         }
 
         # Mostrar resumen
-        Show-InstallationSummary -LightInstalled $lightInstalled -DarkInstalled $darkInstalled -Resolution $targetResolution
+        Show-InstallationSummary -LightInstalled $lightInstalled -DarkInstalled $darkInstalled -CursorsInstalled $cursorsInstalled
 
         if ($lightInstalled -or $darkInstalled) {
             Write-NASALog "🚀 ¡INSTALACIÓN NASA THEME COMPLETADA EXITOSAMENTE! 🚀" -Level NASA
         } else {
-            Write-NASALog "La instalación no se completó correctamente. Revise el log para detalles." -Level Error -Critical
+            Write-NASALog "La instalación no se completó correctamente." -Level Error
         }
 
     } catch {
-        Write-NASALog "Error crítico durante la instalación: $($_.Exception.Message)" -Level Error -Critical
-        Write-NASALog "Detalles completos en: $($Global:NASAThemeConfig.LogFile)" -Level Error
-
-        # Log de error detallado
-        $_.Exception | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
-        $_.ScriptStackTrace | Out-File -FilePath $Global:NASAThemeConfig.LogFile -Append -Encoding UTF8
+        Write-NASALog "Error crítico: $($_.Exception.Message)" -Level Error
+        Write-NASALog "Detalles en: $($Global:NASAThemeConfig.LogFile)" -Level Error
     }
     finally {
         if (-not $Silent) {
             Write-Host ""
-            Write-Host "🌌 Gracias por usar NASA Theme - Explorando el cosmos desde su escritorio" -ForegroundColor $Global:UITheme.NASA
-            Write-Host "Presione cualquier tecla para continuar..." -ForegroundColor $Global:UITheme.Accent
+            Write-Host "Log detallado: $($Global:NASAThemeConfig.LogFile)" -ForegroundColor $Global:UITheme.Info
+            Write-Host "Presione cualquier tecla para continuar..." -ForegroundColor $Global:UITheme.Info
             $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
         }
     }
 }
 
 # ==========================================
-# EJECUCIÓN DEL INSTALADOR
+# EJECUCIÓN
 # ==========================================
 
-# Ejecutar instalador principal
 Invoke-NASAThemeInstaller

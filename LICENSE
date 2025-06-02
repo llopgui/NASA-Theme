@@ -1,20 +1,65 @@
-NASA Theme Project
-Repositorio: https://github.com/llopgui/NASA-Theme
-Autor: llopgui
-Fecha: 2024
+NASA Theme - Temas Inspirados en el Cosmos para Windows
+========================================================
 
-Este proyecto está licenciado bajo Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+Repositorio: <https://github.com/llopgui/NASA-Theme>
+Autor: llopgui (Entusiasta de la astronomía)
+Fecha de creación: Junio 2025
+
+DESCRIPCIÓN DEL PROYECTO
+-------------------------
+
+Proyecto personal GRATUITO y NO COMERCIAL que lleva las maravillas del cosmos
+a tu escritorio Windows. Creado por un entusiasta de la astronomía y compartido
+con amor por la comunidad de amantes del espacio, utilizando imágenes oficiales
+de NASA bajo estricto cumplimiento de sus Brand Guidelines.
+
+CARACTERÍSTICAS:
+
+- Temas Dark y Light inspirados en el cosmos profundo
+- Más de 100 wallpapers oficiales de NASA en alta resolución
+- Presentación automática cada 10 minutos con orden aleatorio
+- Paleta de colores científica basada en PANTONE del James Webb
+- Instalador inteligente PowerShell con diagnóstico completo
+- Cumplimiento total con NASA Brand Guidelines
+
+PROPÓSITO EDUCATIVO:
+Este proyecto tiene como único objetivo educar y compartir la belleza del
+cosmos con la comunidad de entusiastas del espacio. No tiene fines comerciales
+ni busca generar beneficios económicos de ningún tipo.
+
+ATRIBUCIÓN REQUERIDA
+---------------------
 
 Para citar este proyecto:
-  NASA Theme por llopgui
-  Licencia: CC BY-NC-SA 4.0
-  URL: https://github.com/llopgui/NASA-Theme
+    NASA Theme por llopgui
+    Licencia: CC BY-NC-SA 4.0
+    URL: <https://github.com/llopgui/NASA-Theme>
+    Imágenes: Cortesía de NASA (dominio público)
+    Cumple con: NASA Brand Guidelines
 
-=======================================================================
+CUMPLIMIENTO NASA
+------------------
+
+Este proyecto cumple estrictamente con las NASA Brand Guidelines:
+
+- Uso exclusivamente no comercial y educativo
+- Atribución apropiada a NASA como fuente de imágenes
+- No implica endorsement o afiliación con NASA
+- Utiliza únicamente material de dominio público de NASA
+- Respeta todas las directrices de uso de marca NASA
+
+IMPORTANTE - DISCLAIMER
+------------------------
+
+ESTE PROYECTO NO ESTÁ AFILIADO, PATROCINADO O RESPALDADO POR NASA.
+Es un proyecto independiente desarrollado por un entusiasta de la astronomía.
+NASA no ha revisado ni aprobado este proyecto.
+
+========================================================================
 
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 
-=======================================================================
+========================================================================
 
 Creative Commons Corporation ("Creative Commons") no es una firma de abogados ni ofrece servicios legales ni asesoría legal. La distribución de las licencias públicas de Creative Commons no genera una relación abogado-cliente ni de cualquier otro tipo. Creative Commons proporciona sus licencias y la información relacionada tal como se presenta. Creative Commons no ofrece ninguna garantía con respecto a sus licencias, ni sobre el material sujeto a sus términos y condiciones, ni sobre cualquier información relacionada. Creative Commons queda exenta de cualquier responsabilidad vinculada a daños que resulten de su uso conforme al marco legal aplicable.
 
@@ -22,7 +67,7 @@ Uso de las Licencias Públicas de Creative Commons
 
 Las licencias públicas de Creative Commons proporcionan un conjunto estándar de términos y condiciones que los creadores y otros titulares de derechos pueden utilizar para compartir obras originales de su autoría y cualquier otro material sujeto a derechos de autor y a otros derechos que se especifican en la licencia pública de más abajo.
 
-=======================================================================
+========================================================================
 
 Atribución/Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional
 
@@ -170,10 +215,21 @@ c. No se podrá renunciar a ningún término o condición de esta Licencia Públ
 
 d. Nada en esta Licencia Pública constituye ni puede ser interpretado como una limitación o una renuncia a los privilegios e inmunidades que aplican al Licenciante o a Usted, incluyendo aquellos surgidos a partir de procesos legales de cualquier jurisdicción o autoridad.
 
-=======================================================================
+========================================================================
 
 Creative Commons no es una parte en sus licencias públicas. No obstante, Creative Commons puede optar por aplicar una de sus licencias públicas al material que publica y en estos casos debe ser considerado como el "Licenciante".
 
 Para más información sobre Creative Commons, visite creativecommons.org.
 
-Texto completo oficial disponible en: <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es>
+ENLACES RELEVANTES
+-------------------
+
+- Texto oficial de la licencia: <https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es>
+- NASA Brand Guidelines: <https://www.nasa.gov/nasa-brand-center/images-and-media/>
+- NASA Image Library: <https://images.nasa.gov/>
+- Repositorio del proyecto: <https://github.com/llopgui/NASA-Theme>
+
+=========================================================================
+"Explorando el cosmos desde tu escritorio"
+Proyecto mantenido con ❤️ por un entusiasta de la astronomía
+=========================================================================

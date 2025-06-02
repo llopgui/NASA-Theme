@@ -1,38 +1,53 @@
 [Theme]
-; NASA Light Theme para Windows - Cosmos Luminoso Professional
-; Autor: llopgui (NASA Theme Project)
+; NASA Light Theme para Windows - Tema Inspirado en el Cosmos Luminoso
+; Autor: llopgui (NASA Theme Project) - Entusiasta de la astronomía
 ; Repositorio: https://github.com/llopgui/NASA-Theme
-; Versión: 4.0.0 - Professional Edition
-; Descripción: Tema claro inspirado en la NASA y el cosmos luminoso
+; Descripción: Tema claro inspirado en el cosmos luminoso y las misiones espaciales de la NASA
+;
+; CRÉDITOS DE IMÁGENES NASA:
+; Las imágenes utilizadas en este tema provienen de las siguientes fuentes oficiales de NASA:
+; - NASA Image and Video Library (images.nasa.gov)
+; - NASA Image of the Day (nasa.gov/image-of-the-day)
+; - James Webb Space Telescope Gallery (webb.nasa.gov)
+; - Hubble Space Telescope Gallery (hubblesite.org)
+; - NASA Earth Observatory (earthobservatory.nasa.gov)
+; - NASA's Scientific Visualization Studio (svs.gsfc.nasa.gov)
+;
+; IMPORTANTE - USO NO COMERCIAL:
+; Este es un proyecto GRATUITO y NO COMERCIAL que cumple con las NASA Brand Guidelines.
+; Las imágenes de NASA se utilizan únicamente para propósitos educativos e informativos.
+; Este proyecto NO está afiliado, patrocinado o respaldado por NASA.
+; Todos los derechos de las imágenes originales pertenecen a NASA.
+; Creado y compartido con amor por la astronomía y el cosmos.
 ;
 ; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
 ; URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
 ;
 ; Este trabajo está licenciado bajo una Licencia Creative Commons
 ; Atribución-NoComercial-CompartirIgual 4.0 Internacional.
+; USO COMERCIAL PROHIBIDO según NASA Brand Guidelines y licencia del proyecto.
 ;
 ; Compatible con Windows 10 Build 19041+ y Windows 11
-; Instalador profesional incluido: Install-NASATheme.ps1
+; Instalador incluido: Install-NASATheme.ps1
 
-DisplayName=NASA Light Theme - Cosmos Luminoso v4.0
+DisplayName=NASA Light Theme
 Path=%SystemRoot%\Resources\Themes\NASA_Light\
 ThemeId={12345678-1234-1234-1234-123456789012}
-Version=4.0.0
-Author=llopgui (@NASA-Theme)
-Description=Tema profesional inspirado en el cosmos luminoso y misiones espaciales
+Author=llopgui (@NASA-Theme) - Entusiasta de la astronomía
+Description=Tema inspirado en el cosmos luminoso y las misiones espaciales de la NASA
 Website=https://github.com/llopgui/NASA-Theme
 
 [Control Panel\Desktop]
-Wallpaper=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\nasa_light_wallpaper.jpg
+Wallpaper=
 TileWallpaper=0
 WallpaperStyle=6
 Pattern=
-; Presentación automática de wallpapers
+; Presentación automática configurada como en las capturas
 SlideshowEnabled=1
-SlideshowInterval=1800000
+SlideshowInterval=600000
 SlideshowShuffle=1
 SlideshowImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\
-; Configuración avanzada de wallpaper
+; Configuración avanzada de wallpaper - Expandir por defecto
 WallpaperOriginX=0
 WallpaperOriginY=0
 WallpaperFitMode=6
@@ -103,7 +118,7 @@ EnableMica=1
 
 [Control Panel\Appearance]
 ; Configuración adicional para el modo claro NASA
-SchemeName=NASA Bright Space Professional
+SchemeName=NASA Bright Space Theme
 FontSize=9
 FontName=Segoe UI
 ; Configuraciones avanzadas de apariencia
@@ -140,41 +155,43 @@ MTSM=RJSPBS
 SchemeName=.Default
 
 [Slideshow]
-; Configuración avanzada para presentación de wallpapers
-Interval=1800000
+; Configuración exacta según capturas del usuario
+Interval=600000
 Shuffle=1
 ImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Light\wallpapers\
-; Configuraciones adicionales
+; Configuraciones específicas para match con Windows 11
 Timeout=30000
 FitMode=6
 ShowFilenames=0
 AllowTransitions=1
 TransitionMode=Fade
+; Configuración de batería como en capturas
+RunOnBattery=0
 
 ; Configuraciones específicas de Windows 10/11
 [Control Panel\PersonalizationCSP]
-; Modo claro para aplicaciones y sistema
+; Configuración exacta según capturas del usuario - MODO CLARO
 SystemUsesLightTheme=1
 AppsUseLightTheme=1
 
-; Efectos de transparencia
+; Efectos de transparencia ACTIVADOS como en capturas
 EnableTransparency=1
 EnableBlur=1
 EnableAcrylic=1
 
-; Color de énfasis automático
+; Color de énfasis AUTOMÁTICO como en capturas
 AutoColorization=1
-; Mostrar color de énfasis en inicio y barra de tareas
+; Mostrar color de énfasis en inicio y barra de tareas - ACTIVADO
 ColorPrevalence=1
-; Mostrar color de énfasis en barras de título y bordes de ventana
+; Mostrar color de énfasis en barras de título y bordes de ventana - ACTIVADO
 EnableColorOnTitleBarAndWindowBorder=1
 
 ; Temas de contraste desactivado
 HighContrast=0
 
-; Color de énfasis principal (azul espacial)
-AccentColor=0xFFB4C8FF
-AccentColorMenu=0xFFB4C8FF
+; Color de énfasis principal (Steel Gray para tema claro) - pero automático activado
+AccentColor=0xFF69737D
+AccentColorMenu=0xFF69737D
 
 [Control Panel\Accessibility]
 ; Desactivar temas de contraste alto
@@ -212,13 +229,13 @@ SelectionTextColor=255 255 255
 
 ; Metadatos del tema
 [ThemeMetadata]
-Name=NASA Light Theme - Cosmos Luminoso
+Name=NASA Light Theme
 Version=4.0.0
 Author=llopgui
 Repository=https://github.com/llopgui/NASA-Theme
 License=CC BY-NC-SA 4.0
-Description=Tema profesional inspirado en el cosmos luminoso y misiones espaciales de la NASA
-Keywords=NASA,Light,Space,Cosmos,Professional,Bright
+Description=Tema inspirado en el cosmos luminoso y las misiones espaciales de la NASA
+Keywords=NASA,Light,Space,Cosmos,Astronomy,Bright
 Compatibility=Windows 10 19041+, Windows 11
 InstallDate=
 LastModified=

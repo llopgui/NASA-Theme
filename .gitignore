@@ -1,16 +1,1 @@
-/.mypy_cache
-/.venv
-/resources
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_1366x768.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_1600x900.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_1920x1080.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_2560x1440_q85.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_2560x1440_q92.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_2560x1600_q85.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_2560x1600_q92.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_3840x2160_q85.jpg
-tools/nasa_gallery/wallpapers/nasa_dark_carina_nebulaorig_3840x2160_q92.jpg
-tools/nasa_gallery/processing_report.json
-tools/nasa_gallery/nasa_theme_gallery.html
-.gitignore
 .gitignore
