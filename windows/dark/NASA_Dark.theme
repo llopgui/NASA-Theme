@@ -1,9 +1,10 @@
 [Theme]
-; NASA Dark Theme para Windows - Verdaderamente Oscuro
+; NASA Dark Theme para Windows - James Webb Space Telescope Edition
 ; Autor: llopgui (NASA Theme Project)
 ; Repositorio: https://github.com/llopgui/NASA-Theme
-; Versión: 2.0.0
-; Descripción: Tema oscuro real inspirado en la NASA y el cosmos profundo
+; Versión: 3.0.0 - JWST Edition
+; Descripción: Tema oscuro inspirado en la paleta de colores del Telescopio Espacial James Webb
+; Paleta: Mystical, Lavender Gray, Ginger Bread, Steel Gray, Beech, Foxtrot
 ;
 ; Licencia: CC BY-NC-SA 4.0 (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
 ; URL: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.es
@@ -11,7 +12,7 @@
 ; Este trabajo está licenciado bajo una Licencia Creative Commons
 ; Atribución-NoComercial-CompartirIgual 4.0 Internacional.
 
-DisplayName=NASA Dark Theme
+DisplayName=NASA Dark Theme - JWST Edition
 Path=%SystemRoot%\Resources\Themes\NASA_Dark\
 ThemeId={87654321-4321-4321-4321-210987654321}
 
@@ -20,56 +21,76 @@ Wallpaper=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\nasa_dark_wallpaper
 TileWallpaper=0
 WallpaperStyle=6
 Pattern=
+; Modo presentación activado
+SlideshowEnabled=1
+SlideshowInterval=1800000
+SlideshowShuffle=1
 
 [Control Panel\Colors]
-; Colores ultra oscuros inspirados en el espacio profundo
-ActiveBorder=10 10 20
-ActiveTitle=15 20 35
-AppWorkspace=8 8 15
-Background=5 5 10
-ButtonAlternativeFace=20 25 40
-ButtonDkShadow=0 0 0
-ButtonFace=12 15 25
-ButtonHilight=25 30 50
-ButtonLight=40 45 70
-ButtonShadow=8 10 18
-ButtonText=220 225 235
-CaptionText=235 240 250
-GradientActiveTitle=15 30 60
-GradientInactiveTitle=20 25 40
-GrayText=80 85 95
-Hilight=30 100 200
+; Paleta de colores inspirada en James Webb Space Telescope
+; PANTONE 18-3620 TCX "Mystical" (base oscura): RGB(45, 35, 75) = #2D234B
+; PANTONE 17-3910 TCX "Lavender Gray": RGB(150, 145, 165) = #9691A5
+; PANTONE 18-1244 TCX "Ginger Bread": RGB(165, 85, 65) = #A55541
+; PANTONE 18-4005 TCX "Steel Gray": RGB(105, 115, 125) = #69737D
+; PANTONE 19-0618 TCX "Beech": RGB(85, 95, 75) = #555F4B
+; PANTONE 18-1025 TCX "Foxtrot": RGB(185, 165, 145) = #B9A591
+
+ActiveBorder=45 35 75
+ActiveTitle=105 115 125
+AppWorkspace=25 20 45
+Background=15 10 25
+ButtonAlternativeFace=65 55 95
+ButtonDkShadow=15 10 25
+ButtonFace=45 35 75
+ButtonHilight=105 115 125
+ButtonLight=150 145 165
+ButtonShadow=35 25 55
+ButtonText=220 215 235
+CaptionText=240 235 250
+GradientActiveTitle=65 55 95
+GradientInactiveTitle=45 35 75
+GrayText=120 115 135
+Hilight=165 85 65
 HilightText=255 255 255
-HotTrackingColor=50 120 220
-InactiveBorder=15 15 25
-InactiveTitle=18 20 30
-InactiveTitleText=120 125 140
-InfoText=240 245 255
-InfoWindow=12 15 25
-Menu=8 10 18
-MenuBar=5 5 10
-MenuHilight=30 100 200
-MenuText=235 240 250
-Scrollbar=20 25 40
-TitleText=250 255 255
-Window=8 8 15
-WindowFrame=15 18 30
-WindowText=235 240 250
+HotTrackingColor=185 165 145
+InactiveBorder=35 25 55
+InactiveTitle=55 45 75
+InactiveTitleText=120 115 135
+InfoText=240 235 250
+InfoWindow=25 20 45
+Menu=35 25 55
+MenuBar=15 10 25
+MenuHilight=165 85 65
+MenuText=220 215 235
+Scrollbar=65 55 95
+TitleText=250 245 255
+Window=25 20 45
+WindowFrame=45 35 75
+WindowText=220 215 235
 
 [VisualStyles]
 Path=%SystemRoot%\Resources\Themes\aero\aerolite.msstyles
 ColorStyle=NormalColor
 Size=NormalSize
-AutoColorization=0
-ColorizationColor=0x1E1E3C
+AutoColorization=1
+; Color de énfasis basado en Ginger Bread (PANTONE 18-1244 TCX)
+ColorizationColor=0xA55541
+; Modo oscuro activado
 SystemMode=Dark
+; Efectos de transparencia activados
+EnableTransparency=1
+ColorizationColorBalance=89
+ColorizationAfterGlow=0xA55541
+ColorizationAfterGlowBalance=43
+ColorizationBlurBalance=49
+ColorizationGlassReflectionIntensity=0
 
 [Control Panel\Appearance]
-; Configuración adicional para el modo oscuro
-SchemeName=NASA Deep Space
+; Configuración adicional para el modo oscuro JWST
+SchemeName=NASA JWST Deep Space
 
 [Control Panel\Desktop\WindowMetrics]
-; Configuración de ventanas para tema oscuro
+; Configuración de ventanas optimizada para tema JWST
 BorderWidth=-15
 CaptionHeight=-330
 CaptionWidth=-330
@@ -93,7 +114,52 @@ MTSM=RJSPBS
 SchemeName=.Default
 
 [Slideshow]
-; Configuración para presentación de wallpapers
+; Configuración para presentación de wallpapers activada
 Interval=1800000
 Shuffle=1
 ImagesRootPath=%SystemRoot%\Resources\Themes\NASA_Dark\wallpapers\
+
+; Configuraciones específicas de Windows 10/11
+[Control Panel\PersonalizationCSP]
+; Modo oscuro para aplicaciones y sistema
+SystemUsesLightTheme=0
+AppsUseLightTheme=0
+
+; Efectos de transparencia y acrílico
+EnableTransparency=1
+EnableBlur=1
+
+; Color de énfasis automático basado en wallpaper
+AutoColorization=1
+; Mostrar color de énfasis en inicio y barra de tareas
+ColorPrevalence=1
+; Mostrar color de énfasis en barras de título y bordes de ventana
+EnableColorOnTitleBarAndWindowBorder=1
+
+; Temas de contraste desactivado
+HighContrast=0
+
+; Color de énfasis principal (Ginger Bread)
+AccentColor=0xFFA55541
+AccentColorMenu=0xFFA55541
+
+[Control Panel\Accessibility]
+; Desactivar temas de contraste alto
+HighContrast=0
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+; Configuraciones adicionales del sistema
+SystemUsesLightTheme=dword:00000000
+AppsUseLightTheme=dword:00000000
+EnableTransparency=dword:00000001
+ColorPrevalence=dword:00000001
+
+[Control Panel\DWM]
+; Desktop Window Manager - Efectos de composición
+Composition=1
+; Efectos de transparencia y acrílico
+EnableAeroPeek=1
+AlwaysHibernateThumbnails=0
+; Color de énfasis en elementos del sistema
+AccentColorInactive=0xFF555F4B
+AccentColorActive=0xFFA55541
