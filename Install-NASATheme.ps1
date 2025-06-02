@@ -500,7 +500,11 @@ function Install-NASACursors {
     param(
         [Parameter(Mandatory = $true)]
         [ValidateSet("Light", "Dark", "Both")]
-        [string]$CursorTheme
+        [string]$CursorTheme,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateSet("Light", "Dark", "Both")]
+        [string]$PreferredTheme = "Dark"
     )
 
     Write-NASALog "INSTALANDO CURSORES MODERNOS ELEGANTES" -Level Header
@@ -522,20 +526,20 @@ function Install-NASACursors {
         # Instalar según el tema seleccionado
         switch ($CursorTheme) {
             "Light" {
-                $success = Install-CursorSet -CursorVariant "light"
+                $success = Install-CursorSet -CursorVariant "light" -PreferredTheme $PreferredTheme
             }
             "Dark" {
-                $success = Install-CursorSet -CursorVariant "dark"
+                $success = Install-CursorSet -CursorVariant "dark" -PreferredTheme $PreferredTheme
             }
             "Both" {
-                $lightSuccess = Install-CursorSet -CursorVariant "light"
-                $darkSuccess = Install-CursorSet -CursorVariant "dark"
+                $lightSuccess = Install-CursorSet -CursorVariant "light" -PreferredTheme $PreferredTheme
+                $darkSuccess = Install-CursorSet -CursorVariant "dark" -PreferredTheme $PreferredTheme
                 $success = $lightSuccess -or $darkSuccess
 
                 # Aplicar el cursor que coincida con el tema principal
-                if ($ThemeType -eq "Dark" -and $darkSuccess) {
+                if ($PreferredTheme -eq "Dark" -and $darkSuccess) {
                     Apply-CursorScheme -CursorVariant "dark"
-                } elseif ($ThemeType -eq "Light" -and $lightSuccess) {
+                } elseif ($PreferredTheme -eq "Light" -and $lightSuccess) {
                     Apply-CursorScheme -CursorVariant "light"
                 } elseif ($darkSuccess) {
                     Apply-CursorScheme -CursorVariant "dark"
@@ -564,7 +568,11 @@ function Install-CursorSet {
     param(
         [Parameter(Mandatory = $true)]
         [ValidateSet("light", "dark")]
-        [string]$CursorVariant
+        [string]$CursorVariant,
+
+        [Parameter(Mandatory = $false)]
+        [ValidateSet("Light", "Dark", "Both")]
+        [string]$PreferredTheme = "Dark"
     )
 
     Write-NASALog "Instalando set de cursores: $CursorVariant" -Level Progress
@@ -607,7 +615,7 @@ function Install-CursorSet {
 
         if ($success -and $copiedCount -gt 0) {
             # Aplicar automáticamente si es el único tema instalándose
-            if ($CursorVariant -eq $ThemeType.ToLower() -or $ThemeType -eq "Both") {
+            if ($CursorVariant -eq $PreferredTheme.ToLower() -or $PreferredTheme -eq "Both") {
                 Apply-CursorScheme -CursorVariant $CursorVariant
             }
             return $true
@@ -736,7 +744,12 @@ function Apply-CursorScheme {
 
         # Establecer nombre del esquema
         $schemeName = "NASA $($CursorVariant.ToUpper()) Cursors by JepriCreations"
-        Set-ItemProperty -Path $cursorKey -Name "" -Value $schemeName -Type String
+        try {
+            Set-ItemProperty -Path $cursorKey -Name "(Default)" -Value $schemeName -Type String -ErrorAction SilentlyContinue
+        } catch {
+            # Si falla establecer el nombre por defecto, continuar sin error crítico
+            Write-NASALog "Info: Nombre de esquema no establecido" -Level Info
+        }
 
         Write-NASALog "Cursores aplicados: $appliedCount de $($cursorMapping.Count)" -Level Success
 
@@ -1132,13 +1145,15 @@ function Invoke-NASAThemeInstaller {
         if ($shouldInstallCursors) {
             Write-NASALog "Iniciando instalación de cursores..." -Level Progress
             $themeForCursors = if ($shouldInstallThemes) { $ThemeType } else { "Dark" }  # Default Dark para cursores standalone
-            $cursorsInstalled = Install-NASACursors -CursorTheme $themeForCursors
+            $cursorsInstalledResult = Install-NASACursors -CursorTheme $themeForCursors -PreferredTheme $themeForCursors
+            $cursorsInstalled = [bool]$cursorsInstalledResult
         }
 
         # ===== INSTALAR SONIDOS =====
         if ($shouldInstallSounds) {
             Write-NASALog "Iniciando instalación de sonidos..." -Level Progress
-            $soundsInstalled = Install-NASASounds -SoundType "All"
+            $soundsInstalledResult = Install-NASASounds -SoundType "All"
+            $soundsInstalled = [bool]$soundsInstalledResult
         }
 
         # ===== APLICAR CAMBIOS AL SISTEMA =====
@@ -1146,8 +1161,8 @@ function Invoke-NASAThemeInstaller {
             Invoke-SystemRefresh
         }
 
-        # ===== MOSTRAR RESUMEN =====
-        Show-InstallationSummary -LightInstalled $lightInstalled -DarkInstalled $darkInstalled -CursorsInstalled $cursorsInstalled -SoundsInstalled $soundsInstalled
+        # ===== MOSTRAR RESUMEN (con conversión explícita a Boolean) =====
+        Show-InstallationSummary -LightInstalled ([bool]$lightInstalled) -DarkInstalled ([bool]$darkInstalled) -CursorsInstalled ([bool]$cursorsInstalled) -SoundsInstalled ([bool]$soundsInstalled)
 
         # ===== MENSAJE FINAL =====
         if ($lightInstalled -or $darkInstalled -or $cursorsInstalled -or $soundsInstalled) {
